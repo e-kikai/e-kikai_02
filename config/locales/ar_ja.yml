@@ -1,0 +1,62 @@
+ja:
+  activerecord:
+    models:
+      contact: 問い合わせ
+      machine: 機械情報
+      company: 会社情報
+      large_genre: 大ジャンル
+      middle_genre: 中ジャンル
+      genre: 小ジャンル
+      user: ユーザ
+      image: 画像ファイル
+    attributes:
+      machine:
+        no: 管理番号
+        name: 機械名
+        capacity: 能力
+        maker: メーカー名
+        model: 型式
+        year: 年式
+        location: 在庫場所
+        addr1: 住所(都道府県)
+        addr2: 住所(市区町村)
+        addr3: 住所(番地その他)
+        spec: 仕様
+        accessory: 附属品
+        comment: コメント
+        commission: 試運転
+      company:
+        name: 会社名
+        company_kana: 会社名(カナ)
+        officer: 担当者名
+        representative: 代表者名
+        zip: 〒
+        addr1: 住所(都道府県)
+        addr2: 住所(市区町村)
+        addr3: 住所(番地その他)
+        tel: TEL
+        fax: FAX
+        mail: メールアドレス
+        website: ウェブサイトURL
+      contact:
+        name: 会社名
+        officer: 担当者名
+        mail: メールアドレス
+        tel: 電話番号
+        content: 内容
+      large_genre:
+        name: 大ジャンル名
+        order_no: 並び順
+      middle_genre:
+        name: 中ジャンル名
+        order_no: 並び順
+      genre:
+        name: 小ジャンル名
+        order_no: 並び順
+        capacity_label: 能力名
+        capacity_unit: 能力単位
+      image:
+        parent: 親要素
+        img: 画像
+
+

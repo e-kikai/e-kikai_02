@@ -1,0 +1,23 @@
+- content_for :page_title, "問い合わせ一覧"
+/ - breadcrumb  :search
+
+.row
+  .col
+      table.table-striped.table-hover.table-bordered.table-condensed.col-lg-12
+        thead
+          tr
+           th.name      会社名
+           th.officer   担当者名
+           th.mail      メールアドレス
+           th.tel       TEL
+           th.content   内容
+           th.created_at 登録日時
+        tbody
+          - @contacts.each do |c|
+            tr
+              td.name    = c.name
+              td.officer = c.officer
+              td.mail    = mail_to c.mail, c.mail
+              td.tel     = c.tel
+              td.content = simple_format c.content
+              td.created_at =  I18n.l c.created_at, format: :short

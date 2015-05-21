@@ -1,0 +1,34 @@
+- content_for :page_title, "在庫情報変更フォーム"
+
+.col-lg-offset-2.col-lg-8
+  .panel.panel-default
+    .panel-body
+      = form_for(@machine, class: 'form-horizontal', role: 'patch', url: {:action => 'update'})  do |f|
+        - if @company.errors.any?
+          .alert.alert-danger
+            ul
+              - @company.errors.full_messages.each do |msg|
+                li = msg
+
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control', placeholder: "機械名(必須)"
+
+        .form-group
+          = f.label :maker
+          = f.text_field :maker, class: 'form-control', placeholder: "メーカー"
+
+        .form-group
+          = f.label :model
+          = f.text_field :model, class: 'form-control', placeholder: "型式"
+          
+        .form-group
+          = f.label :year
+          = f.text_field :year, class: 'form-control', placeholder: "年式"
+
+        .form-group
+          = f.label :location
+          = f.text_field :location, class: 'form-control', placeholder: "在庫場所"
+
+        = f.button type:"submit", class: 'btn btn-primary', data: { disable_with: '保存中・・・' } do
+          = "保存"

@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title = content_for?(:page_title)? "#{yield(:page_title)} - e-kikai" : "中古機械情報 e-kikai 中古機械・探す・見つける"
+
+    meta charset="utf-8"
+    meta name="viewpoint" content="width=device-width, initial-scale=1.0"
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  
+  body
+    header.navbar.navbar-default role="navigation"
+      .container
+        .navbar-header
+          button.navbar-toggle data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          = link_to 'e-kikai お探しの中古機械を簡単検索', root_path, class: 'navbar-brand'
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li = link_to 'HOME',         root_path
+            li = link_to 'FAQ',          "/faq"
+            li = link_to 'お問い合わせ', "/contact"
+            li = link_to 'サイトマップ', "/sitemap"
+            - if user_signed_in?
+              li = link_to "会員ページ", member_root_path
+            - else
+              li = link_to "会員ログイン", new_user_session_path
+    .container
+      = breadcrumbs style: :bootstrap
+
+      - if notice.present?
+        .alert.alert-success = notice
+      - if alert.present?
+        .alert.alert-danger
+          span.glyphicon.glyphicon-exclamation-sign
+          =< alert
+
+      - if content_for?(:page_title)
+        h1 = yield(:page_title)
+      = yield

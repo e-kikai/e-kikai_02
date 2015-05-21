@@ -1,0 +1,21 @@
+<%= @machine.company.name %> 様
+
+e-kikaiの問い合せフォームから、
+問い合わせがありました。
+
+＜お客様情報＞
+会社名 : <%= @contact.name %>
+担当者名 : <%= @contact.officer %>
+メールアドレス : <%= @contact.mail %>
+TEL : <%= @contact.tel %>
+
+＜問い合わせ機械＞
+管理番号 : <%= @machine.no %>
+<%= @machine.name %> <%= @machine.maker %> <%= @machine.model %>
+
+＜問い合わせ内容＞
+<%= @contact.content %>
+
+
+中古機械情報 e-kikai 中古機械・探す・見つける
+http://www.e-kikai.com/

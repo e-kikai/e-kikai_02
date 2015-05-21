@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: middle_genres
+#
+#  id             :integer          not null, primary key
+#  name           :string           not null
+#  order_no       :integer
+#  large_genre_id :integer
+#  deleted_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  machinelife_id :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  large_genre: MyString
+  middle_genre_kana: MyString
+  order_no: 1
+  belonds_to: 
+  deleted_at: 2015-04-06 23:42:17
+
+two:
+  large_genre: MyString
+  middle_genre_kana: MyString
+  order_no: 1
+  belonds_to: 
+  deleted_at: 2015-04-06 23:42:17

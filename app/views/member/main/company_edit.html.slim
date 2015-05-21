@@ -1,0 +1,63 @@
+- content_for :page_title, "会社情報変更フォーム"
+
+.col-lg-offset-2.col-lg-8
+  .panel.panel-default
+    .panel-body
+      = form_for(@company, class: 'form-horizontal', role: 'patch', url: {:action => 'company_update'})  do |f|
+        - if @company.errors.any?
+          .alert.alert-danger
+            ul
+              - @company.errors.full_messages.each do |msg|
+                li = msg
+
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control', placeholder: "会社名(必須)"
+
+        .form-group
+          = f.label :company_kana
+          = f.text_field :company_kana, class: 'form-control', placeholder: "会社名(カナ)"
+
+        .form-group
+          = f.label :representative
+          = f.text_field :representative, class: 'form-control', placeholder: "代表者"
+
+        .form-group
+          = f.label :officer
+          = f.text_field :officer, class: 'form-control', placeholder: "担当者"
+
+        .form-group
+          = f.label :mail
+          = f.text_field :mail, class: 'form-control', placeholder: "メールアドレス(必須)"
+
+        .form-group
+          = f.label :tel
+          = f.text_field :tel, class: 'form-control', placeholder: "TEL"
+
+        .form-group
+          = f.label :fax
+          = f.text_field :fax, class: 'form-control', placeholder: "FAX"
+
+        .form-group
+          = f.label :zip
+          = f.text_field :zip, class: 'form-control', placeholder: "〒"
+
+        .form-group
+          = f.label :addr1
+          = f.text_field :addr1, class: 'form-control', placeholder: "住所(都道府県)"
+
+        .form-group
+          = f.label :addr2
+          = f.text_field :addr2, class: 'form-control', placeholder: "住所(市区町村)"
+
+        .form-group
+          = f.label :addr3
+          = f.text_field :addr3, class: 'form-control', placeholder: "住所(番地その他)"
+
+        .form-group
+          = f.label :website
+          = f.text_field :website, class: 'form-control', placeholder: "ウェブサイトURL"
+
+
+        = f.button type:"submit", class: 'btn btn-primary', data: { disable_with: '保存中・・・' } do
+          = "保存"

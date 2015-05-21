@@ -1,0 +1,76 @@
+
+- content_for :page_title, "新規在庫登録フォーム"
+
+.col-lg-offset-2.col-lg-8
+  .panel.panel-default
+    .panel-body
+      = form_for(@machine, class: 'form-horizontal', role: 'patch', url: {:action => 'post'})  do |f|
+        - if @machine.errors.any?
+          .alert.alert-danger
+            ul
+              - @machine.errors.full_messages.each do |msg|
+                li = msg
+
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control', placeholder: "機械名(必須)"
+
+        .form-group
+          = f.label :maker
+          = f.text_field :maker, class: 'form-control', placeholder: "メーカー"
+
+        .form-group
+          = f.label :model
+          = f.text_field :model, class: 'form-control', placeholder: "型式"
+
+        .form-group
+          = f.label :year
+          = f.text_field :year, class: 'form-control', placeholder: "年式"
+
+        .form-group
+          = f.label :location
+          = f.text_field :mail, class: 'form-control', placeholder: "在庫場所"
+
+        .form-group
+          = f.label :addr1
+          = f.text_field :addr1, class: 'form-control', placeholder: "住所(都道府県)"
+
+        .form-group
+          = f.label :addr2
+          = f.text_field :addr2, class: 'form-control', placeholder: "住所(市区町村)"
+
+        .form-group
+          = f.label :addr3
+          = f.text_field :addr3, class: 'form-control', placeholder: "住所(番地その他)"
+
+        .form-group
+          = f.label :spec
+          = f.text_field :tel, class: 'form-control', placeholder: "仕様"
+
+        .form-group
+          = f.label :accesory
+          = f.text_field :accesory, class: 'form-control', placeholder: "附属品"
+
+        .form-group
+          = f.label :zip
+          = f.text_field :zip, class: 'form-control', placeholder: "〒"
+
+        .form-group
+          = f.label :addr1
+          = f.text_field :addr1, class: 'form-control', placeholder: "住所(都道府県)"
+
+        .form-group
+          = f.label :addr2
+          = f.text_field :addr2, class: 'form-control', placeholder: "住所(市区町村)"
+
+        .form-group
+          = f.label :addr3
+          = f.text_field :addr3, class: 'form-control', placeholder: "住所(番地その他)"
+
+        .form-group
+          = f.label :website
+          = f.text_field :website, class: 'form-control', placeholder: "ウェブサイトURL"
+
+
+        = f.button type:"submit", class: 'btn btn-primary', data: { disable_with: '保存中・・・' } do
+          = "保存"

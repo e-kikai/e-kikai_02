@@ -1,0 +1,18 @@
+- content_for :page_title, "#{@company.name} 会員ページ"
+
+.col-lg-3
+  .panel.panel-default.list-group
+    .panel-heading 会員ページメニュー
+    .panel-body
+      
+        = link_to member_machines_path, class:"list-group-item" do
+          span 在庫管理
+          span.badge = @company.machines.size
+        = link_to "問い合わせ一覧", member_contacts_path, class:"list-group-item"
+
+        = link_to "会社情報変更", member_company_path, class:"list-group-item"
+        = link_to "e-kikaiトップページに戻る", root_path, class:"list-group-item"
+        = link_to "ログアウト", destroy_user_session_path, class:"list-group-item"
+
+        = link_to "マシンライフ", "http://www.zenkiren.net/", target: "_blank", class:"list-group-item"
+        = link_to "電子カタログ", "http://catalog.zenkiren.net/", target: "_blank", class:"list-group-item"

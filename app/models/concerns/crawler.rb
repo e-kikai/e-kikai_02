@@ -20,7 +20,7 @@ module Crawler
 
       datas
     rescue => e
-      pc e.messagel
+      p e.message
     end
   end
 end

@@ -15,7 +15,6 @@ module Crawler
       json  = open("#{CRAWL_URI}?#{query}").read
       datas = ActiveSupport::JSON.decode json rescue raise json
 
-      if !da
       raise "マシンライフからデータを取得できませんでした" if !datas[0].include?("id")
 
       datas

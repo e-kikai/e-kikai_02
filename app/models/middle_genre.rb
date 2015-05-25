@@ -27,8 +27,6 @@ class MiddleGenre < ActiveRecord::Base
     datas = ActiveSupport::JSON.decode json rescue raise json
     raise "マシンライフからデータを取得できませんでした" if !datas[0].include?("id")
 
-    # machinelife_ids = pluck(:machinelife_id)
-
     # データの整形
     datas.each do |d|
       next unless large_genre_id = LargeGenre.find_by(machinelife_id: d["xl_genre_id"]).id
@@ -38,12 +36,6 @@ class MiddleGenre < ActiveRecord::Base
         order_no:       d["order_no"],
         large_genre_id: large_genre_id,
       })
-      # machinelife_ids.delete(d["id"])
     end
-
-    # 1件でも更新されていれば、削除
-    # if machinelife_ids.present?
-    #   where("machinelife_id IN (?)", machinelife_ids).delete_all
-    # end
   end
 end

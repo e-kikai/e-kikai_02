@@ -14,9 +14,13 @@ module Crawler
     def self.get_datas(query)
       json  = open("#{CRAWL_URI}?#{query}").read
       datas = ActiveSupport::JSON.decode json rescue raise json
+
+      if !da
       raise "マシンライフからデータを取得できませんでした" if !datas[0].include?("id")
 
       datas
+    rescue => e
+      pc e.messagel
     end
   end
 end

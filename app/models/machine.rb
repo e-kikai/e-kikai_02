@@ -87,7 +87,7 @@ class Machine < ActiveRecord::Base
           imgs.unshift(d["top_img"]).reject!(&:blank?)
 
           # 画像保存
-          next
+          
           imgs.each do |i|
             begin
               p i

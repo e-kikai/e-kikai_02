@@ -9,6 +9,7 @@ role :web, %w{vagrant@192.168.24.52}
 role :db,  %w{vagrant@192.168.24.52}
 
 set :rails_env, :staging
+set :unicorn_rack_env, :staging
 
 # Extended Server Syntax
 # ======================

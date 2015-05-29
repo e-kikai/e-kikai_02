@@ -23,5 +23,8 @@ require 'capistrano/rails/migrations'
 
 require 'capistrano3/unicorn'
 
+# Rails4から分離したsecrets.ymlの環境変数を .envファイルで管理する
+set :linked_files, %w{config/secrets.yml}
+
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }

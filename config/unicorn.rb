@@ -8,6 +8,7 @@ listen "127.0.0.1:3000"
 ROOT = "#{File.dirname(__FILE__)}/.."
 pid "#{ROOT}/tmp/pids/unicorn.pid"
 
+
 # ワーカーの数を指定する
 worker_processes 3
 

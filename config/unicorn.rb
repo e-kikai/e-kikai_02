@@ -4,10 +4,12 @@
 listen "127.0.0.1:3000"
 
 # pid fileの位置を指定する
-pid "/run/unicorn_e-kikai.pid"
+# pid "/run/unicorn_e-kikai.pid"
+ROOT = "#{File.dirname(__FILE__)}/.."
+pid "#{ROOT}/tmp/pids/unicorn.pid"
 
 # ワーカーの数を指定する
-worker_processes 2
+worker_processes 3
 
 # リクエストのタイムアウト秒を指定する
 timeout 15
@@ -16,8 +18,10 @@ timeout 15
 preload_app true
 
 # unicornのログ出力先を指定
-stdout_path "/var/log/unicorn-access.log"
-stderr_path "/var/log/unicorn-error.log"
+# stdout_path "/var/log/unicorn-access.log"
+# stderr_path "/var/log/unicorn-error.log"
+stderr_path "#{ROOT}/log/unicorn.stderr.log"
+stdout_path "#{ROOT}/log/unicorn.stdout.log"
 
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!

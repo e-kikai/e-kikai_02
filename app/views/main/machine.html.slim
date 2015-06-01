@@ -2,63 +2,62 @@
 - breadcrumb  :detail, @machine
 
 .row
-  .col
-    .list-group.col-lg-3.col-md-3.hidden-sm.hidden-xs
-      - @machines.each.with_index(1) do |m, i|
-        - if m.id == @machine.id
-          .list-group-item.list-group-item-success = "#{i}) #{m.name} #{m.maker} #{m.model}"
-        - else
-          = link_to "#{i}) #{m.name} #{m.maker} #{m.model}", machine_path(m.id), class: "list-group-item"
-    .col-lg-4.col-md-4.col-sm-5.col-xs-12
-      - @machines.each.with_index do |m, i|
-        - if m.id == @machine.id
-          - if @machines[i-1]
-            = link_to "← 前の機械", machine_path(@machines[i-1].id), class:"btn btn-primary"
-          - if @machines[i+1]
-            = link_to "次の機械 →", machine_path(@machines[i+1].id), class:"btn btn-primary pull-right"
+  .list-group.col-lg-3.col-md-3.hidden-sm.hidden-xs
+    - @machines.each.with_index(1) do |m, i|
+      - if m.id == @machine.id
+        .list-group-item.list-group-item-success = "#{i}) #{m.name} #{m.maker} #{m.model}"
+      - else
+        = link_to "#{i}) #{m.name} #{m.maker} #{m.model}", machine_path(m.id), class: "list-group-item"
+  .col-lg-4.col-md-4.col-sm-5.col-xs-12
+    - @machines.each.with_index do |m, i|
+      - if m.id == @machine.id
+        - if @machines[i-1]
+          = link_to "← 前の機械", machine_path(@machines[i-1].id), class:"btn btn-primary"
+        - if @machines[i+1]
+          = link_to "次の機械 →", machine_path(@machines[i+1].id), class:"btn btn-primary pull-right"
+    
+    .panel.panel-default
+      .panel-heading 機械詳細
+      .panel-body
       
-      .panel.panel-default
-        .panel-heading 機械詳細
-        .panel-body
+        = link_to contact_path(@machine.id), class:"btn btn-lg btn-primary" do
+          span.glyphicon.glyphicon-envelope
+          =< "問い合わせ"
         
-          = link_to contact_path(@machine.id), class:"btn btn-lg btn-primary" do
-            span.glyphicon.glyphicon-envelope
-            =< "問い合わせ"
-          
-          table.table.detail-table
-            tr
-              th 出品会社
-              td = link_to @machine.company.name, company_path(@machine.company_id)
-            tr
-              th 管理番号
-              td = @machine.no
-            tr
-              th 機械名
-              td = @machine.name
-            tr
-              th メーカー
-              td = @machine.maker
-            tr
-              th 型式
-              td = @machine.model
-            tr
-              th 年式
-              td = @machine.year.present? ? "#{@machine.year}年" : '-'
-            tr
-              th 在庫場所
-              td = @machine.location || '-'
-            tr
-              th 試運転
-              td = @machine.commission ? '可' : '-'
-            tr
-              th 仕様
-              td = simple_format(@machine.spec)
-            tr
-              th 附属品
-              td = @machine.accessory
-            tr
-              th コメント
-              td = simple_format(@machine.comment)
-    .col-lg-5.col-md-5.col-sm-7.col-xs-12.machine-img
-      - @machine.images.each do |i|
-        = link_to (image_tag i.img.url, width:"100%"), i.img.url, target:"_blank"
+        table.table.detail-table
+          tr
+            th 出品会社
+            td = link_to @machine.company.name, company_path(@machine.company_id)
+          tr
+            th 管理番号
+            td = @machine.no
+          tr
+            th 機械名
+            td = @machine.name
+          tr
+            th メーカー
+            td = @machine.maker
+          tr
+            th 型式
+            td = @machine.model
+          tr
+            th 年式
+            td = @machine.year.present? ? "#{@machine.year}年" : '-'
+          tr
+            th 在庫場所
+            td = @machine.location || '-'
+          tr
+            th 試運転
+            td = @machine.commission ? '可' : '-'
+          tr
+            th 仕様
+            td = simple_format(@machine.spec)
+          tr
+            th 附属品
+            td = @machine.accessory
+          tr
+            th コメント
+            td = simple_format(@machine.comment)
+  .col-lg-5.col-md-5.col-sm-7.col-xs-12.machine-img
+    - @machine.images.each do |i|
+      = link_to (image_tag i.img.url, width:"100%"), i.img.url, target:"_blank"

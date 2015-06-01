@@ -4,14 +4,14 @@ html
     title = content_for?(:page_title)? "#{yield(:page_title)} - e-kikai" : "中古機械情報 e-kikai 中古機械・探す・見つける"
 
     meta charset="utf-8"
-    meta name="viewpoint" content="width=device-width, initial-scale=1.0"
+    meta name="viewport" content="width=device-width, initial-scale=1"
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   
   body
-    header.navbar.navbar-default role="navigation"
-      .container
+    header.navbar.navbar-default.container-fluid role="navigation"
+      .container-fluid
         .navbar-header
           button.navbar-toggle data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
             span.sr-only Toggle navigation

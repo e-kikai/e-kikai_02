@@ -34,7 +34,7 @@ class Machine < ActiveRecord::Base
   has_one    :large_genre,  :through => :middle_genre
   has_many   :images, :as => :parent
   has_many   :contacts
-  scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre).references(:genre, :company, :middle_genre, :large_genre) }
+  scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre, :images).references(:genre, :company, :middle_genre, :large_genre, :images) }
 
   enum commission: {不可:'0' ,可:'1'}
 
@@ -87,7 +87,7 @@ class Machine < ActiveRecord::Base
           imgs.unshift(d["top_img"]).reject!(&:blank?)
 
           # 画像保存
-          
+
           imgs.each do |i|
             begin
               p i

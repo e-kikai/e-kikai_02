@@ -17,3 +17,19 @@ table.search-table td {
 .machine-img a img {
   margin-bottom: 8px;
 }
+
+.machine-image {
+  width: 240px;
+  height: 180px;
+}
+
+.machine-buttons.media-right {
+  vertical-align: middle;
+}
+
+.machine-other.hidden-sm.hidden-xs {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 18px;
+}

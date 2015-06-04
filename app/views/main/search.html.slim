@@ -6,7 +6,9 @@
   - if k.name != current_name
     - current_name = k.name
     .panel.panel-default
-      .panel-heading = current_name
+      .panel-heading
+        h3.panel-title = current_name
+        
       .list-group
         - @machines.each do |m|
           - if m.name == current_name
@@ -14,7 +16,7 @@
               .media-left.hidden-sm.hidden-xs
                 .machine-image.text-center
                   - if m.images.present?
-                    = link_to (image_tag m.images.first.img.thumb('240x180').url), machine_path(m.id)
+                    = link_to (lazy_image_tag m.images.first.img.thumb('240x180').url), machine_path(m.id)
               .media-body style="position:relative;"
                 h4.machine-link = link_to "#{m.maker} #{m.model}", machine_path(m.id)
                 p.machine-spec.hidden-xs.hidden-sm = m.spec.to_s.truncate(200)

@@ -11,7 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.lazyload
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap.min
+//= require bootstrap
 //= require_tree .
+
+var ready = function() {
+    $("img.lazy").lazyload({ effect : "fadeIn" });
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

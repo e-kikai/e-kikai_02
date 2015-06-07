@@ -28,18 +28,31 @@ crumb :root do
   link "HOME", '/'
 end
 
-# Issue list
+crumb :large_genre do |large_genre|
+  link large_genre.name, large_genre_path(id: large_genre.id)
+end
+
 crumb :search do
   link "検索結果", '/search/l_1'
   parent :root
 end
 
 crumb :detail do |m|
-  link m.large_genre.name,  search_url(large_genre_id_eq: m.large_genre.id) if m.large_genre.present?
-  link m.middle_genre.name, search_url(middle_genre_id_eq: m.middle_genre.id) if m.middle_genre.present?
-  link m.genre.name,        search_url(genre_id_eq: m.genre.id) if m.genre.present?
+  if m.large_genre.present?
+    parent :large_genre, m.large_genre
+  else
+    parent :root
+  end
+
+  if m.middle_genre.present?
+    link m.middle_genre.name, search_url(middle_genre_id_eq: m.middle_genre.id)
+  end
+
+  if m.genre.present?
+    link m.genre.name, search_url(genre_id_eq: m.genre.id)
+  end
+
   link "#{m.name} #{m.maker} #{m.model}", machine_path(m.id)
-  parent :root
 end
 
 crumb :contact do |m|

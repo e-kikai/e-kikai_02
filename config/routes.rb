@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   #   end
 
   # 機械検索
+  get  "large_genre/:id", to: "main#large_genre", as: "large_genre"
   get  "search/(/l_:large_genre_id_eq)(/m_:middle_genre_id_eq)(/g_:genre_id_eq)(/c_:company_id_eq)", to: "main#search", as: "search"
   get  "machine/:id", to: "main#machine", as: "machine"
   get  "contact/:id", to: "main#contact", as: "contact"
@@ -73,7 +74,7 @@ namespace :member do
   # get "machines", to: "main#machines"
   get   "contacts", to: "main#contacts"
   get   "company",  to: "main#company_edit"
-  patch "company",  to: "main#company_update"  
+  patch "company",  to: "main#company_update"
 
   resources :machines, :except => [:show]
 end

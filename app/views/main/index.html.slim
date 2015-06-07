@@ -1,18 +1,17 @@
-.col-xs-12
-
-.col-lg-12
+.col-lg-9.col-md-9.col-xs-12.col-sm-12
   .panel.panel-default
     .panel-heading ジャンルで検索
-    .panel-body
+    .panel-body.hidden-sm.hidden-xs
       / - le = (@genres.length/2).floor
-      - 4.times.each do |a|
-       .list-group.col-lg-3
+      - arr = [0,2,6,100]
+      - 3.times.each do |a|
+       .list-group.col-lg-4
         
         / 大ジャンル一覧
         - @genres.each_with_index do |l, i|
           / - if (i / le).floor == a
           / - if [0,2,6].include? i
-          - if ([0,1,2,4,100][a]...[0,1,2,4,100][a+1]) === i
+          - if (arr[a]...arr[a+1]) === i
             = link_to l.name, search_path(large_genre_id_eq: l.id)
             
             / 中ジャンル一覧
@@ -27,3 +26,9 @@
                 /   = link_to search_path(genre_id_eq: g.id), class:"list-group-item" do
                 /     = g.name
                     / span.badge = g.machines.size
+
+    .panel-body.hidden-lg.hidden-md
+      .list-group
+        / 大ジャンル一覧
+        - @genres.each_with_index do |l, i|
+          = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"

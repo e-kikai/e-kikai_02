@@ -1,4 +1,4 @@
-- content_for :page_title, "検索結果"
+- content_for :page_title, "#{@name}の検索結果"
 - breadcrumb  :search
 
 - current_name = ""
@@ -20,12 +20,8 @@
               .media-body style="position:relative;"
                 h4.machine-link = link_to "#{m.maker} #{m.model}", machine_path(m.id)
                 p.machine-spec.hidden-xs.hidden-sm = m.spec.to_s.truncate(200)
-                .machine-other.hidden-md.hidden-lg
-                  =< m.year ? "#{m.year}年式" : ""
-                  =< m.addr1
-                  =< link_to strip_kabu(m.company.name), company_path(m.company_id)
-                .machine-other.hidden-sm.hidden-xs
-                  =< m.year ? "#{m.year}年式" : ""
+                .machine-other
+                  =< "#{m.year}年式" if /(^0?$)/ !~ m.year
                   =< m.addr1
                   =< link_to strip_kabu(m.company.name), company_path(m.company_id)
                   

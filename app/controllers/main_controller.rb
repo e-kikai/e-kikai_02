@@ -4,9 +4,21 @@ class MainController < ApplicationController
     @genres = LargeGenre.all.order('order_no ASC')
   end
 
+  def large_genre
+    @large_genre = LargeGenre.find(params[:id])
+  end
+
   ### 検索結果一覧 ###
   def search
     @machines = Machine.search_list(search_params)
+
+    # 見出し
+    name_temp = []
+    name_temp << LargeGenre.find(search_params[:large_genre_id_eq]).name if search_params[:large_genre_id_eq]
+    name_temp << MiddleGenre.find(search_params[:middle_genre_id_eq]).name if search_params[:middle_genre_id_eq]
+    name_temp << Genre.find(search_params[:genre_id_eq]).name if search_params[:genre_id_eq]
+
+    @name = name_temp.join"/"
   end
 
   ### 機械詳細 ###
@@ -45,7 +57,7 @@ class MainController < ApplicationController
   private
 
   def search_params
-    params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :genre_id_eq, :company_id_eq)
+    params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :company_id_eq)
     # redirect_to root_url, status: :bad_request, alert: "検索条件がありません" if params.blank?
   rescue
     redirect_to root_url, status: :bad_request, alert: "検索条件が不正です"

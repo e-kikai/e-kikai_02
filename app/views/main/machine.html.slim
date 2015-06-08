@@ -69,7 +69,11 @@
             td = @machine.model
           tr
             th 年式
-            td = @machine.year.present? ? "#{@machine.year}年" : '-'
+            td = "#{@machine.year}年式" if /(^0?$)/ !~ @machine.year
+          - if @machine.genre.capacity_unit.present?
+            tr 
+              th = @machine.genre.capacity_label
+              td = "#{@machine.capacity.to_i}#{@machine.genre.capacity_unit}" if @machine.capacity.present?
           tr
             th 在庫場所
             td = @machine.location || '-'
@@ -86,5 +90,9 @@
             th コメント
             td = simple_format(@machine.comment)
   .col-lg-5.col-md-5.col-sm-7.col-xs-12.machine-img
-    - @machine.images.each do |i|
-      = link_to (lazy_image_tag i.img.url, width:"100%"), i.img.url, target:"_blank"
+    - if @machine[:machinelife_images].present?
+      - @machine[:machinelife_images].each do |i|
+        = link_to (lazy_image_tag "http://www.zenkiren.net/media/machine/#{i}", width: "100%"), "http://www.zenkiren.net/media/machine/#{i}", target:"_blank"
+    - elsif @machine.images.present?
+      - @machine.images.each do |i|
+        = link_to (lazy_image_tag i.img.url, width:"100%"), i.img.url, target:"_blank"

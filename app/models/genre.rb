@@ -31,15 +31,20 @@ class Genre < ActiveRecord::Base
 
     # データの整形
     datas.each do |d|
-      next unless middle_genre_id = MiddleGenre.find_by(machinelife_id: d["large_genre_id"]).id
+      begin
+        next unless middle_genre_id = MiddleGenre.find_by(machinelife_id: d["large_genre_id"]).id
 
-      find_or_create_by(:machinelife_id => d["id"]).update({
-        name:            d["genre"],
-        capacity_label:  d["capacity_label"],
-        capacity_unit:   d["capacity_unit"],
-        order_no:        d["order_no"],
-        middle_genre_id: middle_genre_id,
-      })
+        find_or_create_by(:machinelife_id => d["id"]).update({
+          name:            d["genre"],
+          capacity_label:  d["capacity_label"],
+          capacity_unit:   d["capacity_unit"],
+          order_no:        d["order_no"],
+          middle_genre_id: middle_genre_id,
+        })
+      rescue => e
+        puts e.message
+        next
+      end
     end
   end
 end

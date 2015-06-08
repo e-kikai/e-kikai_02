@@ -15,7 +15,9 @@
             .list-group-item
               .media-left.hidden-sm.hidden-xs
                 .machine-image.text-center
-                  - if m.images.present?
+                  - if m[:machinelife_images].present?
+                    = link_to (lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", size: "240x180"), machine_path(m.id)
+                  - elsif m.images.present?
                     = link_to (lazy_image_tag m.images.first.img.thumb('240x180').url), machine_path(m.id)
               .media-body style="position:relative;"
                 h4.machine-link = link_to "#{m.maker} #{m.model}", machine_path(m.id)

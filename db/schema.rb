@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511040731) do
+ActiveRecord::Schema.define(version: 20150608090803) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20150511040731) do
 
   create_table "machines", force: :cascade do |t|
     t.string   "no"
-    t.string   "name",           null: false
+    t.string   "name",               null: false
     t.string   "maker"
     t.string   "model"
     t.string   "year"
@@ -99,12 +99,13 @@ ActiveRecord::Schema.define(version: 20150511040731) do
     t.text     "accessory"
     t.text     "comment"
     t.integer  "commission"
-    t.integer  "genre_id",       null: false
-    t.integer  "company_id",     null: false
+    t.integer  "genre_id",           null: false
+    t.integer  "company_id",         null: false
     t.datetime "deleted_at"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "machinelife_id"
+    t.text     "machinelife_images"
   end
 
   add_index "machines", ["addr1"], name: "index_machines_on_addr1"

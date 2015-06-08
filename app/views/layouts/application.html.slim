@@ -30,7 +30,7 @@ html
             - else
               li = link_to "会員ログイン", new_user_session_path
     .container
-      = breadcrumbs style: :bootstrap
+      = breadcrumbs style: :bootstrap, semantic: true
 
       - if notice.present?
         .alert.alert-success = notice

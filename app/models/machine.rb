@@ -28,6 +28,8 @@
 class Machine < ActiveRecord::Base
   include Crawler
 
+  serialize :machinelife_images
+
   belongs_to :company
   belongs_to :genre
   has_one    :middle_genre, :through => :genre
@@ -53,7 +55,9 @@ class Machine < ActiveRecord::Base
 
   def self.crawl
     Company.where.not(machinelife_id: nil).each do |c|
+      puts c.name
       datas = self.get_datas("t=machines&c=#{c.machinelife_id}")
+      return if datas.blank?
 
       machinelife_ids = c.machines.pluck(:machinelife_id)
 
@@ -63,9 +67,20 @@ class Machine < ActiveRecord::Base
           genre_id = Genre.find_by(machinelife_id: d["genre_id"]).id
 
           machine = c.machines.find_or_create_by(:machinelife_id => d["id"])
+
+          # 名前整形
+          if d['capacity_unit'].present? && d['capacity'].present? && /^[0-9]/ !~ d['name']
+            d['name'] = d['capacity'].to_s + d['capacity_unit'].to_s + d['name'];
+          end
+
+          # 画像配列整形
+          imgs = (d["imgs"].kind_of? Hash) ? d["imgs"].values : Array(d["imgs"])
+          imgs.unshift(d["top_img"]).reject!(&:blank?)
+
           machine.update({
+            no:         d["no"],
             name:       d["name"],
-            maker:      d["maker"],
+            maker:      d["maker_master"].presence || d["maker"],
             model:      d["model"],
             year:       d["year"],
             capacity:   d["capacity"],
@@ -79,38 +94,38 @@ class Machine < ActiveRecord::Base
             commission: d["commission"].to_s,
             genre_id:   genre_id,
             company_id: c.id,
+            machinelife_images: imgs,
           })
+
+          puts machine[:machinelife_images]
 
           machinelife_ids.delete(d["id"])
 
-          imgs = (d["imgs"].kind_of? Hash) ? d["imgs"].values : Array(d["imgs"])
-          imgs.unshift(d["top_img"]).reject!(&:blank?)
-
           # 画像保存
-
-          imgs.each do |i|
-            begin
-              p i
-              if image = machine.images.find_by(img_name: i)
-                next
-                content_length = open("#{MACHINE_IMG_URL}/#{i}").meta["content-length"].to_i
-                next if content_length == image.img.size
-              else
-                image = machine.images.build
-              end
-
-              p "#{MACHINE_IMG_URL}/#{i}"
-              image.img_url = "#{MACHINE_IMG_URL}/#{i}"
-              image.save
-            rescue => e
-              p e.message
-              next
-            end
-          end
-          puts machine.images.where.not(img_name: imgs).delete_all
+          # imgs.each do |i|
+          #   begin
+          #     p i
+          #     if image = machine.images.find_by(img_name: i)
+          #       next
+          #       content_length = open("#{MACHINE_IMG_URL}/#{i}").meta["content-length"].to_i
+          #       next if content_length == image.img.size
+          #     else
+          #       image = machine.images.build
+          #     end
+          #
+          #     p "#{MACHINE_IMG_URL}/#{i}"
+          #     image.img_url = "#{MACHINE_IMG_URL}/#{i}"
+          #     image.save
+          #   rescue => e
+          #     p e.message
+          #     next
+          #   end
+          # end
+          # puts machine.images.where.not(img_name: imgs).delete_all
 
         rescue => e
-          p e.message
+          puts e.message
+          puts "#{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
           next
         end
       end
@@ -120,5 +135,8 @@ class Machine < ActiveRecord::Base
         puts c.machines.where(machinelife_id: machinelife_ids).delete_all
       end
     end
+  rescue => e
+    puts e.message
+    puts $@
   end
 end

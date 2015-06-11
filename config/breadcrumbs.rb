@@ -32,8 +32,14 @@ crumb :large_genre do |large_genre|
   link large_genre.name, large_genre_path(id: large_genre.id)
 end
 
-crumb :search do
-  link "検索結果", '/search/l_1'
+crumb :search do |title, breads|
+  if breads
+    breads.each do |name, url|
+      link name, url
+    end
+  end
+
+  link "#{title} 検索結果"
   parent :root
 end
 

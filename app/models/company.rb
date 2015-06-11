@@ -37,6 +37,10 @@ class Company < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def name_strip_kabu
+    name.gsub(/(株式|有限|合.)会社/, '')
+  end
+
   def self.crawl
     where.not(machinelife_id: nil).each do |c|
       # マシンライフからJSONデータを取得

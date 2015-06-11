@@ -5,30 +5,32 @@
       / - le = (@genres.length/2).floor
       - arr = [0,2,6,100]
       - 3.times.each do |a|
-       .list-group.col-lg-4
+        .col-lg-4.col-md-4
         
-        / 大ジャンル一覧
-        - @genres.each_with_index do |l, i|
-          / - if (i / le).floor == a
-          / - if [0,2,6].include? i
-          - if (arr[a]...arr[a+1]) === i
-            = link_to l.name, search_path(large_genre_id_eq: l.id)
-            
-            / 中ジャンル一覧
-            - l.middle_genres.each_with_index do |m, j|
-              - next if m.machines.size == 0
-              = link_to m.name, "/search/m_#{m.id}", class:"list-group-item"
-                
-                / / ジャンル一覧
-                / - m.genres.each_with_index do |g, k|
-                /   - next if g.machines.size == 0
-                /   
-                /   = link_to search_path(genre_id_eq: g.id), class:"list-group-item" do
-                /     = g.name
-                    / span.badge = g.machines.size
+          / 大ジャンル一覧
+          - @genres.each_with_index do |l, i|
+            / - if (i / le).floor == a
+            / - if [0,2,6].include? i
+            - if (arr[a]...arr[a+1]) === i
+              / = link_to l.name, large_genre_path(id: l.id)
+              .panel.panel-default
+                .panel-heading = l.name
+              
+                / 中ジャンル一覧
+                .list-group
+                  - l.middle_genres.each_with_index do |m, j|
+                    - next if m.machines.size == 0
+                    = link_to m.name, search_path(middle_genre_id_eq: m.id), class:"list-group-item"
+                      
+                      / / ジャンル一覧
+                      / - m.genres.each_with_index do |g, k|
+                      /   - next if g.machines.size == 0
+                      /   
+                      /   = link_to search_path(genre_id_eq: g.id), class:"list-group-item" do
+                      /     = g.name
+                          / span.badge = g.machines.size
 
-    .panel-body.hidden-lg.hidden-md
-      .list-group
-        / 大ジャンル一覧
-        - @genres.each_with_index do |l, i|
-          = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
+    .list-group.hidden-lg.hidden-md
+      / 大ジャンル一覧
+      - @genres.each_with_index do |l, i|
+        = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"

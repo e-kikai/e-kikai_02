@@ -2,9 +2,9 @@
 - breadcrumb  :large_genre, @large_genre
 
 .panel.panel-default
-  .panel-heading ジャンルで検索
-  .panel-body
-    .list-group
-      / 中ジャンル一覧
-      - @large_genre.middle_genres.each do |m|
-        = link_to m.name, search_path(middle_genre_id_eq: m.id), class:"list-group-item"
+  .panel-heading = "#{@large_genre.name}から検索"
+  .list-group
+    / 中ジャンル一覧
+    - @large_genre.middle_genres.each do |m|
+      - next unless m.machines.count
+      = link_to m.name, search_path(middle_genre_id_eq: m.id), class:"list-group-item"

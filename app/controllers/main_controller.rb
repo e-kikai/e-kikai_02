@@ -10,22 +10,41 @@ class MainController < ApplicationController
 
   ### 検索結果一覧 ###
   def search
-    @machines = Machine.search_list(search_params)
+    @params   = search_params
+    @machines = Machine.search_list(@params)
+    @names    = Machine.search_names(@params)
+    @addr1s   = Machine.search_addr(@params)
+    # @addr1s = ["2222"]
 
     # 見出し
-    name_temp = []
-    name_temp << LargeGenre.find(search_params[:large_genre_id_eq]).name if search_params[:large_genre_id_eq]
-    name_temp << MiddleGenre.find(search_params[:middle_genre_id_eq]).name if search_params[:middle_genre_id_eq]
-    name_temp << Genre.find(search_params[:genre_id_eq]).name if search_params[:genre_id_eq]
+    titles = []
+    @breads = {}
 
-    @name = name_temp.join"/"
+    if @params[:genre_id_eq]
+      t = Genre.find(@params[:genre_id_eq])
+      titles << t.name
+      @breads = {
+        t.large_genre.name  => large_genre_path(t.large_genre_id),
+        t.middle_genre.name => search_path(middle_genre_id_eq: t.middle_genre_id)
+      }
+    elsif @params[:middle_genre_id_eq]
+      t = MiddleGenre.find(@params[:middle_genre_id_eq])
+      titles << t.name
+      @breads = {t.large_genre.name  => large_genre_path(t.large_genre_id)}
+    elsif @params[:large_genre_id_eq]
+      t = LargeGenre.find(@params[:large_genre_id_eq])
+      titles << t.name
+    end
+
+    @title = titles.join "/"
   end
 
   ### 機械詳細 ###
   def machine
-    @machine = Machine.find(params[:id])
+    @machine  = Machine.find(params[:id])
 
     @machines = Machine.search_list(middle_genre_id_eq: @machine.genre.middle_genre.id)
+    @names    = Machine.search_names(middle_genre_id_eq: @machine.genre.middle_genre.id)
   end
 
   ### 機械問い合わせ ###
@@ -57,7 +76,7 @@ class MainController < ApplicationController
   private
 
   def search_params
-    params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :company_id_eq)
+    params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :company_id_eq, :addr1_eq)
     # redirect_to root_url, status: :bad_request, alert: "検索条件がありません" if params.blank?
   rescue
     redirect_to root_url, status: :bad_request, alert: "検索条件が不正です"

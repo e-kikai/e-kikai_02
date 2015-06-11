@@ -46,7 +46,8 @@
         .form-group
           = f.label :tel
           .input-group
-            span.input-group-addon ☎
+            span.input-group-addon
+              span.glyphicon.glyphicon-phone-alt
             = f.text_field :tel, class: 'form-control', placeholder: "電話番号(電話でのご連絡を希望の場合は必須)"
 
         .form-group
@@ -54,5 +55,5 @@
           = f.text_area :content, class: 'form-control', style:"height:100px;"
 
         = f.button type:"submit", class: 'btn btn-primary', data: {confirm: "お問い合わせを送信します。よろしいですか。", disable_with: '送信中・・・' } do
-          span.glyphicon.glyphicon-envelope
+          span.glyphicon.glyphicon-send
           =< "送信"

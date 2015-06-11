@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
   # 機械検索
   get  "large_genre/:id", to: "main#large_genre", as: "large_genre"
-  get  "search/(/l_:large_genre_id_eq)(/m_:middle_genre_id_eq)(/g_:genre_id_eq)(/c_:company_id_eq)", to: "main#search", as: "search"
+  get  "search",      to: "main#search", as: "search"
   get  "machine/:id", to: "main#machine", as: "machine"
   get  "contact/:id", to: "main#contact", as: "contact"
   post "contact",     to: "main#contact_create"

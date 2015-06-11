@@ -49,8 +49,15 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_list(q)
-    machines = list.search(q).result(distinct: true)
-      .order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity, machines.name, maker, model")
+    list.search(q).result(distinct: true).order("machines.name, maker, model")
+  end
+
+  def self.search_names(q)
+    list.search(q).result(distinct: true).order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
+  end
+
+  def self.search_addr(q)
+    list.search(q.reject{|k, v| k == "addr1_eq"}).result(distinct: true).group("machines.addr1").order("count_machines_addr1 DESC").count("machines.addr1").keys.reject(&:blank?)
   end
 
   def self.crawl

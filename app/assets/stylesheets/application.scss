@@ -1,0 +1,91 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require devise_bootstrap_views
+ *= require_tree .
+ *= require_self
+ */
+
+/*
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../assets/glyphicons-halflings-regular.eot');
+  src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../assets/glyphicons-halflings-regular.woff') format('woff'), url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+*/
+
+$e-kikai-color: #D9FFDE;
+$e-kikai-color-dark: darken($e-kikai-color, 60%);
+
+$breadcrumb-bg: $e-kikai-color;
+$breadcrumb-text-color: $e-kikai-color-dark;
+
+$base-color: #FFF;
+$main-color: #333333;
+$accent-color: #F47D35;
+$base-text-color: darken($base-color, 80%);
+
+$text-color: $base-text-color;
+
+$body-bg: $base-color;
+
+// $link-color: $accent-color;
+
+$btn-default-bg: $base-color;
+$btn-default-border: darken($base-color, 10%);
+$btn-primary-bg: $accent-color;
+$btn-primary-border: darken($accent-color, 10%);
+
+// $navbar-default-bg: $base-color;
+// $navbar-default-color: $base-text-color;
+// $navbar-defalut-link-color: $base-text-color;
+// $navbar-default-link-hover-color: $base-text-color - 60;
+// $navbar-default-link-active-color: darken($base-text-color, 5%);
+// $navbar-default-link-hover-bg: $base-color - 10;
+// $navbar-default-link-active-bg: darken($navbar-default-bg, 5%);
+// $navbar-default-brand-color: $base-text-color;
+//
+// $hr-border: darken($base-color, 10%);
+
+$navbar-default-bg: $e-kikai-color;
+$navbar-default-color: $e-kikai-color-dark;
+$navbar-defalut-link-color: $e-kikai-color-dark;
+$navbar-default-link-hover-color: $e-kikai-color-dark - 60;
+$navbar-default-link-active-color: darken($e-kikai-color-dark, 5%);
+$navbar-default-link-hover-bg: $e-kikai-color-dark - 10;
+$navbar-default-link-active-bg: darken($navbar-default-bg, 5%);
+$navbar-default-brand-color: $e-kikai-color-dark;
+
+$hr-border: darken($e-kikai-color, 10%);
+
+
+$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+@import "bootstrap-sass-official/bootstrap-sprockets";
+@import "bootstrap-sass-official/bootstrap";
+
+footer {
+  height: 32px;
+  line-height: 32px;
+  color: #FFF;
+  background: $e-kikai-color-dark;
+  text-align: center;
+}
+
+header.navbar {
+  background-image: url(/images/e-kikai-header-bg.png);
+  background-size: cover;
+}
+
+header a.navbar-brand {
+  padding: 0;
+  overflow: hidden;
+}

@@ -14,7 +14,8 @@
 //= require jquery.lazyload
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap
+
+//= require bootstrap-sass-official
 //= require_tree .
 
 var ready = function() {

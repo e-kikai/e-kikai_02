@@ -6,7 +6,9 @@ gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
+# gem 'bootstrap-sass', '~> 3.3.5'
 gem 'sass-rails', '~> 5.0'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -68,6 +70,9 @@ gem 'rack-cache', require: 'rack/cache'
 
 # 認証
 gem 'devise'
+gem 'devise-bootstrap-views'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 # パンくず
 gem 'gretel'
@@ -88,6 +93,11 @@ end
 source 'https://rails-assets.org' do
   gem 'rails-assets-jquery'
   gem 'rails-assets-jquery-ujs'
-  gem 'rails-assets-bootstrap'
+  # gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap-sass-official'
+  # gem 'rails-assets-fontawesome'
   gem 'rails-assets-jquery.lazyload'
 end
+
+# 太田機械クローラ
+gem 'mechanize'

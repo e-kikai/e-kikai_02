@@ -26,7 +26,7 @@
                     = link_to "#{no}) #{m.maker} #{m.model}", machine_path(m.id), class: "list-group-item"
               
   .col-lg-4.col-md-4.col-sm-5.col-xs-12
-    ul.pager
+    ul.pager style="margin:0;"
       - mlist.each.with_index do |m, i|
         - if m.id == @machine.id
           - if i > 0
@@ -37,17 +37,16 @@
             li.next = link_to machine_path(mlist[i+1].id) do
               => "次の機械へ" 
               span.glyphicon.glyphicon-forward
-              
+    .row
+      = link_to contact_path(@machine.id), class:"btn btn-lg btn-primary pull-right", style:"margin:8px;"do
+        span.glyphicon.glyphicon-envelope style="margin-bottom:8px;"
+        =< "問い合わせはこちら"
+    
     .panel.panel-default
       .panel-heading
         span.glyphicon.glyphicon-th-list
         =< "機械詳細"
       .panel-body
-      
-        = link_to contact_path(@machine.id), class:"btn btn-lg btn-primary" do
-          span.glyphicon.glyphicon-envelope style="margin-bottom:8px;"
-          =< "問い合わせはこちら"
-        
         table.table.detail-table
           tr
             th 出品会社
@@ -73,7 +72,11 @@
               td = @machine.capacity.present? ? "#{@machine.capacity.to_i}#{@machine.genre.capacity_unit}" : "-"
           tr
             th 在庫場所
-            td = @machine.location || "-"
+            td
+              = @machine.location || "-"
+              = "#{@machine.addr3} #{@machine.addr2} #{@machine.addr3}"
+              - if @machine.addr1 && @machine.addr2 && @machine.addr3
+                = link_to "MAP", "http://www.google.com/"
           tr
             th 試運転
             td = @machine.commission ? '可' : "-"

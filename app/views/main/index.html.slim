@@ -30,7 +30,7 @@
                       /     = g.name
                           / span.badge = g.machines.size
 
-    .panel-body.list-group.hidden-lg.hidden-md
+    .list-group.hidden-lg.hidden-md
       / 大ジャンル一覧
       - @genres.each_with_index do |l, i|
         = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"

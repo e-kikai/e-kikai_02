@@ -54,9 +54,9 @@ crumb :detail do |m|
     link m.middle_genre.name, search_url(middle_genre_id_eq: m.middle_genre.id)
   end
 
-  # if m.genre.present?
-  #   link m.genre.name, search_url(genre_id_eq: m.genre.id)
-  # end
+  if m.genre.present?
+    link m.genre.name, search_url(genre_id_eq: m.genre.id)
+  end
 
   link "#{m.name} #{m.maker} #{m.model}", machine_path(m.id)
 end

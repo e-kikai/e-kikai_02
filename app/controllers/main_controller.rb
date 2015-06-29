@@ -24,7 +24,7 @@ class MainController < ApplicationController
       t = Genre.find(@params[:genre_id_eq])
       titles << t.name
       @breads = {
-        t.large_genre.name  => large_genre_path(t.large_genre_id),
+        t.large_genre.name  => large_genre_path(t.middle_genre.large_genre_id),
         t.middle_genre.name => search_path(middle_genre_id_eq: t.middle_genre_id)
       }
     elsif @params[:middle_genre_id_eq]
@@ -34,6 +34,9 @@ class MainController < ApplicationController
     elsif @params[:large_genre_id_eq]
       t = LargeGenre.find(@params[:large_genre_id_eq])
       titles << t.name
+    elsif @params[:company_id_eq]
+      t = Company.find(@params[:company_id_eq])
+      titles << t.name_strip_kabu
     end
 
     @title = titles.join "/"

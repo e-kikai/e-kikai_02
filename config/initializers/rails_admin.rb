@@ -43,6 +43,7 @@ RailsAdmin.config do |config|
       field :comment
       field :images
       field :machinelife_id
+      field :machinelife_images
     end
   end
 
@@ -109,6 +110,8 @@ RailsAdmin.config do |config|
       field :addr3
       field :website
       field :machinelife_id
+      field :machinelife_images
+      field :subdomain
     end
   end
 

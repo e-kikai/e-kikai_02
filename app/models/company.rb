@@ -27,6 +27,8 @@
 class Company < ActiveRecord::Base
   require 'open-uri'
 
+  serialize :machinelife_images
+
   has_many :machines
   has_many :users
 

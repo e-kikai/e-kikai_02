@@ -60,22 +60,27 @@ Rails.application.routes.draw do
   #   end
 
   # 機械検索
-  get  "large_genre/:id", to: "main#large_genre", as: "large_genre"
-  get  "search",      to: "main#search", as: "search"
-  get  "machine/:id", to: "main#machine", as: "machine"
-  get  "contact/:id", to: "main#contact", as: "contact"
-  post "contact",     to: "main#contact_create"
-  get  "contact_fin", to: "main#contact_fin"
+  get  "large_genre/:id", to: "main#large_genre",   as: "large_genre"
+  get  "search",          to: "main#search",        as: "search"
+  get  "machine/:id",     to: "main#machine",       as: "machine"
+  get  "contact/:id",     to: "main#contact",       as: "contact"
+  post "contact",         to: "main#contact_create"
+  get  "contact_fin",     to: "main#contact_fin"
 
   resources :companies, :only => [:index, :show]
 
-namespace :member do
-  root to: "main#index"
-  # get "machines", to: "main#machines"
-  get   "contacts", to: "main#contacts"
-  get   "company",  to: "main#company_edit"
-  patch "company",  to: "main#company_update"
+  namespace :member do
+    root to: "main#index"
+    # get "machines", to: "main#machines"
+    get   "contacts", to: "main#contacts"
+    get   "company",  to: "main#company_edit"
+    patch "company",  to: "main#company_update"
 
-  resources :machines, :except => [:show]
-end
+    resources :machines, :except => [:show]
+  end
+  get  ":subdomain",                    to: "companies#show",          as: "member_site"
+  get  ":subdomain/contact",            to: "companies#contact",       as: "member_site_contact"
+  post ":subdomain/contactcontact",     to: "companies#contact_create"
+  get  ":subdomain/contactcontact_fin", to: "companies#contact_fin"
+
 end

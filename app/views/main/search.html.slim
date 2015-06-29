@@ -9,7 +9,7 @@
   .input-group.col-lg-4.col-md-4.col-sm-12.col-xs-12 style="margin-bottom:8px;"
     .input-group-addon
       span.glyphicon.glyphicon-filter
-      =< "都道府県フィルタ"
+      =< "さらに都道府県でさがす"
     = select_tag :addr1_eq, options_for_select(@addr1s, selected: @params[:addr1_eq]), prompt: "すべて表示" ,class: "form-control", onchange: "this.form.submit();"
 
 - @names.each do |n|

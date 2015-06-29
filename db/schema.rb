@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608090803) do
+ActiveRecord::Schema.define(version: 20150629154637) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -29,10 +29,12 @@ ActiveRecord::Schema.define(version: 20150608090803) do
     t.string   "contact_fax"
     t.string   "contact_mail"
     t.string   "website"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.datetime "deleted_at"
     t.integer  "machinelife_id"
+    t.string   "subdomain"
+    t.text     "machinelife_images"
   end
 
   create_table "contacts", force: :cascade do |t|

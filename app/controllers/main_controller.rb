@@ -2,6 +2,7 @@ class MainController < ApplicationController
   ### トップページ ###
   def index
     @genres = LargeGenre.all.order('order_no ASC')
+    @companies = Company.all.order('company_kana')
   end
 
   def large_genre

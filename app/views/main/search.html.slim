@@ -5,7 +5,8 @@
   - @params.each do |key, p|
     - next if key == "addr1_eq"
     = hidden_field_tag key, p
-  .input-group
+
+  .input-group.col-lg-4.col-md-4.col-sm-12.col-xs-12 style="margin-bottom:8px;"
     .input-group-addon
       span.glyphicon.glyphicon-filter
       =< "都道府県フィルタ"
@@ -32,7 +33,7 @@
               h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", machine_path(m.id)
               p.machine-spec.hidden-xs.hidden-sm = m.spec.to_s.truncate(200)
               .machine-other
-                =< "#{m.year}年式" if /(^0?$)/ !~ m.year
+                =< "#{m.year}年式" if m.year.to_i > 0
                 =< m.addr1
                 =< link_to m.company.name_strip_kabu, company_path(m.company_id)
                 

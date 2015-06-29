@@ -30,7 +30,24 @@
                       /     = g.name
                           / span.badge = g.machines.size
 
-    .list-group.hidden-lg.hidden-md
+    .panel-body.list-group.hidden-lg.hidden-md
       / 大ジャンル一覧
       - @genres.each_with_index do |l, i|
         = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
+
+.col-lg-3.col-md-3.col-xs-12.col-sm-12  
+  .panel.panel-default
+    .panel-heading キーワードで検索
+    .panel-body
+      = form_tag search_path, method: "GET" do
+        .input-group
+          = text_field_tag :keyword, nil, class: 'form-control', placeholder: "メーカー型式etc"
+          span.input-group-btn
+            = button_tag type:"submit", class: 'btn btn-primary', data: {disable_with: '検索中・・・' } do
+              span.glyphicon.glyphicon-search
+              =< "検索"
+          
+.col-lg-3.col-md-3.col-xs-12.col-sm-12  
+  .panel.panel-default
+    .panel-heading 売りたし買いたし
+    .panel-body 準備中

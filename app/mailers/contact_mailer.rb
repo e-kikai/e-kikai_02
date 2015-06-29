@@ -9,9 +9,10 @@ class ContactMailer < ApplicationMailer
     @machine = machine
     @contact = contact
 
+    mailto = Rails.env.production? ? @machine.company.contact_mail : "bata44883@gmail.com"
+
     mail(
-      # to:       @machine.company.contact_mail,
-      to: "bata44883@gmail.com",
+      to:       mailto,
       reply_to: @contact.mail,
       subject:  "e-kikai: #{@contact.machine.name} #{@contact.machine.maker} #{@contact.machine.model}についての問い合わせ通知"
     )

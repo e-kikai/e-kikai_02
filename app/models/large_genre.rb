@@ -20,6 +20,8 @@ class LargeGenre < ActiveRecord::Base
 
   validates :name, presence: true
 
+  scope :list, -> { includes(:middle_genres, :genres).references(:middle_genres, :genres) }
+
   def self.crawl
     # マシンライフからJSONデータを取得
     json  = open("http://www.zenkiren.net/system/ajax/e-kikai_crawled_get.php?t=large_genres").read

@@ -65,7 +65,9 @@ Rails.application.routes.draw do
   get  "machine/:id",     to: "main#machine",       as: "machine"
   get  "contact/:id",     to: "main#contact",       as: "contact"
   post "contact",         to: "main#contact_create"
-  get  "contact_fin",     to: "main#contact_fin"
+  get  "contact_fin",     to: "main#contact_fin",   as: "contact_fin"
+  get  "about",           to: "main#about",         as: "about"
+  get  "sitemap",         to: "main#sitemap",       as: "sitemap"
 
   resources :companies, :only => [:index, :show]
 
@@ -78,6 +80,7 @@ Rails.application.routes.draw do
 
     resources :machines, :except => [:show]
   end
+
   get  ":subdomain",                    to: "companies#show",          as: "member_site"
   get  ":subdomain/contact",            to: "companies#contact",       as: "member_site_contact"
   post ":subdomain/contactcontact",     to: "companies#contact_create"

@@ -70,7 +70,13 @@ crumb :companies do |c|
   link "会員会社一覧", companies_path
   parent :root
 end
+
 crumb :company_show do |c|
   link "#{c.name} 会社概要", company_path(c.id)
   parent :companies
+end
+
+crumb :help do |title|
+  link title
+  parent :root
 end

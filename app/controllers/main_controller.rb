@@ -1,8 +1,10 @@
 class MainController < ApplicationController
   ### トップページ ###
   def index
-    @genres = LargeGenre.all.order('order_no ASC')
+    @genres = LargeGenre.list.all.order('large_genres.order_no, middle_genres.order_no')
     @companies = Company.all.order('company_kana')
+
+    @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
   end
 
   def large_genre
@@ -75,6 +77,17 @@ class MainController < ApplicationController
   end
 
   def contact_fin
+  end
+
+  def about
+  end
+
+  def sitemap
+    @genres = LargeGenre.list.all.order('large_genres.order_no, middle_genres.order_no, genres.order_no')
+    @companies = Company.all.order('company_kana')
+
+    @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
+    @genre_counts = Genre.group("genres.id").includes(:machines).count('machines.id')
   end
 
   private

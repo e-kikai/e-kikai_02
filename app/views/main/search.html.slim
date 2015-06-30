@@ -35,7 +35,7 @@
               .machine-other
                 =< "#{m.year}年式" if m.year.to_i > 0
                 =< m.addr1
-                =< link_to m.company.name_strip_kabu, company_path(m.company_id)
+                =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
                 
             .machine-buttons.media-right
               = link_to contact_path(m.id), class:"btn btn-lg btn-primary" do

@@ -11,6 +11,16 @@
       td = link_to @machine.company.name, company_path(@machine.company_id)
 
   .panel.panel-default
+    .panel-heading
+      span.glyphicon.glyphicon-phone-alt
+      =< "電話でお問い合わせ"
+    .panel-body
+      h2 お問い合わせTEL : #{@machine.company.contact_tel}
+  
+  .panel.panel-default
+    .panel-heading
+      span.glyphicon.glyphicon-envelope
+      =< "フォームからお問い合わせ"
     .panel-body
       = form_for(@contact, class: 'form-horizontal', role: 'form', url: {:action => 'contact_create'})  do |f|
         - if @contact.errors.any?

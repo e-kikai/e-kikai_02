@@ -49,7 +49,7 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_list(q)
-    list.search(q).result(distinct: true).order("machines.name, maker, model")
+    list.search(q).result(distinct: true).order("machines.name, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker DESC, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
   end
 
   def self.search_names(q)

@@ -21,9 +21,9 @@
                   - no += 1
                   - mlist << m
                   - if m.id == @machine.id
-                    .list-group-item.list-group-item-success = "#{no}) #{m.maker} #{m.model}"
+                    .list-group-item.list-group-item-success = "#{no}) #{m.maker.presence || "(不明)"} #{m.model}"
                   - else
-                    = link_to "#{no}) #{m.maker} #{m.model}", machine_path(m.id), class: "list-group-item"
+                    = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", machine_path(m.id), class: "list-group-item"
               
   .col-lg-4.col-md-4.col-sm-5.col-xs-12
     ul.pager style="margin:0;"
@@ -59,7 +59,7 @@
             td = @machine.name
           tr
             th メーカー
-            td = @machine.maker
+            td = @machine.maker.presence || "(不明)"
           tr
             th 型式
             td = @machine.model

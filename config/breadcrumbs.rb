@@ -25,7 +25,7 @@
 
 # Root crumb
 crumb :root do
-  link "HOME", '/'
+  link "HOME", root_path
 end
 
 crumb :large_genre do |large_genre|
@@ -79,4 +79,15 @@ end
 crumb :help do |title|
   link title
   parent :root
+end
+
+### 管理者画面 ###
+crumb :member_root do
+  link "管理者画面", member_root_path
+  parent :root
+end
+
+crumb :member_contacts do
+  link "問い合わせ一覧", member_contacts_path
+  parent :member_root
 end

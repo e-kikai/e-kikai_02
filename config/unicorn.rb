@@ -10,7 +10,7 @@ pid "#{ROOT}/tmp/pids/unicorn.pid"
 
 
 # ワーカーの数を指定する
-worker_processes 6
+worker_processes 3
 
 # リクエストのタイムアウト秒を指定する
 timeout 300

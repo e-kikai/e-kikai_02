@@ -60,18 +60,20 @@ class MainController < ApplicationController
   end
 
   def contact_create
+    @machine = Machine.find(params[:contact][:machine_id])
     @contact = Contact.new(contact_params)
 
     begin
       Contact.transaction do
         @contact.save!
 
-        ContactMailer.contact(@contact).deliver
-        ContactMailer.contact_confirm(@contact).deliver
+        ContactMailer.contact(@contact, @machine).deliver
+        ContactMailer.contact_confirm(@contact, @machine).deliver
       end
 
       redirect_to contact_fin_path, notice: '問い合わせを送信しました'
-    rescue
+    rescue => e
+      flush.now[:alert] = e.massages
       render :action => :contact
     end
   end

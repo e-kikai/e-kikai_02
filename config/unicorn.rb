@@ -10,10 +10,10 @@ pid "#{ROOT}/tmp/pids/unicorn.pid"
 
 
 # ワーカーの数を指定する
-worker_processes 3
+worker_processes 6
 
 # リクエストのタイムアウト秒を指定する
-timeout 15
+timeout 300
 
 # ダウンタイムなくすため、アプリをプレロード
 preload_app true

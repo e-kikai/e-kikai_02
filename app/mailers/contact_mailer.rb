@@ -5,11 +5,12 @@ class ContactMailer < ApplicationMailer
   #
   #   en.contact_mailer.send.subject
   #
-  def contact(contact)
+  def contact(contact, machine)
     @machine = machine
     @contact = contact
 
-    mailto = Rails.env.production? ? @machine.company.contact_mail : "bata44883@gmail.com"
+    # mailto = Rails.env.production? ? @machine.company.contact_mail : "bata44883@gmail.com"
+    mailto = Rails.env.production? ? @machine.company.contact_mail : @contact.mail
 
     mail(
       to:       mailto,
@@ -23,13 +24,13 @@ class ContactMailer < ApplicationMailer
   #
   #   en.contact_mailer.send_confirmation.subject
   #
-  def contact_confirm(machine, contact)
+  def contact_confirm(contact, machine)
     @machine = machine
     @contact = contact
 
     mail(
-        to:      @contact.mail,
-        subject: "e-kikai:問い合わせ送信確認"
+      to:      @contact.mail,
+      subject: "e-kikai: 問い合わせ送信確認"
     )
   end
 end

@@ -49,15 +49,15 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_list(q)
-    list.search(q).result(distinct: true).order("machines.name, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker DESC, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
+    list.search(q).result.order("machines.name, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker DESC, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
   end
 
   def self.search_names(q)
-    list.search(q).result(distinct: true).order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
+    list.search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
   end
 
   def self.search_addr(q)
-    list.search(q.reject{|k, v| k == "addr1_eq"}).result(distinct: true).group("machines.addr1").order("count_machines_addr1 DESC").count("machines.addr1").keys.reject(&:blank?)
+    list.search(q.reject{|k, v| k == "addr1_eq"}).result.group("machines.addr1").order("count_machines_addr1 DESC").count("machines.addr1").keys.reject(&:blank?)
   end
 
   def self.crawl

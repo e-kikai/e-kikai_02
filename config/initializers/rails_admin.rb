@@ -10,6 +10,12 @@ RailsAdmin.config do |config|
 
   ## == Cancan ==
   # config.authorize_with :cancan
+  config.authorize_with do
+    authenticate_or_request_with_http_basic('ログインしてください') do |account, passwd|
+      account == Rails.application.secrets.admin_account &&
+      passwd  == Rails.application.secrets.admin_passwd
+    end
+  end
 
   ## == PaperTrail ==
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
@@ -17,12 +23,15 @@ RailsAdmin.config do |config|
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
   config.navigation_static_label = "リンク"
   config.navigation_static_links = {
-    'e-kikai' => 'http://www.e-kikai.com',
-    'Google' => 'http://www.google.com'
-
+    'e-kikai トップページ'        => 'http://www.e-kikai.com/',
+    'マシンライフ トップページ'   => 'http://www.zenkiren.net/',
+    'Google Analytics'            => "https://www.google.com/analytics/web/#report/visitors-overview/a629388w1051956p1037262/",
+    "Google ウェブマスターツール" => "https://www.google.com/webmasters/tools/dashboard?hl=ja&pli=1&siteUrl=http%3A%2F%2Fwww.e-kikai.com%2F",
+    "Clicky"                      => "https://clicky.com/user/",
+    "Lucky Orange"                => "http://www.luckyorange.com/v3/dash.php?s=1&r=32743#/dashboard",
   }
   config.model 'Machines' do
-    weight 100
+    weight 500
     object_label_method :custome_name_method
     edit do
       field :company
@@ -95,7 +104,9 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Companies' do
-    weight 300
+    weight 600
+    navigation_icon 'icon-home'
+
     edit do
       field :name
       field :company_kana
@@ -116,7 +127,7 @@ RailsAdmin.config do |config|
   end
 
   config.model 'User' do
-    weight 400
+    weight 700
     navigation_icon 'icon-user'
     edit do
       field :email
@@ -127,11 +138,13 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Contacts' do
-    weight 500
+    weight 800
+    navigation_icon 'icon-envelope'
   end
 
   config.model 'Image' do
-    weight 600
+    weight 900
+    navigation_icon 'icon-picture'
     edit do
       field :img
     end

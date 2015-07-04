@@ -2,6 +2,55 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-a.company-img img {
-  margin-bottom: 8px;
+body.company {
+  a.company-img img {
+    margin-bottom: 8px;
+  }
+
+  h1 a {
+    font-size: 28px !important;
+    line-height: 28px !important;
+    color: #FFF !important;
+    text-decoration: none;
+    text-shadow: 3px 3px 5px #333;
+    margin: -8px;
+  }
+
+  header.navbar {
+    background-image: none !important;
+    background: #1c6dbf;
+    border-color: #1c6dbf;
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
+  .navbar-default .navbar-nav > li > a {
+    color: #FFF !important;
+  }
+
+  strong.headcopy {
+    display: block;
+    color: #FFF;
+    font-size: 13px;
+    font-weight: bold;
+    background: #000;
+    height: 24px;
+    line-height: 24px;
+    text-indent: 13px;
+    width: 100%;
+    border-bottom: 1px solid #CCC;
+  }
+
+  .jumbotron {
+    background-size: cover;
+    background-color: darken(#1c6dbf, 25%);
+    height: 300px;
+  }
+
+  footer {
+    background: #1c6dbf;
+    a {
+      color: #FFF;
+    }
+  }
 }

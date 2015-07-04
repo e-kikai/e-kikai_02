@@ -6,11 +6,9 @@ e-kikaiの問い合せフォームから、
 問い合わせ先に、問い合わせメールを送信しました。
 回答をしばらくお待ちください。
 
-＜問い合わせ機械＞
-管理番号 : <%= @machine.no %>
-<%= @machine.name %> <%= @machine.maker %> <%= @machine.model %>
-<%= @machine.company.name %>
-http://www.e-kikai.com/<%= @machine.company.subdomain %>
+＜問い合わせ先＞
+<%= @company.name %>
+http://www.e-kikai.com/<%= @company.subdomain %>
 
 ＜問い合わせ内容＞
 <%= @contact.content %>

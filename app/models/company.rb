@@ -43,6 +43,10 @@ class Company < ActiveRecord::Base
     name.gsub(/(株式|有限|合.)会社/, '')
   end
 
+  def zip_shaping
+    /^([0-9]{3}).*([0-9]{4})$/ =~ zip ? "#{$1}-#{$2}" : zip
+  end
+
   def self.crawl
     where.not(machinelife_id: nil).each do |c|
       # マシンライフからJSONデータを取得

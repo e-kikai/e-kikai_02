@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title = content_for?(:page_title)? "#{yield(:page_title)} - #{@company.name}" : "#{@company.name} e-kikai Nerwork"
+
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    
+    = render "analytics"
+  
+  body.company
+    strong.headcopy 中古機械のスペシャリスト #{@company.name} #{@company.addr1}
+    header.navbar.navbar-default.container-fluid role="navigation"
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          h1 = link_to @company.name, "/#{@company.subdomain}", class: 'navbar-brand'
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li = link_to 'トップページ', "/#{@company.subdomain}"
+            li = link_to "在庫機械一覧", search_path(company_id_eq: @company.id)
+            li = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank"
+            li = link_to '問い合わせ',   "/#{@company.subdomain}/contact"
+    .container
+      = breadcrumbs autoroot: false, style: :bootstrap, semantic: true
+
+      - if notice.present?
+        .alert.alert-success = notice
+      - if alert.present?
+        .alert.alert-danger
+          span.glyphicon.glyphicon-exclamation-sign
+          =< alert
+
+    = yield
+    
+    = render "trackingcode"
+    
+    footer.container-fluid
+      div Copyright &copy; #{Time.now.year} #{@company.name}, All Rights reserved.
+      div
+        | Powerd by 
+        = link_to "e-kikai Network.", root_path

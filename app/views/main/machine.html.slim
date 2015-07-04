@@ -77,8 +77,8 @@
               div = "#{@machine.addr1} #{@machine.addr2} #{@machine.addr3}" if @machine.addr3.present?
               
               - if @machine.addr1 && @machine.addr2 && @machine.addr3
-                = link_to "MAP", "https://www.google.co.jp/maps/place/#{@machine.addr1}#{@machine.addr2}#{@machine.addr3}",
-                target: "_blank"
+                div = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@machine.addr1}#{@machine.addr2}#{@machine.addr3}",
+                target: "_blank", class:"accessmap"
           tr
             th 試運転
             td = @machine.commission ? '可' : "-"
@@ -98,3 +98,5 @@
     - elsif @machine.images.present?
       - @machine.images.each do |i|
         = link_to (lazy_image_tag i.img.url, width:"100%"), i.img.url, target:"_blank"
+    - else
+      = image_tag "/images/nopicture.gif", width:"100%"

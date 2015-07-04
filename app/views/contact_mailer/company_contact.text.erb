@@ -1,4 +1,4 @@
-<%= @machine.company.name %> 様
+<%= @company.name %> 様
 
 e-kikaiの問い合せフォームから、
 問い合わせがありました。
@@ -9,9 +9,7 @@ e-kikaiの問い合せフォームから、
 メールアドレス : <%= @contact.mail %>
 TEL : <%= @contact.tel %>
 
-＜問い合わせ機械＞
-管理番号 : <%= @machine.no %>
-<%= @machine.name %> <%= @machine.maker %> <%= @machine.model %>
+会社への問い合わせ
 
 ＜問い合わせ内容＞
 <%= @contact.content %>

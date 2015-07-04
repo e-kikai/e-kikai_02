@@ -73,7 +73,7 @@ class MainController < ApplicationController
 
       redirect_to contact_fin_path, notice: '問い合わせを送信しました'
     rescue => e
-      flush.now[:alert] = e.massages
+      flash.now[:alert] = e.message
       render :action => :contact
     end
   end

@@ -28,7 +28,7 @@
                 - elsif m.images.present?
                   = link_to (lazy_image_tag m.images.first.img.thumb('240x180').url), machine_path(m.id)
                 - else
-                  = link_to (lazy_image_tag "/images/nopicture.gif"), machine_path(m.id)
+                  = link_to (image_tag "/images/nopicture.gif"), machine_path(m.id)
             .media-body style="position:relative;"
               h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", machine_path(m.id)
               p.machine-spec.hidden-xs.hidden-sm = m.spec.to_s.truncate(200)

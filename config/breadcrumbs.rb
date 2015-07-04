@@ -71,15 +71,21 @@ crumb :companies do |c|
   parent :root
 end
 
-crumb :company_show do |c|
-  link "#{c.name} 会社概要", company_path(c.id)
-  parent :companies
-end
-
 crumb :help do |title|
   link title
   parent :root
 end
+
+### 会社情報 ###
+crumb :company_show do |c|
+  link "#{c.name}", "/#{c.subdomain}"
+end
+
+crumb :company_help do |c, title|
+  link   title
+  parent :company_show, c
+end
+
 
 ### 管理者画面 ###
 crumb :member_root do

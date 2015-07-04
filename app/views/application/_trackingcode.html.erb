@@ -1,0 +1,19 @@
+<% if Rails.env.production? %>
+  <% ### Clciky ### %>
+  <a title="Web Analytics" href="http://clicky.com/100794721"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+  <script src="//static.getclicky.com/js" type="text/javascript"></script>
+  <script type="text/javascript">try{ clicky.init(100794721); }catch(e){}</script>
+  <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100794721ns.gif" /></p></noscript>
+
+  <% ### luckyorange ### %>
+  <script type='text/javascript'>
+  window.__wtw_lucky_site_id = 32743;
+  (function() {
+    var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+    wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+  })();
+  </script>
+<% else %>
+tracking code.
+<% end %>

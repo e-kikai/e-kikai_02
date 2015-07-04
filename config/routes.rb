@@ -69,8 +69,6 @@ Rails.application.routes.draw do
   get  "about",           to: "main#about",         as: "about"
   get  "sitemap",         to: "main#sitemap",       as: "sitemap"
 
-  resources :companies, :only => [:index, :show]
-
   namespace :member do
     root to: "main#index"
     # get "machines", to: "main#machines"
@@ -81,9 +79,11 @@ Rails.application.routes.draw do
     resources :machines, :except => [:show]
   end
 
-  get  ":subdomain",                    to: "companies#show",          as: "member_site"
-  get  ":subdomain/contact",            to: "companies#contact",       as: "member_site_contact"
-  post ":subdomain/contactcontact",     to: "companies#contact_create"
-  get  ":subdomain/contactcontact_fin", to: "companies#contact_fin"
+  # 会社情報
+  resources :companies, :only => [:index]
+  get  ":subdomain",             to: "companies#show",          as: "member_site"
+  get  ":subdomain/contact",     to: "companies#contact",       as: "member_site_contact"
+  post ":subdomain/contact",     to: "companies#contact_create"
+  get  ":subdomain/contact_fin", to: "companies#contact_fin",   as: "member_site_contact_fin"
 
 end

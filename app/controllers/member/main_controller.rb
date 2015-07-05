@@ -1,5 +1,5 @@
 class Member::MainController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_company_user!
   before_action :get_company
 
   ### 会員ページトップページ ###
@@ -26,7 +26,7 @@ class Member::MainController < ApplicationController
   private
 
   def get_company
-    @company = current_user.company
+    @company = current_company_user.company
   end
 
   def company_param

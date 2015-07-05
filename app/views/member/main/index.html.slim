@@ -18,5 +18,5 @@
           | マシンライフ 会員ページ
           br
           | (在庫管理、会社情報変更)
-        = link_to "パスワード変更", edit_user_password_path, class:"list-group-item"
+        / = link_to "パスワード変更", edit_company_user_password_path(current_company_user.id), class:"list-group-item"
         = link_to "ログアウト", destroy_user_session_path, :method => :delete, class:"list-group-item"

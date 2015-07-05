@@ -137,6 +137,17 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'CompanyUser' do
+    weight 650
+    navigation_icon 'icon-user'
+    edit do
+      field :account
+      field :password
+      field :company
+      # field :email
+    end
+  end
+
   config.model 'Contacts' do
     weight 800
     navigation_icon 'icon-envelope'

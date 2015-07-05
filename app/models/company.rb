@@ -28,12 +28,16 @@ class Company < ActiveRecord::Base
   require 'open-uri'
 
   serialize :machinelife_images
+  serialize :infos
+  serialize :offices
 
   has_many :machines
   has_many :users
 
   has_many :images, :as => :parent
   has_many :contacts
+
+  has_many :company_users
 
   accepts_nested_attributes_for :images
 

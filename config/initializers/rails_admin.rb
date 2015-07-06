@@ -30,7 +30,7 @@ RailsAdmin.config do |config|
     "Clicky"                      => "https://clicky.com/user/",
     "Lucky Orange"                => "http://www.luckyorange.com/v3/dash.php?s=1&r=32743#/dashboard",
   }
-  config.model 'Machines' do
+  config.model 'Machine' do
     weight 500
     object_label_method :custome_name_method
     edit do
@@ -103,7 +103,7 @@ RailsAdmin.config do |config|
     "#{self.large_genre.name} > #{self.middle_genre.name} > #{self.name}"
   end
 
-  config.model 'Companies' do
+  config.model 'Company' do
     weight 600
     navigation_icon 'icon-home'
 
@@ -123,6 +123,8 @@ RailsAdmin.config do |config|
       field :machinelife_id
       field :machinelife_images
       field :subdomain
+      field :infos
+      field :offices
     end
   end
 
@@ -148,7 +150,7 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.model 'Contacts' do
+  config.model 'Contact' do
     weight 800
     navigation_icon 'icon-envelope'
   end

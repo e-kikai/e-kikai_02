@@ -58,6 +58,10 @@ class Company < ActiveRecord::Base
       data  = ActiveSupport::JSON.decode json rescue raise json
       raise "マシンライフからデータを取得できませんでした" unless data.include?("id")
 
+      # 画像配列整形
+      imgs = (data["imgs"].kind_of? Hash) ? data["imgs"].values : Array(data["imgs"])
+      imgs.unshift(data["top_img"]).reject!(&:blank?)
+
       # データの整形
       c.update({
         name:           data["company"],
@@ -75,21 +79,22 @@ class Company < ActiveRecord::Base
         addr2:          data["addr2"],
         addr3:          data["addr3"],
         website:        data["website"],
+        infos:          data["infos"],
+        offices:        data["offices"],
+        machinelife_images: imgs,
       })
-
-      data["imgs"].unshift(data["top_img"]).reject!(&:blank?)
-
-      data["imgs"].each do |i|
-        if image = c.images.find_by(img_name: i)
-          content_length = open("http://www.zenkiren.net/media/company/#{i}").meta["content-length"].to_i
-          break if content_length == image.img.size
-        else
-          image = c.images.build
-        end
-
-        image.img_url = "http://www.zenkiren.net/media/company/#{i}"
-        image.save
-      end
+      
+      # imgs.each do |i|
+      #   if image = c.images.find_by(img_name: i)
+      #     content_length = open("http://www.zenkiren.net/media/company/#{i}").meta["content-length"].to_i
+      #     break if content_length == image.img.size
+      #   else
+      #     image = c.images.build
+      #   end
+      #
+      #   image.img_url = "http://www.zenkiren.net/media/company/#{i}"
+      #   image.save
+      # end
     end
   end
 end

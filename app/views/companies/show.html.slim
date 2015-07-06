@@ -1,11 +1,16 @@
-- if @company.images.present?
+- if @company[:machinelife_images].present?
+  .jumbotron style="background-image:url(http://www.zenkiren.net/media/company/#{@company.machinelife_images.first});"
+- elsif @company.images.present?
   .jumbotron style="background-image:url(#{@company.images.first.img.url});"
   
 .container
   .row
     .col
       .col-lg-6.col-md-6.col-sm-12
-        - if @company.images.present?
+        - if @company[:machinelife_images].present?
+          - @company[:machinelife_images].each do |i|
+            = link_to (lazy_image_tag "http://www.zenkiren.net/media/company/#{i}", width: "100%"), "http://www.zenkiren.net/media/company/#{i}", target:"_blank"
+        - elsif @company.images.present?
           - @company.images.each do |i|
             = link_to (image_tag i.img.url, width:"100%"), i.img.url, target:"_blank", class: "company-img"
         - else

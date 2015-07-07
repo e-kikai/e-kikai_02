@@ -2,35 +2,6 @@
   .panel.panel-default
     .panel-heading ジャンルで検索
     .panel-body.hidden-sm.hidden-xs
-      / - le = (@genres.length/2).floor
-      / - arr = [0,2,6,100]
-      / - 3.times.each do |a|
-      /   .col-lg-4.col-md-4
-      /   
-      /     / 大ジャンル一覧
-      /     
-      /     - @genres.each_with_index do |l, i|
-      /       / - if (i / le).floor == a
-      /       / - if [0,2,6].include? i
-      /       / - if (arr[a]...arr[a+1]) === i
-      /       - if i % 3 == a
-      /         / = link_to l.name, large_genre_path(id: l.id)
-      /         .panel.panel-default
-      /           .panel-heading = l.name
-      /         
-      /           / 中ジャンル一覧
-      /           .list-group
-      /             - l.middle_genres.each_with_index do |m, j|
-      /               - next if m.machines.size == 0
-      /               = link_to m.name, search_path(middle_genre_id_eq: m.id), class:"list-group-item"
-      /                 
-      /                 / / ジャンル一覧
-      /                 / - m.genres.each_with_index do |g, k|
-      /                 /   - next if g.machines.size == 0
-      /                 /   
-      /                 /   = link_to search_path(genre_id_eq: g.id), class:"list-group-item" do
-      /                 /     = g.name
-      /                     / span.badge = g.machines.size
 
       - arr2 = {0 => 0, 1 => 0, 2 => 0}
       - gs   = [[], [], []]
@@ -50,12 +21,12 @@
               .list-group
                 - l.middle_genres.each_with_index do |m, j|
                   - next if @middle_genre_counts[m.id] == 0
-                  = link_to m.name, search_path(middle_genre_id_eq: m.id), class:"list-group-item"
+                  = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
             
     .list-group.hidden-lg.hidden-md
       / 大ジャンル一覧
       - @genres.each_with_index do |l, i|
-        = link_to l.name, large_genre_path(l.id), class:"list-group-item"
+        = link_to l.name, "/search?large_genre_path=#{l.id}", class:"list-group-item"
 
 .col-lg-3.col-md-3.col-xs-12.col-sm-12
   .panel.panel-default
@@ -67,7 +38,7 @@
 /   .panel.panel-default
 /     .panel-heading キーワードで検索
 /     .panel-body
-/       = form_tag search_path, method: "GET" do
+/       = form_tag "/search", method: "GET" do
 /         .input-group
 /           = text_field_tag :keyword, nil, class: 'form-control', placeholder: "メーカー型式etc"
 /           span.input-group-btn

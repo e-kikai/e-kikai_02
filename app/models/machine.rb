@@ -32,11 +32,12 @@ class Machine < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :genre
+  belongs_to :image
   has_one    :middle_genre, :through => :genre
   has_one    :large_genre,  :through => :middle_genre
   has_many   :images, :as => :parent
   has_many   :contacts
-  scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre, :images).references(:genre, :company, :middle_genre, :large_genre, :images) }
+  scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre, :image).references(:genre, :company, :middle_genre, :large_genre, :image) }
 
   enum commission: {不可:'0' ,可:'1'}
 

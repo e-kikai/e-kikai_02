@@ -1,7 +1,7 @@
 - content_for :page_title, "#{@title} 検索結果"
 - breadcrumb  :search, "#{@title}", @breads
 
-= form_tag search_path, method: "GET" do
+= form_tag "/search", method: "GET" do
   - @params.each do |key, p|
     - next if key == "addr1_eq"
     = hidden_field_tag key, p
@@ -23,14 +23,15 @@
           .list-group-item
             .media-left.hidden-sm.hidden-xs
               .machine-image.text-center
-                - if m[:machinelife_images].present?
-                  = link_to (lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", style: "max-width:240px;max-height:180px;"), machine_path(m.id)
-                - elsif m.images.present?
-                  = link_to (lazy_image_tag m.images.first.img.thumb('240x180').url), machine_path(m.id)
-                - else
-                  = link_to (image_tag "/images/nopicture.gif"), machine_path(m.id)
+                = link_to "/machine/#{m.id}" do
+                  - if m[:machinelife_images].present?
+                    = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}"
+                  - elsif m.image.present?
+                    = lazy_image_tag m.images.first.img.thumb('240x180').url
+                  - else
+                    = image_tag "/images/nopicture.gif"
             .media-body style="position:relative;"
-              h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", machine_path(m.id)
+              h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/machine/#{m.id}"
               p.machine-spec.hidden-xs.hidden-sm = m.spec.to_s.truncate(200)
               .machine-other
                 =< "#{m.year}年式" if m.year.to_i > 0
@@ -38,7 +39,7 @@
                 =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
                 
             .machine-buttons.media-right
-              = link_to contact_path(m.id), class:"btn btn-lg btn-primary" do
+              = link_to "/contact/#{m.id}", class:"btn btn-lg btn-primary" do
                 span.glyphicon.glyphicon-envelope
                 .visible-md-inline.visible-lg-inline
                   =< "問い合わせ"

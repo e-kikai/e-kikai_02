@@ -9,7 +9,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     
-    = render "analytics"
+    / = render "analytics"
   
   body
     header.navbar.navbar-default.container-fluid role="navigation"
@@ -20,15 +20,15 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          / = link_to 'e-kikai お探しの中古機械を簡単検索', root_path, class: 'navbar-brand'
-          = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), root_path, class: 'navbar-brand'
+          / = link_to 'e-kikai お探しの中古機械を簡単検索', "/", class: 'navbar-brand'
+          = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), "/", class: 'navbar-brand'
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
-            li = link_to 'HOME',            root_path
-            li = link_to 'e-kikaiについて', about_path
+            li = link_to 'HOME',            "/"
+            li = link_to 'e-kikaiについて', "/about"
             / li = link_to 'お問い合わせ',    "/contact"
-            li = link_to 'サイトマップ',    sitemap_path
-            li = link_to '管理者画面',      new_company_user_session_path
+            li = link_to 'サイトマップ',    "/sitemap"
+            li = link_to '管理者画面',      "/company_user/sign_in"
             / - if user_signed_in?
             /   li = link_to "会員ページ", member_root_path
             / - else
@@ -47,6 +47,6 @@ html
         / h1.hidden-xs.hidden-sm = yield(:page_title)
       = yield
     
-    = render "trackingcode"
+    / = render "trackingcode"
     
     footer.container-fluid Copyright &copy; #{Time.now.year} e-kikai Network, All Rights reserved.

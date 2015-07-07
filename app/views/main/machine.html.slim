@@ -23,22 +23,22 @@
                   - if m.id == @machine.id
                     .list-group-item.list-group-item-success = "#{no}) #{m.maker.presence || "(不明)"} #{m.model}"
                   - else
-                    = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", machine_path(m.id), class: "list-group-item"
+                    = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", "/machine/#{m.id}", class: "list-group-item"
               
   .col-lg-4.col-md-4.col-sm-5.col-xs-12
     ul.pager style="margin:0;"
       - mlist.each.with_index do |m, i|
         - if m.id == @machine.id
           - if i > 0
-            li.previous = link_to machine_path(mlist[i-1].id) do
+            li.previous = link_to "/machine/#{mlist[i-1].id}" do
               span.glyphicon.glyphicon-backward
               =< "前の機械へ" 
           - if i+1 < mlist.length
-            li.next = link_to machine_path(mlist[i+1].id) do
+            li.next = link_to "/machine/#{mlist[i+1].id}" do
               => "次の機械へ" 
               span.glyphicon.glyphicon-forward
     .row
-      = link_to contact_path(@machine.id), class:"btn btn-lg btn-primary pull-right", style:"margin:8px;"do
+      = link_to "/contact/#{@machine.id}", class:"btn btn-lg btn-primary pull-right", style:"margin:8px;"do
         span.glyphicon.glyphicon-envelope style="margin-bottom:8px;"
         =< "問い合わせはこちら"
     

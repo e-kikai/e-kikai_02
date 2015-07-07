@@ -15,8 +15,13 @@ class MainController < ApplicationController
   def search
     @params   = search_params
     @machines = Machine.search_list(@params)
+
     @names    = Machine.search_names(@params)
-    @addr1s   = Machine.search_addr(@params)
+    # @addr1s   = Machine.search_addr(@params)
+
+    # @names = @machines.map(&:name).uniq
+    @addr1s = @machines.map(&:addr1).uniq
+
     # @addr1s = ["2222"]
 
     # 見出し

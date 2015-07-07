@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705102600) do
+ActiveRecord::Schema.define(version: 20150707105950) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -37,7 +37,12 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.text     "machinelife_images"
     t.text     "infos"
     t.text     "offices"
+    t.integer  "image_id"
   end
+
+  add_index "companies", ["deleted_at"], name: "index_companies_on_deleted_at"
+  add_index "companies", ["machinelife_id"], name: "index_companies_on_machinelife_id"
+  add_index "companies", ["subdomain"], name: "index_companies_on_subdomain"
 
   create_table "company_users", force: :cascade do |t|
     t.string   "account",                default: "", null: false
@@ -54,9 +59,11 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.datetime "updated_at",                          null: false
     t.integer  "company_id"
     t.string   "email",                  default: "", null: false
+    t.datetime "deleted_at"
   end
 
   add_index "company_users", ["account"], name: "index_company_users_on_account", unique: true
+  add_index "company_users", ["deleted_at"], name: "index_company_users_on_deleted_at"
   add_index "company_users", ["reset_password_token"], name: "index_company_users_on_reset_password_token", unique: true
 
   create_table "contacts", force: :cascade do |t|
@@ -73,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150705102600) do
   end
 
   add_index "contacts", ["company_id"], name: "index_contacts_on_company_id"
+  add_index "contacts", ["deleted_at"], name: "index_contacts_on_deleted_at"
   add_index "contacts", ["machine_id"], name: "index_contacts_on_machine_id"
 
   create_table "genres", force: :cascade do |t|
@@ -87,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.integer  "machinelife_id"
   end
 
+  add_index "genres", ["deleted_at"], name: "index_genres_on_deleted_at"
   add_index "genres", ["middle_genre_id"], name: "index_genres_on_middle_genre_id"
 
   create_table "images", force: :cascade do |t|
@@ -107,6 +116,8 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.datetime "updated_at",     null: false
     t.integer  "machinelife_id"
   end
+
+  add_index "large_genres", ["deleted_at"], name: "index_large_genres_on_deleted_at"
 
   create_table "machines", force: :cascade do |t|
     t.string   "no"
@@ -130,6 +141,7 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.datetime "updated_at",         null: false
     t.integer  "machinelife_id"
     t.text     "machinelife_images"
+    t.integer  "image_id"
   end
 
   add_index "machines", ["addr1"], name: "index_machines_on_addr1"
@@ -137,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150705102600) do
   add_index "machines", ["created_at"], name: "index_machines_on_created_at"
   add_index "machines", ["deleted_at"], name: "index_machines_on_deleted_at"
   add_index "machines", ["genre_id"], name: "index_machines_on_genre_id"
+  add_index "machines", ["machinelife_id"], name: "index_machines_on_machinelife_id"
 
   create_table "middle_genres", force: :cascade do |t|
     t.string   "name",           null: false
@@ -148,6 +161,7 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.integer  "machinelife_id"
   end
 
+  add_index "middle_genres", ["deleted_at"], name: "index_middle_genres_on_deleted_at"
   add_index "middle_genres", ["large_genre_id"], name: "index_middle_genres_on_large_genre_id"
 
   create_table "users", force: :cascade do |t|
@@ -168,6 +182,7 @@ ActiveRecord::Schema.define(version: 20150705102600) do
     t.datetime "updated_at"
   end
 
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

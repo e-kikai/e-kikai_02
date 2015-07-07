@@ -14,13 +14,15 @@ table.search-table td {
   height: 90px;
 }
 
-.machine-img a img {
-  margin-bottom: 8px;
-}
-
 .machine-image {
   width: 240px;
   height: 180px;
+
+  a img {
+    margin-bottom: 8px;
+    max-width: 240px;
+    max-height: 180px;
+  }
 }
 
 .machine-buttons.media-right {

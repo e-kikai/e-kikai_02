@@ -17,19 +17,19 @@
         .col-lg-3.col-md-3
           - ls.each do |l|
             .panel.panel-default
-              .panel-heading = link_to l.name, large_genre_path(l.id)
+              .panel-heading = link_to l.name, "/large_genre/#{l.id}"
             
               / 中ジャンル一覧
               .list-group
                 - l.middle_genres.each_with_index do |m, j|
                   - next if @middle_genre_counts[m.id] == 0
-                  li = link_to m.name, search_path(middle_genre_id_eq: m.id)
+                  li = link_to m.name, "/search?middle_genre_id_eq=#{m.id}"
                   
                   / ジャンル一覧
                   ul
                     - m.genres.each_with_index do |g, k|
                       - next if @genre_counts[g.id] == 0
-                      li = link_to g.name, search_path(genre_id_eq: g.id)
+                      li = link_to g.name, "/search?genre_id_eq=#{g.id}"
     
 .col-lg-12.col-md-12.col-xs-12.col-sm-12
   .panel.panel-default

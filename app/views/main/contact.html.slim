@@ -1,69 +1,70 @@
 - content_for :page_title, "問い合わせフォーム"
 - breadcrumb  :contact, @machine
 
-.col-lg-offset-2.col-lg-8
-  table.table
-    tr
-      th 問い合わせ機械
-      td = link_to "#{@machine.name} #{@machine.maker} #{@machine.model}", machine_path(@machine.id)
-    tr
-      th 問い合わせ先
-      td = link_to @machine.company.name, "/#{@machine.company.subdomain}"
+.row
+  .col-lg-offset-2.col-lg-8
+    table.table
+      tr
+        th 問い合わせ機械
+        td = link_to "#{@machine.name} #{@machine.maker} #{@machine.model}", "/machine/#{@machine.id}"
+      tr
+        th 問い合わせ先
+        td = link_to @machine.company.name, "/#{@machine.company.subdomain}"
 
-  .panel.panel-default
-    .panel-heading
-      span.glyphicon.glyphicon-phone-alt
-      =< "電話でお問い合わせ"
-    .panel-body
-      h2 お問い合わせTEL : #{@machine.company.contact_tel}
-  
-  .panel.panel-default
-    .panel-heading
-      span.glyphicon.glyphicon-envelope
-      =< "フォームからお問い合わせ"
-    .panel-body
-      = form_for(@contact, class: 'form-horizontal', role: 'form', url: {:action => 'contact_create'})  do |f|
-        - if @contact.errors.any?
-          .alert.alert-danger
-            ul
-              - @contact.errors.full_messages.each do |msg|
-                li = msg
-        
-        = f.hidden_field :machine_id
-        = f.hidden_field :company_id
+    .panel.panel-default
+      .panel-heading
+        span.glyphicon.glyphicon-phone-alt
+        =< "電話でお問い合わせ"
+      .panel-body
+        h2 お問い合わせTEL : #{@machine.company.contact_tel}
+    
+    .panel.panel-default
+      .panel-heading
+        span.glyphicon.glyphicon-envelope
+        =< "フォームからお問い合わせ"
+      .panel-body
+        = form_for(@contact, class: 'form-horizontal', role: 'form', url: {:action => 'contact_create'})  do |f|
+          - if @contact.errors.any?
+            .alert.alert-danger
+              ul
+                - @contact.errors.full_messages.each do |msg|
+                  li = msg
+          
+          = f.hidden_field :machine_id
+          = f.hidden_field :company_id
 
-        .form-group
-          = f.label :name
-          .input-group
-            span.input-group-addon
-              span.glyphicon.glyphicon-home
-            = f.text_field :name, class: 'form-control', placeholder: "会社名(個人の場合は個人名)(必須)"
+          .form-group
+            = f.label :name
+            .input-group
+              span.input-group-addon
+                span.glyphicon.glyphicon-home
+              = f.text_field :name, class: 'form-control', placeholder: "会社名(個人の場合は個人名)(必須)"
 
-        .form-group
-          = f.label :mail
-          .input-group
-            span.input-group-addon
-              span.glyphicon.glyphicon-envelope
-            = f.text_field :mail, class: 'form-control', placeholder: "メールアドレス(必須)"
+          .form-group
+            = f.label :mail
+            .input-group
+              span.input-group-addon
+                span.glyphicon.glyphicon-envelope
+              = f.text_field :mail, class: 'form-control', placeholder: "メールアドレス(必須)"
 
-        .form-group
-          = f.label :officer
-          .input-group
-            span.input-group-addon
-              span.glyphicon.glyphicon-user
-            = f.text_field :officer, class: 'form-control', placeholder: "担当者"
+          .form-group
+            = f.label :officer
+            .input-group
+              span.input-group-addon
+                span.glyphicon.glyphicon-user
+              = f.text_field :officer, class: 'form-control', placeholder: "担当者"
 
-        .form-group
-          = f.label :tel
-          .input-group
-            span.input-group-addon
-              span.glyphicon.glyphicon-phone-alt
-            = f.text_field :tel, class: 'form-control', placeholder: "電話番号(電話でのご連絡を希望の場合は必須)"
+          .form-group
+            = f.label :tel
+            .input-group
+              span.input-group-addon
+                span.glyphicon.glyphicon-phone-alt
+              = f.text_field :tel, class: 'form-control', placeholder: "電話番号(電話でのご連絡を希望の場合は必須)"
 
-        .form-group
-          = f.label :content
-          = f.text_area :content, class: 'form-control', style:"height:100px;"
+          .form-group
+            = f.label :content
+            = f.text_area :content, class: 'form-control', style:"height:100px;"
 
-        = f.button type:"submit", class: 'btn btn-primary', data: {confirm: "お問い合わせを送信します。よろしいですか。", disable_with: '送信中・・・' } do
-          span.glyphicon.glyphicon-send
-          =< "問い合わせを送信する"
+          = f.button type:"submit", class: 'btn btn-primary', data: {confirm: "お問い合わせを送信します。よろしいですか。", disable_with: '送信中・・・' } do
+            span.glyphicon.glyphicon-send
+            =< "問い合わせを送信する"

@@ -1,22 +1,23 @@
 - content_for :page_title, "#{@company.name} 管理者画面"
 - breadcrumb  :member_root
 
-.col-lg-3
-  .panel.panel-default.list-group
-    .panel-heading 管理者メニュー
-    .panel-body
-      
-        / = link_to member_machines_path, class:"list-group-item" do
-        /   span 在庫管理
-        /   span.badge = @company.machines.size
-        = link_to "問い合わせ一覧", member_contacts_path, class:"list-group-item"
+.row
+  .col-lg-3
+    .panel.panel-default.list-group
+      .panel-heading 管理者メニュー
+      .panel-body
+        
+          / = link_to member_machines_path, class:"list-group-item" do
+          /   span 在庫管理
+          /   span.badge = @company.machines.size
+          = link_to "問い合わせ一覧", "/member/contacts", class:"list-group-item"
 
-        / = link_to "会社情報変更", member_company_path, class:"list-group-item"
-        / = link_to "e-kikaiトップページに戻る", root_path, class:"list-group-item"
+          / = link_to "会社情報変更", member_company_path, class:"list-group-item"
+          / = link_to "e-kikaiトップページに戻る", root_path, class:"list-group-item"
 
-        = link_to "http://www.zenkiren.net/admin/", target: "_blank", class:"list-group-item" do
-          | マシンライフ 会員ページ
-          br
-          | (在庫管理、会社情報変更)
-        / = link_to "パスワード変更", edit_company_user_password_path(current_company_user.id), class:"list-group-item"
-        = link_to "ログアウト", destroy_user_session_path, :method => :delete, class:"list-group-item"
+          = link_to "http://www.zenkiren.net/admin/", target: "_blank", class:"list-group-item" do
+            | マシンライフ 会員ページ
+            br
+            | (在庫管理、会社情報変更)
+          / = link_to "パスワード変更", edit_company_user_password_path(current_company_user.id), class:"list-group-item"
+          = link_to "ログアウト", "/company_users/sign_out", :method => :delete, class:"list-group-item"

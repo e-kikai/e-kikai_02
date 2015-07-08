@@ -25,7 +25,7 @@ html
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li = link_to 'トップページ', "/#{@company.subdomain}"
-            li = link_to "在庫機械一覧", search_path(company_id_eq: @company.id)
+            li = link_to "在庫機械一覧", "/search?company_id_eq=#{@company.id}"
             li = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank"
             li = link_to '問い合わせ',   "/#{@company.subdomain}/contact"
     .container
@@ -44,6 +44,4 @@ html
     
     footer.container-fluid
       div Copyright &copy; #{Time.now.year} #{@company.name}, All Rights reserved.
-      div
-        | Powerd by 
-        = link_to "e-kikai Network.", root_path
+      div Powerd by #{link_to "e-kikai Network.", "/"}

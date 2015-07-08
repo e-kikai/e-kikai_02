@@ -18,65 +18,32 @@
       h3.panel-title = n
       
     .list-group
-      - @machines.each do |m|
-        - if m.name == n
-          .list-group-item
-            .media-left.hidden-sm.hidden-xs
-              .machine-image.text-center
-                = link_to "/machine/#{m.id}" do
-                  - if m[:machinelife_images].present?
-                    = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}"
-                  - elsif m.image.present?
-                    = lazy_image_tag m.images.first.img.thumb('240x180').url
-                  - else
-                    = image_tag "/images/nopicture.gif"
-            .media-body style="position:relative;"
-              h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/machine/#{m.id}"
-              p.machine-spec.hidden-xs.hidden-sm = m.spec.to_s.truncate(200)
-              .machine-other
-                =< "#{m.year}年式" if m.year.to_i > 0
-                =< m.addr1
-                =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
-                
-            .machine-buttons.media-right
-              = link_to "/contact/#{m.id}", class:"btn btn-lg btn-primary" do
-                span.glyphicon.glyphicon-envelope
-                .visible-md-inline.visible-lg-inline
-                  =< "問い合わせ"
-                .visible-sm-inline.visible-xs-inline
-                  =< "問合"
+      / - @machines.each do |m|
+        / - if m.name == n
+      - @nmachines[n].each do |m|
+        .list-group-item
+          .media-left.hidden-sm.hidden-xs
+            .machine-image.text-center
+              = link_to "/machine/#{m.id}" do
+                - if m[:machinelife_images].present?
+                  = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}"
+                - elsif m.image.present?
+                  = lazy_image_tag m.images.first.img.thumb('240x180').url
+                - else
+                  = image_tag "/images/nopicture.gif"
+          .media-body style="position:relative;"
+            h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/machine/#{m.id}"
+            p.machine-spec.hidden-xs.hidden-sm = m.spec
+            .machine-other
+              =< "#{m.year}年式" if m.year.to_i > 0
+              =< m.addr1
+              =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
+              
+          .machine-buttons.media-right
+            = link_to "/contact/#{m.id}", class:"btn btn-lg btn-primary" do
+              span.glyphicon.glyphicon-envelope
+              .visible-md-inline.visible-lg-inline
+                =< "問い合わせ"
+              .visible-sm-inline.visible-xs-inline
+                =< "問合"
                   
-                  
-/ table.table-striped.table-hover.table-bordered.table-condensed.search-table.col-lg-12
-/   thead
-/     tr
-/      th.img      画像
-/      th.name     機械名
-/      th.maker    メーカー
-/      th.model    型式
-/      th.spec.hidden-sm.hidden-xs     仕様
-/      th.year     年式
-/      th.location.hidden-sm.hidden-xs 在庫場所
-/      th.company  会社情報
-/      th.contact  問い合わせ
-/   tbody
-/     - @machines.each do |m|
-/       tr
-/         td.img
-/           - if m.images.present?
-/             = link_to (image_tag m.images.first.img.thumb('120x90').url), machine_path(m.id)
-/           - else
-/             | NO IMAGE
-/         td.name     = link_to m.name, machine_path(m.id)
-/         td.maker    = m.maker
-/         td.model    = m.model
-/         td.spec.hidden-sm.hidden-xs     = m.spec.to_s.truncate(100)
-/         td.year     = m.year ? m.year : ''
-/         td.location.hidden-sm.hidden-xs = m.location
-/         td.company
-/           = link_to company_path(m.company_id) do
-/             span.visible-sm-inline.visible-xs-inline = m.company.name.gsub(/(株式|有限|合.)会社/, '')
-/             span.visible-lg-inline.visible-md-inline = m.company.name
-/         td.contact  = link_to contact_path(m.id), class:"btn btn-sm btn-primary" do
-/           span.glyphicon.glyphicon-envelope
-/           =< "問い合わせ"

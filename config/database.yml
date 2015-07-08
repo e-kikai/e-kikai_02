@@ -25,9 +25,9 @@ staging:
   # database: db/staging.sqlite3
   # database: ../../shared/staging.sqlite3
 
-  adapter: postgresql
+  adapter:  postgresql
   database: e-kikai_staging_01
-  host: 192.168.24.51
+  host:     192.168.24.51
   username: postgres
   password: postgres
 
@@ -36,8 +36,8 @@ production:
   # database: db/production.sqlite3
   # database: ../../shared/production.sqlite3
 
-  adapter: postgresql
+  adapter:  postgresql
   database: e-kikai_production_01
-  host: 192.168.1.10
+  host:     192.168.1.10
   username: postgres
   password: postgres

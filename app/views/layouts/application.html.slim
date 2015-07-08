@@ -9,7 +9,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     
-    / = render "analytics"
+    = render "analytics"
   
   body
     header.navbar.navbar-default.container-fluid role="navigation"
@@ -28,13 +28,13 @@ html
             li = link_to 'e-kikaiについて', "/about"
             / li = link_to 'お問い合わせ',    "/contact"
             li = link_to 'サイトマップ',    "/sitemap"
-            li = link_to '管理者画面',      "/company_user/sign_in"
+            li = link_to '管理者画面',      "/company_users/sign_in"
             / - if user_signed_in?
             /   li = link_to "会員ページ", member_root_path
             / - else
             /   li = link_to "会員ログイン", new_user_session_path
     .container
-      = breadcrumbs style: :bootstrap, semantic: true
+      = raw breadcrumbs style: :bootstrap, semantic: true
 
       - if notice.present?
         .alert.alert-success = notice
@@ -47,6 +47,6 @@ html
         / h1.hidden-xs.hidden-sm = yield(:page_title)
       = yield
     
-    / = render "trackingcode"
+      = render "trackingcode"
     
     footer.container-fluid Copyright &copy; #{Time.now.year} e-kikai Network, All Rights reserved.

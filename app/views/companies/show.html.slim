@@ -47,8 +47,8 @@
                 td = @company.contact_fax
               tr
                 th 在庫
-                td = link_to "在庫機械一覧", search_path(company_id_eq: @company.id)
+                td = link_to "在庫機械一覧", "/search?company_id_eq=#{@company.id}"
               tr
                 th ウェブサイト
                 td = link_to @company.website, @company.website, :target => "_blank" if @company.website.present?
-        = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), root_path
+        = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), "/"

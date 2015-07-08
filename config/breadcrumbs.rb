@@ -25,11 +25,11 @@
 
 # Root crumb
 crumb :root do
-  link "HOME", root_path
+  link "HOME", "/"
 end
 
 crumb :large_genre do |large_genre|
-  link large_genre.name, large_genre_path(id: large_genre.id)
+  link large_genre.name, "/large_genre/#{large_genre.id}"
 end
 
 crumb :search do |title, breads|
@@ -51,23 +51,23 @@ crumb :detail do |m|
   end
 
   if m.middle_genre.present?
-    link m.middle_genre.name, search_url(middle_genre_id_eq: m.middle_genre.id)
+    link m.middle_genre.name, "/search?middle_genre_id_eq=#{m.middle_genre.id}"
   end
 
   if m.genre.present?
-    link m.genre.name, search_url(genre_id_eq: m.genre.id)
+    link m.genre.name, "/search?genre_id_eq=#{m.genre.id}"
   end
-
-  link "#{m.name} #{m.maker} #{m.model}", machine_path(m.id)
+  
+  link "#{m.name} #{m.maker} #{m.model}", "/machine/#{m.id}"
 end
 
 crumb :contact do |m|
-  link "問い合わせフォーム", contact_url(m.id)
+  link "問い合わせフォーム", "/contact/#{m.id}"
   parent :detail, m
 end
 
 crumb :companies do |c|
-  link "会員会社一覧", companies_path
+  link "会員会社一覧", "/companies"
   parent :root
 end
 
@@ -89,11 +89,11 @@ end
 
 ### 管理者画面 ###
 crumb :member_root do
-  link "管理者画面", member_root_path
+  link "管理者画面", "/member/"
   parent :root
 end
 
 crumb :member_contacts do
-  link "問い合わせ一覧", member_contacts_path
+  link "問い合わせ一覧", "/member/contacts"
   parent :member_root
 end

@@ -9,20 +9,19 @@ class MainController < ApplicationController
 
   def large_genre
     @large_genre = LargeGenre.find(params[:id])
+    @middle_genre_counts = @large_genre.middle_genres.group("middle_genres.id").includes(:machines).count('machines.id')
   end
 
   ### 検索結果一覧 ###
   def search
     @params   = search_params
-    @machines = Machine.search_list(@params)
 
-    @names    = Machine.search_names(@params)
+    @machines  = Machine.search_list(@params)
+    @names     = Machine.search_names(@params)
+    @nmachines = @machines.group_by { |m| m.name }
+
     # @addr1s   = Machine.search_addr(@params)
-
-    # @names = @machines.map(&:name).uniq
     @addr1s = @machines.map(&:addr1).uniq
-
-    # @addr1s = ["2222"]
 
     # 見出し
     titles = []
@@ -52,10 +51,11 @@ class MainController < ApplicationController
 
   ### 機械詳細 ###
   def machine
-    @machine  = Machine.find(params[:id])
+    @machine   = Machine.find(params[:id])
 
-    @machines = Machine.search_list(middle_genre_id_eq: @machine.genre.middle_genre.id)
-    @names    = Machine.search_names(middle_genre_id_eq: @machine.genre.middle_genre.id)
+    @machines  = Machine.search_list(middle_genre_id_eq: @machine.genre.middle_genre.id)
+    @names     = Machine.search_names(middle_genre_id_eq: @machine.genre.middle_genre.id)
+    @nmachines = @machines.group_by { |m| m.name }
   end
 
   ### 機械問い合わせ ###

@@ -27,7 +27,7 @@
       .list-group.hidden-lg.hidden-md
         / 大ジャンル一覧
         - @genres.each_with_index do |l, i|
-          = link_to l.name, "/search?large_genre_eq=#{l.id}", class:"list-group-item"
+          = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
 
   .col-lg-3.col-md-3.col-xs-12.col-sm-12
     .panel.panel-default

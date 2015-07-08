@@ -1,22 +1,23 @@
 - content_for :page_title, "管理者画面ログイン"
 - breadcrumb  :help,       "管理者画面ログイン"
 
-.col-lg-offset-4.col-lg-4
-  .panel.panel-default
-    .panel-heading 管理者画面ログインフォーム
-    .panel-body
-      = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
-        fieldset
-          .form-group
-            = f.label :account
-            .form-control = f.text_field :account, autofocus: true
-          .form-group
-            = f.label :password
-            .form-control = f.password_field :password, autocomplete: "off"
-          .form-group
-            = f.check_box :remember_me
-            = f.label :remember_me
-          = f.button type:"submit", class: 'btn btn-primary', data: {disable_with: 'ログイン中・・・' } do
-            span.glyphicon.glyphicon-log-in
-            =< "ログイン"
-    / = render "company_users/shared/links"
+.row
+  .col-lg-offset-4.col-lg-4
+    .panel.panel-default
+      .panel-heading 管理者画面ログインフォーム
+      .panel-body
+        = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
+          fieldset
+            .form-group
+              = f.label :account
+              = f.text_field :account, autofocus: true, class: "form-control"
+            .form-group
+              = f.label :password
+              = f.password_field :password, autocomplete: "off", class: "form-control"
+              .checkbox-inline
+                = f.check_box :remember_me
+                = f.label :remember_me
+            = f.button type:"submit", class: 'btn btn-primary', data: {disable_with: 'ログイン中・・・' } do
+              span.glyphicon.glyphicon-log-in
+              =< "ログイン"
+      / = render "company_users/shared/links"

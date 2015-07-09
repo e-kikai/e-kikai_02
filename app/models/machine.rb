@@ -105,7 +105,8 @@ class Machine < ActiveRecord::Base
             machinelife_images: imgs,
           })
 
-          puts machine[:machinelife_images]
+          # puts machine[:machinelife_images]
+          puts "OK #{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
 
           machinelife_ids.delete(d["id"])
 
@@ -161,8 +162,16 @@ class Machine < ActiveRecord::Base
     histories = []
 
     defalut_genre_id = Genre.find_by(machinelife_id: 390).id
-    trs = {"商品名" => :name, "管理番号" => :no, "型番" => :model, "メーカー名" => :maker,
-      "所在地" => :location, "年式" => :year, "仕様" => :spec, "付属品" => :accessory}
+    trs = {
+      "商品名"     => :name,
+      "管理番号"   => :no,
+      "型番"       => :model,
+      "メーカー名" => :maker,
+      "所在地"     => :location,
+      "年式"       => :year,
+      "仕様"       => :spec,
+      "付属品"     => :accessory
+    }
 
     urls.each do |url|
       puts url
@@ -194,6 +203,23 @@ class Machine < ActiveRecord::Base
             machine.name     = "#{$1}T#{$2}"
           end
 
+          # name, hint = begin
+          #   case machine.name
+          #   when /(.*T).*油圧プレス/
+          #     "#{$1}油圧プレス", "油圧プレス"
+          #   when /(.*T)(パワー)?プレス/
+          #     "#{$1}Tプレス", "電動C型プレス"
+          #   when "シャー"
+          #     "シャーリング", "シャーリング"
+          #   when /立.*フライス/
+          #       "立フライス", "立フライス"
+          #   when /万能.*フライス/
+          #     "万能フライス", "万能フライス"
+          #   else
+          #     machine.name, ""
+          #   end
+          # end
+
           # ジャンル整形
           hint =
             if    /パワープレス/ =~ machine.name then "電動C型プレス"
@@ -218,7 +244,7 @@ class Machine < ActiveRecord::Base
           if machine.location == "日本"
             machine.addr1 = "静岡県"
             machine.addr2 = "浜松市"
-            machine.addr3 = "東区有玉北a町735"
+            machine.addr3 = "東区有玉北町735"
           end
 
           # puts machine.attributes

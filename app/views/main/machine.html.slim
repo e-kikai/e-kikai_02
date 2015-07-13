@@ -1,10 +1,15 @@
-- content_for :page_title, "#{@machine.name} #{@machine.maker} #{@machine.model}"
+- set_meta_tags title:       "#{@machine.name} #{@machine.maker} #{@machine.model}"
+- set_meta_tags keywords:    "#{@machine.name},#{@machine.maker},#{@machine.model},#{@machine.genre.name},#{@machine.middle_genre.name},#{@machine.large_genre.name},#{@machine.addr1},中古機械,e-kikai,Used machinery, Used machine"
+- set_meta_tags description: "#{@machine.name} #{@machine.maker} #{@machine.model}の中古機械情報です"
+
 - breadcrumb  :detail, @machine
 
 .row
   .list-group.col-lg-3.col-md-3.hidden-sm.hidden-xs
     .panel-group#accordion
-      - mlist = []
+      - now_id  = nil
+      - prev_id = nil
+      - next_id = nil
       - @names.each.with_index do |n, i|
         .panel.panel-default
           .panel-heading
@@ -16,27 +21,27 @@
           .panel-collapse.collapse id="collapse_#{i}" class=("in" if n == @machine.name)
             .list-group
               - no = 0
-              - @machines.each do |m|
-                - if m.name == n
-                  - no += 1
-                  - mlist << m
-                  - if m.id == @machine.id
-                    .list-group-item.list-group-item-success = "#{no}) #{m.maker.presence || "(不明)"} #{m.model}"
-                  - else
-                    = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", "/machine/#{m.id}", class: "list-group-item"
-              
+              - @nmachines[n].each do |m|
+                - no += 1
+                - if m.id == @machine.id
+                  .list-group-item.list-group-item-success = "#{no}) #{m.maker.presence || "(不明)"} #{m.model}"
+                  - now_id = m.id
+                - else
+                  = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", "/machine/#{m.id}", class: "list-group-item"
+                  - next_id = m.id if now_id.present? && next_id.blank?
+                  - prev_id = m.id if now_id.blank?
+            
   .col-lg-4.col-md-4.col-sm-5.col-xs-12
     ul.pager style="margin:0;"
-      - mlist.each.with_index do |m, i|
-        - if m.id == @machine.id
-          - if i > 0
-            li.previous = link_to "/machine/#{mlist[i-1].id}" do
-              span.glyphicon.glyphicon-backward
-              =< "前の機械へ" 
-          - if i+1 < mlist.length
-            li.next = link_to "/machine/#{mlist[i+1].id}" do
-              => "次の機械へ" 
-              span.glyphicon.glyphicon-forward
+      - if prev_id.present?
+        li.previous = link_to "/machine/#{prev_id}" do
+          span.glyphicon.glyphicon-backward
+          =< "前の機械へ"
+      - if next_id.present?
+        li.next = link_to "/machine/#{next_id}" do
+          => "次の機械へ" 
+          span.glyphicon.glyphicon-forward
+      
     .row
       = link_to "/contact/#{@machine.id}", class:"btn btn-lg btn-primary pull-right", style:"margin:8px;"do
         span.glyphicon.glyphicon-envelope style="margin-bottom:8px;"

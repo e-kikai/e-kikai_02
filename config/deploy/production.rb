@@ -42,3 +42,5 @@ ask(:branch, 'master')
 #     # password: 'please use keys'
 #   }
 # setting per server overrides global ssh_options
+
+after "deploy", "deploy:sitemap:refresh"

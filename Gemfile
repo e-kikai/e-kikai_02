@@ -84,6 +84,7 @@ gem 'charwidth'
 
 gem 'annotate'
 
+# デプロイ
 group :development do
   gem "capistrano"
   gem "capistrano-rails"
@@ -103,3 +104,7 @@ end
 
 # 太田機械クローラ
 gem 'mechanize'
+
+# SEO
+gem 'sitemap_generator'
+gem 'meta-tags'

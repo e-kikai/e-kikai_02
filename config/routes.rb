@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   # 会社情報
   resources :companies, :only => [:index]
   get  ":subdomain",             to: "companies#show",          as: "member_site"
+  # get  ":subdomain/search"  ,    to: "companies#search" ,       as: "member_site_machines"
   get  ":subdomain/contact",     to: "companies#contact",       as: "member_site_contact"
   post ":subdomain/contact",     to: "companies#contact_create"
   get  ":subdomain/contact_fin", to: "companies#contact_fin",   as: "member_site_contact_fin"

@@ -9,6 +9,21 @@ class CompaniesController < ApplicationController
   def show
   end
 
+  def search
+    q = [];
+    @machines  = @company.machines.search_list(q)
+    @names     = @company.machines.search_names(q)
+    @nmachines = @machines.group_by(&:name)
+
+    @addr1s = @machines.map(&:addr1).uniq
+
+    @title = @company.name
+
+    @params = {}
+
+    render :template => "main/search"
+  end
+
   def contact
     @contact = Contact.new(company_id: @company.id)
   end
@@ -40,6 +55,13 @@ class CompaniesController < ApplicationController
     @company = Company.find_by(subdomain: params[:subdomain])
   rescue
     redirect_to root_path, alert: "e-kikaiメンバ情報が取得できませんでした"
+  end
+
+  def search_params
+    params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :addr1_eq)
+    # redirect_to root_url, status: :bad_request, alert: "検索条件がありません" if params.blank?
+  rescue
+    redirect_to "/#{@company.subdomain}/", status: :bad_request, alert: "検索条件が不正です"
   end
 
   def contact_params

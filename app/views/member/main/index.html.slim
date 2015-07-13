@@ -1,4 +1,6 @@
-- content_for :page_title, "#{@company.name} 管理者画面"
+- set_meta_tags title: "#{@company.name} 管理者画面"
+- set_meta_tags nofollow: true, noindex: true
+
 - breadcrumb  :member_root
 
 .row

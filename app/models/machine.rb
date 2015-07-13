@@ -54,7 +54,7 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_names(q)
-    list.search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
+    includes(:large_genre).search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").group(:name).pluck(:name)
   end
 
   def self.search_addr(q)
@@ -82,7 +82,8 @@ class Machine < ActiveRecord::Base
           end
 
           # 画像配列整形
-          imgs = (d["imgs"].kind_of? Hash) ? d["imgs"].values : Array(d["imgs"])
+          # imgs = (d["imgs"].kind_of? Hash) ? d["imgs"].values : Array(d["imgs"])
+          imgs = d["imgs"].try(:values) || Array(d["imgs"])
           imgs.unshift(d["top_img"]).reject!(&:blank?)
 
           machine.update({
@@ -105,7 +106,7 @@ class Machine < ActiveRecord::Base
             machinelife_images: imgs,
           })
 
-          # puts machine[:machinelife_images]
+          puts machine[:machinelife_images]
           puts "OK #{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
 
           machinelife_ids.delete(d["id"])
@@ -249,7 +250,6 @@ class Machine < ActiveRecord::Base
 
           # puts machine.attributes
           machine.save
-          puts machine.attributes
 
           machinelife_ids.delete(machinelife_id)
 
@@ -257,17 +257,17 @@ class Machine < ActiveRecord::Base
           detail.search("#Left a img").each do |img|
             begin
               src = URI.join(url, img[:src]).to_s
-
               /^.*\/(.*?)$/ =~ src
 
               next if $1 == "underconstrunction.gif"
               puts $1
 
-              next if image = machine.images.find_by(img_name: $1)
+              unless image = machine.images.find_by(img_name: $1)
+                image = machine.images.build
+                image.img_url = src
+                image.save
+              end
 
-              image = machine.images.build
-              image.img_url = src
-              image.save
             rescue => e
               p e.message
               next

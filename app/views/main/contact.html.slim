@@ -1,4 +1,6 @@
-- content_for :page_title, "問い合わせフォーム"
+- set_meta_tags title: "#{@machine.name} #{@machine.maker} #{@machine.model} 問い合わせフォーム"
+- set_meta_tags nofollow: true, noindex: true
+
 - breadcrumb  :contact, @machine
 
 .row

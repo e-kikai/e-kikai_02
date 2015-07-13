@@ -1,3 +1,6 @@
+- set_meta_tags keywords:    "#{@company.name},#{@company.addr1},中古機械,中古工作機械,工作機械 中古,平面研磨機 中古,e-kikai Network"
+- set_meta_tags description: "中古機械のスペシャリスト #{@company.name} #{@company.addr1}"
+
 - if @company[:machinelife_images].present?
   .jumbotron style="background-image:url(http://www.zenkiren.net/media/company/#{@company.machinelife_images.first});"
 - elsif @company.images.present?

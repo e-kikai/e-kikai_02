@@ -1,4 +1,6 @@
-- content_for :page_title, "#{@title} 検索結果"
+- set_meta_tags title: @title, description: @description
+- set_meta_tags keywords: "#{@title},中古機械,中古工作機械,e-kikai,工作機械,Used machinery, Used machine"
+
 - breadcrumb  :search, "#{@title}", @breads
 
 = form_tag "/search", method: "GET" do

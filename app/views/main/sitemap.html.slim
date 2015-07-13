@@ -1,5 +1,6 @@
-- content_for :page_title, "サイトマップ"
-- breadcrumb  :help,       "サイトマップ"
+- set_meta_tags title: "サイトマップ"
+
+- breadcrumb :help, "サイトマップ"
 
 .col-lg-12.col-md-12.col-xs-12.col-sm-12
   .panel.panel-default
@@ -35,4 +36,21 @@
   .panel.panel-default
     .panel-heading e-kikai Network メンバ
     - @companies.each do |c|
-      = link_to c.name_strip_kabu, "/#{c.subdomain}", class: "btn btn-default btn-lg", style: "margin: 8px auto;width:24%;"
+      = link_to c.name_strip_kabu, "/#{c.subdomain}", class: "btn btn-default btn-lg col-lg-3 col-md-3 col-xs-12 col-sm-12"
+      
+.col-lg-12.col-md-12.col-xs-12.col-sm-12
+  .panel.panel-default
+    .panel-heading メーカー一覧
+    - @makers.each do |maker|
+      - next if maker.blank?
+      .col-lg-2.col-md-2.col-xs-6.col-sm-6
+        = link_to maker, "/search?maker_eq=#{maker}" 
+      
+.col-lg-12.col-md-12.col-xs-12.col-sm-12
+  .panel.panel-default
+    .panel-heading ジャンル/メーカー一覧
+    - @genremakers.each do |gm|
+      -next if gm[2].blank?
+      .col-lg-3.col-md-3.col-xs-12.col-sm-12
+        = link_to "#{gm[1]}/#{gm[2]}", "/search?genre_id_eq=#{gm[0]}&maker_eq=#{gm[2]}" 
+          

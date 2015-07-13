@@ -59,11 +59,12 @@ class Machine < ActiveRecord::Base
 
   def self.crawl
     Company.where.not(machinelife_id: nil).each do |c|
-      puts c.name
+      puts "<< #{c.name} >>"
       datas = self.get_datas("t=machines&c=#{c.machinelife_id}")
       return if datas.blank?
 
       machinelife_ids = c.machines.pluck(:machinelife_id)
+      numbers, deleted = 0
 
       # データの整形
       datas.each do |d|
@@ -101,33 +102,12 @@ class Machine < ActiveRecord::Base
             company_id: c.id,
             machinelife_images: imgs,
           })
+          numbers += 1
 
-          puts machine[:machinelife_images]
-          puts "OK #{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
+          # puts machine[:machinelife_images]
+          # puts "OK #{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
 
           machinelife_ids.delete(d["id"])
-
-          # 画像保存
-          # imgs.each do |i|
-          #   begin
-          #     p i
-          #     if image = machine.images.find_by(img_name: i)
-          #       next
-          #       content_length = open("#{MACHINE_IMG_URL}/#{i}").meta["content-length"].to_i
-          #       next if content_length == image.img.size
-          #     else
-          #       image = machine.images.build
-          #     end
-          #
-          #     p "#{MACHINE_IMG_URL}/#{i}"
-          #     image.img_url = "#{MACHINE_IMG_URL}/#{i}"
-          #     image.save
-          #   rescue => e
-          #     p e.message
-          #     next
-          #   end
-          # end
-          # puts machine.images.where.not(img_name: imgs).delete_all
 
         rescue => e
           puts e.message
@@ -136,10 +116,10 @@ class Machine < ActiveRecord::Base
         end
       end
 
-      # 1件でも更新されていれば、削除
-      if machinelife_ids.present?
-        puts c.machines.where(machinelife_id: machinelife_ids).delete_all
-      end
+      # 1件でも更新されていれば、更新されていないものを削除
+      deleted = c.machines.where(machinelife_id: machinelife_ids).delete_all if numbers
+
+      puts ">>>>> finish numbers: #{numbers} / deleted: #{deleted}"
     end
   rescue => e
     puts e.message
@@ -148,9 +128,10 @@ class Machine < ActiveRecord::Base
 
   def self.crawl_ota
     ota = Company.find_by(machinelife_id: 235)
-    puts ota.name
+    puts "<< #{ota.name} >>"
 
     machinelife_ids = ota.machines.pluck(:machinelife_id)
+    numbers, deleted = 0
 
     # 初期化
     agent = Mechanize.new
@@ -158,7 +139,10 @@ class Machine < ActiveRecord::Base
     urls = ['http://www.otakikai.co.jp/hs/mod/cart/index.php']
     histories = []
 
-    defalut_genre_id = Genre.find_by(machinelife_id: 390).id
+    # ジャンル初期化
+    genres           = Genre.pluck(:name, :id).to_h
+    defalut_genre_id = Genre.order("order_no DESC").first.id
+
     trs = {
       "商品名"     => :name,
       "管理番号"   => :no,
@@ -178,7 +162,7 @@ class Machine < ActiveRecord::Base
         href = URI.join(url, link.href).to_s
         if /mode=detail&article=([0-9]*)/ =~ href
           # スクレイピング処理
-          machinelife_id = $1
+          machinelife_id = $1.to_i
 
           next if histories.include? href
           histories << href
@@ -194,44 +178,36 @@ class Machine < ActiveRecord::Base
             machine[trs[th]] = td if trs.include? th
           end
 
-          # 名前整形
-          if /^([0-9]+)t(.*)$/i =~ machine.name
-            machine.capacity = $1
-            machine.name     = "#{$1}T#{$2}"
+          # データ整形
+          machine.name, hint, machine.capacity = begin
+            case machine.name
+            when /([0-9.]+)t.*油圧プレス/i
+              ["#{$1}T油圧プレス", "油圧プレス", $1]
+            when /([0-9.]+)t.*(ストレートサイド)プレス/i
+                ["#{$1}Tプレス", "電動門型プレス", $1]
+            when /([0-9.]+)t(パワー|ワイド|トランスファー)?プレス/i
+              ["#{$1}Tプレス", "電動C型プレス", $1]
+            when /卓上プレス/
+              ["卓上プレス", "電動C型プレス"]
+            when "シャー"
+              ["シャーリング", "メカシャーリング"]
+            when /立.*フライス/
+              ["立フライス", "立フライス"]
+            when /万能.*フライス/
+              ["万能フライス", "万能フライス"]
+            when /コンプレッサ/
+              [machine.name, "エアーコンプレッサー"]
+            else
+              [machine.name, machine.name]
+            end
           end
 
-          # name, hint = begin
-          #   case machine.name
-          #   when /(.*T).*油圧プレス/
-          #     "#{$1}油圧プレス", "油圧プレス"
-          #   when /(.*T)(パワー)?プレス/
-          #     "#{$1}Tプレス", "電動C型プレス"
-          #   when "シャー"
-          #     "シャーリング", "シャーリング"
-          #   when /立.*フライス/
-          #       "立フライス", "立フライス"
-          #   when /万能.*フライス/
-          #     "万能フライス", "万能フライス"
-          #   else
-          #     machine.name, ""
-          #   end
-          # end
-
-          # ジャンル整形
-          hint =
-            if    /パワープレス/ =~ machine.name then "電動C型プレス"
-            elsif /油圧プレス/   =~ machine.name then "油圧プレス"
-            elsif /タッピング/   =~ machine.name then "タッピング盤"
-            elsif /コンプレッサ/ =~ machine.name then "エアーコンプレッサー"
-            elsif /シャー/       =~ machine.name then "シャーリング"
-            else                                     machine.name
-            end
-
-          machine.genre_id = if genre = Genre.find_by("name": hint)
-            genre.id
-          elsif temp  = Machine.find_by("name": hint)
+          # # ジャンル整形
+          machine.genre_id = if genres[hint].present?
+            genres[hint]
+          elsif temp  = Machine.where.not(company_id: ota.id).find_by(name: hint)
             temp.genre.id
-          elsif machine.model && temp = Machine.find_by("model": machine.model)
+          elsif machine.model.present? && temp = Machine.where.not(company_id: ota.id).find_by(model: machine.model)
             temp.genre.id
           else
             defalut_genre_id
@@ -242,14 +218,18 @@ class Machine < ActiveRecord::Base
             machine.addr1 = "静岡県"
             machine.addr2 = "浜松市"
             machine.addr3 = "東区有玉北町735"
+          else
+            machine.addr1 = machine.location
           end
 
           # puts machine.attributes
           machine.save
+          numbers += 1
 
           machinelife_ids.delete(machinelife_id)
 
           # 画像保存
+          top_img = nil
           detail.search("#Left a img").each do |img|
             begin
               src = URI.join(url, img[:src]).to_s
@@ -258,12 +238,18 @@ class Machine < ActiveRecord::Base
               next if $1 == "underconstrunction.gif"
               puts $1
 
+              # 画像保存
               unless image = machine.images.find_by(img_name: $1)
                 image = machine.images.build
                 image.img_url = src
                 image.save
               end
 
+              if !top_img
+                top_img = image.id
+                machine.image_id = top_img
+                machine.save
+              end
             rescue => e
               p e.message
               next
@@ -277,10 +263,10 @@ class Machine < ActiveRecord::Base
       end
     end
 
-    # 1件でも更新されていれば、削除
-    if machinelife_ids.present?
-      # puts ota.machines.where(machinelife_id: machinelife_ids).delete_all
-    end
+    # 1件でも更新されていれば、更新されていないものを削除
+    deleted = ota.machines.where(machinelife_id: machinelife_ids).delete_all if numbers
+
+    puts ">>>>> finish numbers: #{numbers} / deleted: #{deleted}"
   rescue => e
     puts e.message
     puts $@

@@ -13,7 +13,6 @@ set :unicorn_rack_env, :staging
 
 ask(:branch, 'master')
 
-set :whenever_roles, :batch
 set :whenever_environment, :staging
 
 # Extended Server Syntax

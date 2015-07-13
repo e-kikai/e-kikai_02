@@ -21,7 +21,7 @@ class MainController < ApplicationController
     @nmachines = @machines.group_by(&:name)
 
     # @addr1s   = Machine.search_addr(@params)
-    @addr1s = @machines.map(&:addr1).uniq
+    @addr1s = @machines.map(&:addr1).uniq.reject(&:blank?)
 
     # 見出し
     titles = []
@@ -66,7 +66,7 @@ class MainController < ApplicationController
   def machine
     @machine   = Machine.find(params[:id])
 
-    q = [middle_genre_id_eq: @machine.genre.middle_genre.id]
+    q = {middle_genre_id_eq: @machine.genre.middle_genre_id}
     # @machines  = Machine.search_list(q)
     @names     = Machine.search_names(q)
     @nmachines = Machine.search_list(q).group_by(&:name)
@@ -112,7 +112,7 @@ class MainController < ApplicationController
 
     @makers = Machine.group(:maker).order(:maker).pluck(:maker)
 
-    @genremakers = Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count_all > 5").count.keys
+    @genremakers = Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys
   end
 
   private

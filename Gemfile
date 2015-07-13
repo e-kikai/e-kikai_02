@@ -109,3 +109,4 @@ gem 'whenever', :require => false
 # SEO
 gem 'sitemap_generator'
 gem 'meta-tags'
+gem 'google-analytics-turbolinks'

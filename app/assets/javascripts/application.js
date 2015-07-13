@@ -14,7 +14,7 @@
 //= require jquery.lazyload
 //= require jquery_ujs
 //= require turbolinks
-
+//= require google-analytics-turbolinks
 //= require bootstrap-sass-official
 //= require_tree .
 

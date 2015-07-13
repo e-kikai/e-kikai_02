@@ -44,7 +44,7 @@ SitemapGenerator::Sitemap.create do
     add "/search?maker_eq=#{maker}", :priority => 0.7, :changefreq => 'daily' if maker.present?
   end
 
-  Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count_all > 5").count.keys.each do |gm|
+  Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys.each do |gm|
     add "/search?genre_id_eq=#{gm[0]}&maker_eq=#{gm[2]}", :priority => 0.7, :changefreq => 'daily' if maker.present?
   end
 

@@ -31,7 +31,7 @@ html
             li = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank"
             li = link_to '問い合わせ',   "/#{@company.subdomain}/contact"
     .container
-      = breadcrumbs autoroot: false, style: :bootstrap, semantic: true
+      = raw breadcrumbs autoroot: false, style: :bootstrap, semantic: true
 
       - if notice.present?
         .alert.alert-success = notice

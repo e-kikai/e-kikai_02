@@ -13,6 +13,9 @@ set :unicorn_rack_env, :production
 
 ask(:branch, 'master')
 
+set :whenever_roles, :batch
+set :whenever_environment, :production
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server

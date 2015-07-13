@@ -104,6 +104,7 @@ end
 
 # 太田機械クローラ
 gem 'mechanize'
+gem 'whenever', :require => false
 
 # SEO
 gem 'sitemap_generator'

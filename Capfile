@@ -24,6 +24,7 @@ require 'capistrano/rails/migrations'
 require 'capistrano3/unicorn'
 
 require 'capistrano/sitemap_generator'
+require "whenever/capistrano"
 
 # Rails4から分離したsecrets.ymlの環境変数を .envファイルで管理する
 set :linked_files, %w{config/secrets.yml}

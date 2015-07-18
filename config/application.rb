@@ -30,5 +30,6 @@ module EKikai
     I18n.available_locales = I18n.available_locales.push(:ja)
     config.i18n.default_locale = :ja
 
+    config.active_job.queue_adapter = :sidekiq
   end
 end

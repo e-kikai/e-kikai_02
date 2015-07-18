@@ -86,8 +86,10 @@ class MainController < ApplicationController
       Contact.transaction do
         @contact.save!
 
-        ContactMailer.contact(@contact, @machine).deliver_later
-        ContactMailer.contact_confirm(@contact, @machine).deliver_later
+        # ContactMailer.contact(@contact, @machine).deliver_later
+        # ContactMailer.contact_confirm(@contact, @machine).deliver_later
+        ContactMailer.contact(@contact, @machine).deliver
+        ContactMailer.contact_confirm(@contact, @machine).deliver
       end
 
       redirect_to contact_fin_path, notice: '問い合わせを送信しました'

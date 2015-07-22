@@ -12,12 +12,24 @@ class Member::MainController < ApplicationController
   end
 
   ### 会社情報変更フォーム ###
-  def company_edit
+  # def company_edit
+  # end
+  #
+  # def company_update
+  #   if @company.update(company_param)
+  #     redirect_to member_root_path, notice:'会社情報を変更しました'
+  #   else
+  #     render :company_edit
+  #   end
+  # end
+
+  ### 自社サイト変更フォーム ###
+  def site_edit
   end
 
-  def company_update
-    if @company.update(company_param)
-      redirect_to member_root_path, notice:'会社情報を変更しました'
+  def site_update
+    if @company.update(site_param)
+      redirect_to "/member/", notice:'自社サイト情報を変更しました'
     else
       render :company_edit
     end
@@ -31,5 +43,10 @@ class Member::MainController < ApplicationController
 
   def company_param
     params.require(:company).permit(:name, :company_kana, :representative, :officer, :tel, :fax, :mail, :zip, :addr1, :addr2, :addr3, :website)
+  end
+
+  def site_param
+    # params.require(:company).permit(sites:[:headcopy])
+    params.require(:company).permit(sites:[:headcopy])
   end
 end

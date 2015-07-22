@@ -4,8 +4,8 @@
 
 - breadcrumb  :detail, @machine
 
-.row
-  .list-group.col-lg-3.col-md-3.hidden-sm.hidden-xs
+.row.main-machine
+  nav.list-group.col-lg-3.col-md-3.hidden-sm.hidden-xs
     .panel-group#accordion
       - now_id  = nil
       - prev_id = nil
@@ -31,7 +31,7 @@
                   - next_id = m.id if now_id.present? && next_id.blank?
                   - prev_id = m.id if now_id.blank?
             
-  .col-lg-4.col-md-4.col-sm-5.col-xs-12
+  article.col-lg-4.col-md-4.col-sm-5.col-xs-12
     ul.pager style="margin:0;"
       - if prev_id.present?
         li.previous = link_to "/machine/#{prev_id}" do
@@ -42,10 +42,9 @@
           => "次の機械へ" 
           span.glyphicon.glyphicon-forward
       
-    .row
-      = link_to "/contact/#{@machine.id}", class:"btn btn-lg btn-primary pull-right", style:"margin:8px;"do
-        span.glyphicon.glyphicon-envelope style="margin-bottom:8px;"
-        =< "問い合わせはこちら"
+    address.clearfix = link_to "/contact/#{@machine.id}", class:"btn btn-lg btn-primary pull-right", style:"margin-top:8px;" do
+      span.glyphicon.glyphicon-envelope
+      =< "問い合わせはこちら"
     
     .panel.panel-default
       .panel-heading
@@ -99,9 +98,11 @@
   .col-lg-5.col-md-5.col-sm-7.col-xs-12.machine-img
     - if @machine[:machinelife_images].present?
       - @machine[:machinelife_images].each do |i|
-        = link_to (lazy_image_tag "http://www.zenkiren.net/media/machine/#{i}", width: "100%"), "http://www.zenkiren.net/media/machine/#{i}", target:"_blank"
+        = link_to "http://www.zenkiren.net/media/machine/#{i}", target:"_blank" do
+          = lazy_image_tag "http://www.zenkiren.net/media/machine/#{i}", alt: "#{@machine.name} #{@machine.maker} #{@machine.model}"
     - elsif @machine.images.present?
       - @machine.images.each do |i|
-        = link_to (lazy_image_tag i.img.url, width:"100%"), i.img.url, target:"_blank"
+        = link_to i.img.url, target:"_blank" do
+          = lazy_image_tag i.img.url, alt: "#{@machine.name} #{@machine.maker} #{@machine.model}"
     - else
-      = image_tag "/images/nopicture.gif", width:"100%"
+      = image_tag "/images/nopicture.gif"

@@ -114,3 +114,5 @@ gem 'google-analytics-turbolinks'
 
 # バックグラウンド
 gem 'sidekiq'
+
+gem 'nested_form'

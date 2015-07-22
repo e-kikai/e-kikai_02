@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707105950) do
+ActiveRecord::Schema.define(version: 20150721021353) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150707105950) do
     t.text     "infos"
     t.text     "offices"
     t.integer  "image_id"
+    t.text     "sites"
   end
 
   add_index "companies", ["deleted_at"], name: "index_companies_on_deleted_at"

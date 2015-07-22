@@ -28,9 +28,9 @@
             .machine-image.text-center
               = link_to "/machine/#{m.id}" do
                 - if m[:machinelife_images].present?
-                  = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}"
+                  = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", alt: "#{m.name} #{m.maker} #{m.model}"
                 - elsif m.image.present?
-                  = lazy_image_tag m.images.first.img.thumb('240x180').url
+                  = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
                 - else
                   = image_tag "/images/nopicture.gif"
           .media-body style="position:relative;"
@@ -44,8 +44,6 @@
           .machine-buttons.media-right
             = link_to "/contact/#{m.id}", class:"btn btn-lg btn-primary" do
               span.glyphicon.glyphicon-envelope
-              .visible-md-inline.visible-lg-inline
-                =< "問い合わせ"
-              .visible-sm-inline.visible-xs-inline
-                =< "問合"
+              .visible-md-inline.visible-lg-inline =< "問い合わせ"
+              .visible-sm-inline.visible-xs-inline =< "問合"
                   

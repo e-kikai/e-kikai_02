@@ -36,13 +36,13 @@ class MainController < ApplicationController
       t = Genre.find(@params[:genre_id_eq])
       titles << t.name
       @breads = {
-        t.large_genre.name  => large_genre_path(t.middle_genre.large_genre_id),
-        t.middle_genre.name => search_path(middle_genre_id_eq: t.middle_genre_id)
+        t.large_genre.name  => "/large_genre/#{t.middle_genre.large_genre_id}",
+        t.middle_genre.name => "/search?middle_genre_id_eq=#{t.middle_genre_id}"
       }
     elsif @params[:middle_genre_id_eq].present?
       t = MiddleGenre.find(@params[:middle_genre_id_eq])
       titles << t.name
-      @breads = {t.large_genre.name  => large_genre_path(t.large_genre_id)}
+      @breads = {t.large_genre.name  => "/large_genre/#{t.large_genre_id}"}
     elsif @params[:large_genre_id_eq].present?
       t = LargeGenre.find(@params[:large_genre_id_eq])
       titles << t.name
@@ -52,19 +52,20 @@ class MainController < ApplicationController
       titles << @params[:maker_eq]
     end
 
+    title = titles.join "/"
     if company.present?
-      @title       = "#{titles.join("/")} 在庫機械一覧"
-      @description = "#{company.name_strip_kabu}(#{company.addr1})の在庫機械一覧"
+      @title       = "#{title} 在庫機械一覧"
+      @description = "#{title}(#{company.addr1})の在庫機械一覧です。中古機械の販売買取はe-kikaiにおまかせ下さい！"
     else
-      @title       = "中古#{titles.join("/")}"
-      @description = "#{@title}の中古機械情報が満載"
+      @title       = "中古#{title}一覧"
+      @description = "中古#{title}の在庫一覧を掲載しています。中古#{title}の価格も簡単に問合せ出来ます。中古機械・中古#{title}の販売買取はe-kikaiにおまかせ下さい！"
     end
 
   end
 
   ### 機械詳細 ###
   def machine
-    @machine   = Machine.find(params[:id])
+    @machine = Machine.find(params[:id])
 
     q = {middle_genre_id_eq: @machine.genre.middle_genre_id}
     # @machines  = Machine.search_list(q)
@@ -92,7 +93,7 @@ class MainController < ApplicationController
         ContactMailer.contact_confirm(@contact, @machine).deliver
       end
 
-      redirect_to contact_fin_path, notice: '問い合わせを送信しました'
+      redirect_to "/contact_fin", notice: '問い合わせを送信しました'
     rescue => e
       flash.now[:alert] = e.message
       render :action => :contact

@@ -11,7 +11,7 @@ RailsAdmin.config do |config|
   ## == Cancan ==
   # config.authorize_with :cancan
   config.authorize_with do
-    authenticate_or_request_with_http_basic('ログインしてください') do |account, passwd|
+    authenticate_or_request_with_http_basic('e-kikai admin') do |account, passwd|
       account == Rails.application.secrets.admin_account &&
       passwd  == Rails.application.secrets.admin_passwd
     end
@@ -21,14 +21,21 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
-  config.navigation_static_label = "リンク"
+  # config.navigation_static_label = "リンク"
   config.navigation_static_links = {
-    'e-kikai トップページ'        => 'http://www.e-kikai.com/',
-    'マシンライフ トップページ'   => 'http://www.zenkiren.net/',
-    'Google Analytics'            => "https://www.google.com/analytics/web/#report/visitors-overview/a629388w1051956p1037262/",
-    "Google ウェブマスターツール" => "https://www.google.com/webmasters/tools/dashboard?hl=ja&pli=1&siteUrl=http%3A%2F%2Fwww.e-kikai.com%2F",
-    "Clicky"                      => "https://clicky.com/user/",
-    "Lucky Orange"                => "http://www.luckyorange.com/v3/dash.php?s=1&r=32743#/dashboard",
+    "機械情報同期"   => "/admin/crawl/machine",
+    "太田機械同期"   => "/admin/crawl/ota",
+    "会社情報同期"   => "/admin/crawl/company",
+    "大ジャンル同期" => "/admin/crawl/large_genre",
+    "中ジャンル同期" => "/admin/crawl/middle_genre",
+    "ジャンル同期"   => "/admin/crawl/genre",
+
+    'e-kikai トップページ'      => 'http://www.e-kikai.com/',
+    'マシンライフ トップページ' => 'http://www.zenkiren.net/',
+    'Google Analytics'          => "https://www.google.com/analytics/web/#report/visitors-overview/a629388w1051956p1037262/",
+    "ウェブマスターツール"      => "https://www.google.com/webmasters/tools/dashboard?hl=ja&pli=1&siteUrl=http%3A%2F%2Fwww.e-kikai.com%2F",
+    "Clicky"                    => "https://clicky.com/user/",
+    "Lucky Orange"              => "http://www.luckyorange.com/v3/dash.php?s=1&r=32743#/dashboard",
   }
   config.model 'Machine' do
     weight 500
@@ -125,10 +132,13 @@ RailsAdmin.config do |config|
       field :subdomain
       field :infos
       field :offices
+      field :sites
     end
   end
 
   config.model 'User' do
+    visible false
+
     weight 700
     navigation_icon 'icon-user'
     edit do

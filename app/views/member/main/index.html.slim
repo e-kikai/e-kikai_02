@@ -15,6 +15,9 @@
           = link_to "問い合わせ一覧", "/member/contacts", class:"list-group-item"
 
           / = link_to "会社情報変更", member_company_path, class:"list-group-item"
+          = link_to "自社サイト情報変更", "/member/site", class:"list-group-item"
+          = link_to "自社サイト表示(確認用)", "/#{@company.subdomain}/", class:"list-group-item", target: "_blank"
+
           / = link_to "e-kikaiトップページに戻る", root_path, class:"list-group-item"
 
           = link_to "http://www.zenkiren.net/admin/", target: "_blank", class:"list-group-item" do

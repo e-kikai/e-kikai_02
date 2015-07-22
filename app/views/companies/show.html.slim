@@ -48,6 +48,18 @@
               tr
                 th 問い合わせFAX
                 td = @company.contact_fax
+              - if @company.offices.present?
+                tr
+                  th 営業所・倉庫
+                  td 
+                    - @company.offices.each do |o|
+                      .office_name = o["name"]
+                      .office_zip = o["zip"]
+                      .office_addr
+                        span.office_addr1 = o["addr1"]
+                        span.office_addr2 = o["addr2"]
+                        span.office_addr3 = o["addr3"]
+                
               tr
                 th 在庫
                 td = link_to "在庫機械一覧", "/search?company_id_eq=#{@company.id}"

@@ -335,6 +335,7 @@ DEPENDENCIES
   kakurenbo
   mechanize
   meta-tags
+  nested_form
   pg
   pry-rails
   rack-cache

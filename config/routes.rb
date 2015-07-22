@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   devise_for :company_users
+
+  # 管理者画面(同期) rails_adminより優先
+  get "admin/crawl/:target", to: "admin#crawl", as: "admin_crawl"
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   root to: "main#index"
 
-  devise_for :users
+  # devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -74,15 +79,16 @@ Rails.application.routes.draw do
     root to: "main#index"
     # get "machines", to: "main#machines"
     get   "contacts", to: "main#contacts"
-    get   "company",  to: "main#company_edit"
-    patch "company",  to: "main#company_update"
-
+    # get   "company",  to: "main#company_edit"
+    # patch "company",  to: "main#company_update"
+    get   "site",  to: "main#site_edit"
+    patch "site",  to: "main#site_update"
     resources :machines, :except => [:show]
   end
 
   # 会社情報
   resources :companies, :only => [:index]
-  get  ":subdomain",             to: "companies#show",          as: "member_site"
+  get  ":subdomain",             to: "companies#show"
   # get  ":subdomain/search"  ,    to: "companies#search" ,       as: "member_site_machines"
   get  ":subdomain/contact",     to: "companies#contact",       as: "member_site_contact"
   post ":subdomain/contact",     to: "companies#contact_create"

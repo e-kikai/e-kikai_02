@@ -30,6 +30,7 @@ class Company < ActiveRecord::Base
   serialize :machinelife_images
   serialize :infos
   serialize :offices
+  serialize :sites
 
   has_many :machines
   has_many :users
@@ -42,6 +43,8 @@ class Company < ActiveRecord::Base
   accepts_nested_attributes_for :images
 
   validates :name, presence: true
+
+
 
   def name_strip_kabu
     name.gsub(/(株式|有限|合.)会社/, '')
@@ -83,7 +86,7 @@ class Company < ActiveRecord::Base
         offices:        data["offices"],
         machinelife_images: imgs,
       })
-      
+
       # imgs.each do |i|
       #   if image = c.images.find_by(img_name: i)
       #     content_length = open("http://www.zenkiren.net/media/company/#{i}").meta["content-length"].to_i

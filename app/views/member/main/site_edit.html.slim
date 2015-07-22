@@ -1,0 +1,69 @@
+- set_meta_tags title: "自社サイト変更フォーム"
+- set_meta_tags nofollow: true, noindex: true
+
+- breadcrumb  :member_contacts
+
+.row
+  .col-lg-offset-2.col-lg-8
+    = form_for(@company, class: 'form-horizontal', role: 'patch', url: "/member/site")  do |f|
+      = f.fields_for :sites do |s|
+        .panel.panel-default
+          .panel-heading 共通情報
+          .panel-body
+              - if @company.errors.any?
+                .alert.alert-danger
+                  ul
+                    - @company.errors.full_messages.each do |msg|
+                      li = msg
+                      
+              .form-group
+                = s.label :headcopy, "ヘッドコピー"
+                = s.text_field :headcopy, class: 'form-control', placeholder: "ヘッドコピー"
+        /       
+        / .panel.panel-default
+        /   .panel-heading トップページ
+        /   .panel-body
+        /     h4 中央画像上
+        /     .form-group
+        /       = label_tag "company[sites][top_img_title]", "タイトル"
+        /       = text_field_tag "company[sites][top_img_title]", @company.sites[:top_img_title], class: 'form-control', placeholder: "タイトル"
+        /       
+        /     .form-group
+        /       = label_tag "company[sites][top_img_content]", "本文"
+        /       = text_area_tag "company[sites][top_img_content]", @company.sites[:top_img_content], class: 'form-control', placeholder: "本文"
+        /       
+        /     h4 下概要
+        /     .form-group
+        /       = label_tag "company[sites][top_summary_title]", "タイトル"
+        /       = text_field_tag "company[sites][top_summary_title]", @company.sites[:top_summary_title], class: 'form-control', placeholder: "タイトル"
+        /       
+        /     .form-group
+        /       = label_tag "company[sites][top_summary_content]", "本文"
+        /       = text_area_tag "company[sites][top_summary_content]", @company.sites[:top_summary_content], class: 'form-control', placeholder: "本文"
+        /     
+        / .panel.panel-default
+        /   .panel-heading 会社概要ページ
+        /   .panel-body
+        /     h4 会社概要上部
+        /     .form-group
+        /       = label_tag "company[sites][company_title]", "タイトル"
+        /       = text_field_tag "company[sites][company_title]", @company.sites[:company_title], class: 'form-control', placeholder: "タイトル"
+        /       
+        /     .form-group
+        /       = label_tag "company[sites][company_content]", "本文"
+        /       = text_area_tag "company[sites][company_content]", @company.sites[:headcopy], class: 'form-control', placeholder: "本文"
+        /       
+        /     h4 取り扱いメーカー
+        /     = f.fields_for "sites.makers" do |m|
+        /       = m.text_field :maker, class: 'form-control', placeholder: "メーカー名"
+        /       = m.text_field :url, class: 'form-control', placeholder: "URL"
+        /       / = m.link_to_remove "削除"
+        /     h4 沿革
+
+
+
+
+      => f.button type:"submit", class: 'btn btn-primary', data: { disable_with: '保存中・・・' } do
+        = "保存する"
+      = f.button type:"submit", class: 'btn btn-primary', data: { disable_with: '保存中・・・' } do
+        = "保存して戻る"

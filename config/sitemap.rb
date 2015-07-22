@@ -29,7 +29,7 @@ SitemapGenerator::Sitemap.create do
   add "/about",   :priority => 0.3, :changefreq => 'monthly'
 
   LargeGenre.select(:id).each do |l|
-    add "/large_genre/#{l.id}", :priority => 0.6, :changefreq => 'monthly'
+    add "/large_genre/#{l.id}", :priority => 0.4, :changefreq => 'monthly'
   end
 
   MiddleGenre.select(:id).each do |m|
@@ -44,8 +44,8 @@ SitemapGenerator::Sitemap.create do
     add "/search?maker_eq=#{maker}", :priority => 0.7, :changefreq => 'daily' if maker.present?
   end
 
-  Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys.each do |gm|
-    add "/search?genre_id_eq=#{gm[0]}&maker_eq=#{gm[2]}", :priority => 0.7, :changefreq => 'daily' if gm[2].present?
+  Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 1").count.keys.each do |gm|
+    add "/search?genre_id_eq=#{gm[0]}&maker_eq=#{gm[2]}", :priority => 0.8, :changefreq => 'daily' if gm[2].present?
   end
 
   # e-kikai Network
@@ -56,6 +56,6 @@ SitemapGenerator::Sitemap.create do
 
   # 機械詳細
   Machine.select(:id, :updated_at).each do |m|
-    add "/machine/#{m.id}", :priority => 0.8, :changefreq => 'daily', :lastmod => m.updated_at
+    add "/machine/#{m.id}", :priority => 0.6, :changefreq => 'daily', :lastmod => m.updated_at
   end
 end

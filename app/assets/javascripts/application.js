@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require google-analytics-turbolinks
 //= require bootstrap-sass-official
+//= require jquery_nested_form
 //= require_tree .
 
 var ready = function() {

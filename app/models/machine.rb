@@ -50,7 +50,7 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_list(q)
-    list.search(q).result.order("machines.name, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker DESC, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
+    list.search(q).result.order("machines.name, CASE WHEN maker_kana IS NULL OR maker_kana = '' THEN '1' ELSE '0' END, maker_kana, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
   end
 
   def self.search_names(q)
@@ -87,6 +87,7 @@ class Machine < ActiveRecord::Base
             no:         d["no"],
             name:       d["name"],
             maker:      d["maker_master"].presence || d["maker"],
+            maker_kana: d["maker_master_kana"],
             model:      d["model"],
             year:       d["year"],
             capacity:   d["capacity"],
@@ -205,12 +206,19 @@ class Machine < ActiveRecord::Base
           # # ジャンル整形
           machine.genre_id = if genres[hint].present?
             genres[hint]
-          elsif temp  = Machine.where.not(company_id: ota.id).find_by(name: hint)
+          elsif temp = Machine.where.not(company_id: ota.id).find_by(name: hint)
             temp.genre.id
           elsif machine.model.present? && temp = Machine.where.not(company_id: ota.id).find_by(model: machine.model)
             temp.genre.id
           else
             defalut_genre_id
+          end
+
+          # メーカー整形
+          machine.maker_kana = if /^[ァ-ヾ]+$/ =~ machine.maker
+            machine.maker
+          elsif temp = Machine.where.not(company_id: ota.id).find_by(maker: machine.maker)
+            temp.maker_kana
           end
 
           machine.company_id = ota.id

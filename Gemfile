@@ -116,3 +116,4 @@ gem 'google-analytics-turbolinks'
 gem 'sidekiq'
 
 gem 'nested_form'
+gem 'hashie'

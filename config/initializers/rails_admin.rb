@@ -46,6 +46,7 @@ RailsAdmin.config do |config|
       field :genre
       field :name
       field :maker
+      field :maker_kana
       field :model
       field :capacity
       field :year
@@ -55,7 +56,7 @@ RailsAdmin.config do |config|
       field :addr3
       field :spec
       field :accessory
-      field :comission
+      # field :comission
       field :comment
       field :images
       field :machinelife_id

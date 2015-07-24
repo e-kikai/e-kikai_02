@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721021353) do
+ActiveRecord::Schema.define(version: 20150724005858) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150721021353) do
     t.integer  "machinelife_id"
     t.text     "machinelife_images"
     t.integer  "image_id"
+    t.string   "maker_kana"
   end
 
   add_index "machines", ["addr1"], name: "index_machines_on_addr1"

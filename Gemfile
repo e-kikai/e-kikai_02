@@ -73,7 +73,7 @@ gem 'rack-cache', require: 'rack/cache'
 # 認証
 gem 'devise'
 # gem 'devise-bootstrap-views'
-# gem 'devise-i18n'
+gem 'devise-i18n'
 # gem 'devise-i18n-views'
 
 # パンくず

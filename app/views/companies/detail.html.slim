@@ -76,7 +76,7 @@
                 target: "_blank", class:"accessmap"
       tr
         th ウェブサイト
-        td = link_to @company.website, @company.website, :target => "_blank" if @company.website.present?
+        td = link_to @company.website, @company.website, target: "_blank", itemprop: "url" if @company.website.present?
         
 - if @company.makers.present?
   .row

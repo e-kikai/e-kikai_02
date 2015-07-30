@@ -1,0 +1,17 @@
+- set_meta_tags title: "アクセスMAP"
+- breadcrumb  :company_help, @company, "アクセスMAP"
+
+.container
+  .col-lg-offset-2.col-lg-8
+    table.table
+      tr
+        th 問い合わせ先
+        td = link_to @company.name, "/#{@company.subdomain}"
+
+    .panel.panel-default
+      .panel-heading
+        span.glyphicon.glyphicon-phone-alt
+        =< "電話でお問い合わせ"
+      .panel-body
+        h2 お問い合わせTEL : #{@company.contact_tel}
+    

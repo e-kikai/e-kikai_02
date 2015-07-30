@@ -9,6 +9,12 @@ class CompaniesController < ApplicationController
   def show
   end
 
+  def detail
+  end
+
+  def map
+  end
+
   def search
     q = [];
     @machines  = @company.machines.search_list(q)
@@ -53,8 +59,22 @@ class CompaniesController < ApplicationController
 
   def find_company
     @company = Company.find_by(subdomain: params[:subdomain])
+
+    c   = Sass::Script::Color.from_hex(@company.theme_color || Company::THEME_COLORS[:cyan])
+    rev = c.with(hue: ((c.hue + 180) % 360))
+    @c = {
+      base:        c.inspect,
+      darkness:    c.with(saturation: 100, lightness: 15).inspect,
+      dark:        c.with(saturation: 100, lightness: 30).inspect,
+      right:       c.with(saturation: 25,  lightness: 100).inspect,
+      rightness:   c.with(saturation: 10,  lightness: 100).inspect,
+      rev:         rev.inspect,
+      rightrev:    rev.with(saturation: 25,  lightness: 100).inspect,
+      darkrev:     rev.with(saturation: 100, lightness: 30).inspect,
+      darknessrev: rev.with(saturation: 100, lightness: 15).inspect,
+    }
   rescue
-    redirect_to root_path, alert: "e-kikaiメンバ情報が取得できませんでした"
+    redirect_to "/", alert: "e-kikaiメンバ情報が取得できませんでした"
   end
 
   def search_params

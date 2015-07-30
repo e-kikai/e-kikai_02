@@ -26,25 +26,30 @@
 
 class Company < ActiveRecord::Base
   require 'open-uri'
+  # include Hashie::Mash
 
-  serialize :machinelife_images
+  serialize :machinelife_images, Array
   serialize :infos
-  serialize :offices
-  serialize :sites
+  serialize :offices, Array
+  store :sites, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
+
+  dragonfly_accessor :site_top_img
 
   has_many :machines
   has_many :users
-
   has_many :images, :as => :parent
   has_many :contacts
-
   has_many :company_users
 
   accepts_nested_attributes_for :images
 
   validates :name, presence: true
 
-
+  THEME_COLORS = {
+    red:  '#c22', orange: '#fb2',    yellow: '#cc2', yellowgreen: '#9c6',
+    lime: '#2c2', green:  '#007042', sky:    '#2cc', cyan:        '#009CD1',
+    blue: '#22c', purple: '#92c',    moa:    '#c2c', pink:        '#cbb'
+  }
 
   def name_strip_kabu
     name.gsub(/(株式|有限|合.)会社/, '')
@@ -82,7 +87,7 @@ class Company < ActiveRecord::Base
         addr2:          data["addr2"],
         addr3:          data["addr3"],
         website:        data["website"],
-        infos:          data["infos"],
+        infos:          data["infos"].to_h,
         offices:        data["offices"],
         machinelife_images: imgs,
       })

@@ -93,5 +93,7 @@ Rails.application.routes.draw do
   get  ":subdomain/contact",     to: "companies#contact",       as: "member_site_contact"
   post ":subdomain/contact",     to: "companies#contact_create"
   get  ":subdomain/contact_fin", to: "companies#contact_fin",   as: "member_site_contact_fin"
+  get  ":subdomain/detail",      to: "companies#detail"
+  get  ":subdomain/map",         to: "companies#map"
 
 end

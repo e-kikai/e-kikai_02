@@ -31,7 +31,7 @@ class Member::MainController < ApplicationController
     if @company.update(site_param)
       redirect_to "/member/", notice:'自社サイト情報を変更しました'
     else
-      render :company_edit
+      render :site_edit
     end
   end
 
@@ -39,6 +39,7 @@ class Member::MainController < ApplicationController
 
   def get_company
     @company = current_company_user.company
+    # @company.sites = Hashie::Mash.new(@company.sites)
   end
 
   def company_param
@@ -46,7 +47,6 @@ class Member::MainController < ApplicationController
   end
 
   def site_param
-    # params.require(:company).permit(sites:[:headcopy])
-    params.require(:company).permit(sites:[:headcopy])
+    params.require(:company).permit(:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :site_top_img, :remove_site_top_img, makers:[:name, :url], histories:[:date, :content])
   end
 end

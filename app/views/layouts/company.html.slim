@@ -10,11 +10,49 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-    
+
+    css:
+      body.company header.navbar {
+        background: #{@c[:base]};
+        border-color: #{@c[:darkness]};
+      }
+      
+      body.company strong.headcopy,
+      body.company footer {
+        background: #{@c[:darkness]};
+      }
+      
+      body.company .navbar-default .navbar-nav > li > a:hover,
+      body.company .navbar-default .navbar-nav > li > a:focus {
+        background: #{@c[:dark]};
+      }
+      
+      body.company h2 {
+        border-color: #{@c[:rev]};
+      }
+      
+      body.company h3 {
+        border-color: #{@c[:darkness]};
+      }
+      
+      body.company .toppage .btn {
+        border-color: #{@c[:darknessrev]};
+        background-color: #{@c[:rev]};
+      }
+      
+      body.company .toppage .btn:hover,
+      body.company .toppage .btn:focus {
+        background-color: #{@c[:darkrev]};
+      }
+      
+      body.company .makers .maker::before {
+        color: #{@c[:rev]};
+      }
+      
     = render "analytics"
-  
+      
   body.company
-    strong.headcopy 中古機械のスペシャリスト #{@company.name} #{@company.addr1}
+    strong.headcopy = @company.headcopy || "中古機械のスペシャリスト #{@company.name} #{@company.addr1}"
     header.navbar.navbar-default.container-fluid role="navigation"
       .container-fluid
         .navbar-header
@@ -28,8 +66,9 @@ html
           ul.nav.navbar-nav.navbar-right
             li = link_to 'トップページ', "/#{@company.subdomain}"
             li = link_to "在庫機械一覧", "/search?company_id_eq=#{@company.id}"
+            li = link_to '会社情報', "/#{@company.subdomain}/detail"
             li = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank"
-            li = link_to '問い合わせ',   "/#{@company.subdomain}/contact"
+            li = link_to '問い合わせ', "/#{@company.subdomain}/contact"
     .container
       = raw breadcrumbs autoroot: false, style: :bootstrap, semantic: true
 
@@ -40,7 +79,14 @@ html
           span.glyphicon.glyphicon-exclamation-sign
           =< alert
 
-    = yield
+    - if current_page?(controller: "companies", action: "show") && @company.site_top_img
+      .jumbotron
+        = image_tag @company.site_top_img.url
+        .top_img_title = @company.top_img_title
+        .top_img_content = simple_format @company.top_img_content
+      
+    .container
+      = yield
     
     = render "trackingcode"
     

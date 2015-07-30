@@ -14,14 +14,6 @@
  *= require_self
  */
 
-/*
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('../assets/glyphicons-halflings-regular.eot');
-  src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../assets/glyphicons-halflings-regular.woff') format('woff'), url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
-*/
-
 $e-kikai-color: #D9FFDE;
 $e-kikai-color-dark: darken($e-kikai-color, 60%);
 
@@ -66,7 +58,6 @@ $navbar-default-brand-color: $e-kikai-color-dark;
 
 $hr-border: darken($e-kikai-color, 10%);
 
-
 $icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
 @import "bootstrap-sass-official/bootstrap-sprockets";
 @import "bootstrap-sass-official/bootstrap";
@@ -78,12 +69,14 @@ footer {
   text-align: center;
 }
 
-header.navbar {
-  background-image: url(/images/e-kikai-header-bg.png);
-  background-size: cover;
-}
+header {
+  &.navbar {
+    background-image: url(/images/e-kikai-header-bg.png);
+    background-size: cover;
+  }
 
-header a.navbar-brand {
-  padding: 0;
-  overflow: hidden;
+  a.navbar-brand {
+    padding: 0;
+    overflow: hidden;
+  }
 }

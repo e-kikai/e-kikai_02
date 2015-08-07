@@ -4,10 +4,11 @@
 
 .row
   .col-lg-9.col-md-9.col-xs-12.col-sm-12
+    = invoke :test1, :search_area
+    
     .panel.panel-default
       .panel-heading ジャンルで検索
       .panel-body.hidden-sm.hidden-xs
-
         - arr2 = {0 => 0, 1 => 0, 2 => 0}
         - gs   = [[], [], []]
 

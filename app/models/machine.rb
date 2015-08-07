@@ -37,6 +37,7 @@ class Machine < ActiveRecord::Base
   has_one    :large_genre,  :through => :middle_genre
   has_many   :images, :as => :parent
   has_many   :contacts
+  
   scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre, :image) }
 
   enum commission: {不可:'0' ,可:'1'}

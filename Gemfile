@@ -116,4 +116,8 @@ gem 'google-analytics-turbolinks'
 gem 'sidekiq'
 
 gem 'nested_form'
-gem 'hashie'
+# gem 'hashie'
+
+# Split
+gem 'split', require: 'split/dashboard'
+gem 'chanko'

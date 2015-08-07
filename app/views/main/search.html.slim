@@ -3,11 +3,13 @@
 
 - breadcrumb  :search, "#{@title}", @breads
 
+= invoke :test1, :search_area_for_search
+
 = form_tag "/search", method: "GET" do
   - @params.each do |key, p|
     - next if key == "addr1_eq"
     = hidden_field_tag key, p
-
+  
   .input-group.col-lg-4.col-md-4.col-sm-12.col-xs-12 style="margin-bottom:8px;"
     .input-group-addon
       span.glyphicon.glyphicon-filter
@@ -44,6 +46,6 @@
           .machine-buttons.media-right
             = link_to "/contact/#{m.id}", class:"btn btn-lg btn-primary" do
               span.glyphicon.glyphicon-envelope
-              .visible-md-inline.visible-lg-inline =< "問い合わせ"
-              .visible-sm-inline.visible-xs-inline =< "問合"
+              .visible-md-inline.visible-lg-inline =< @contact_label
+              .visible-sm-inline.visible-xs-inline =< @contact_label == "問い合わせ" ? "問合" : "メール"
                   

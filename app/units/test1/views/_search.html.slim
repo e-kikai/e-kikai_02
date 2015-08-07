@@ -1,0 +1,8 @@
+= form_tag "/search", method: "GET" do
+  .input-group style="margin-bottom: 8px;"
+    = text_field_tag :keywords, params[:keywords], class: 'form-control', placeholder: "機械名、メーカー名などで検索"
+    .input-group-btn
+      = button_tag type:"submit", class: 'btn btn-primary' do
+        span.glyphicon.glyphicon-search
+        =< "キーワード検索"
+    

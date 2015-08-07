@@ -6,6 +6,11 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: "/sidekiq"
+
+  mount Split::Dashboard, :at => '/split'
+
   root to: "main#index"
 
   # devise_for :users

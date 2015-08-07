@@ -30,6 +30,9 @@ RailsAdmin.config do |config|
     "中ジャンル同期" => "/admin/crawl/middle_genre",
     "ジャンル同期"   => "/admin/crawl/genre",
 
+    "Sidekiqダッシュボード"     => "/sidekiq/",
+    "Splitダッシュボード"       => "/split/",
+
     'e-kikai トップページ'      => 'http://www.e-kikai.com/',
     'マシンライフ トップページ' => 'http://www.zenkiren.net/',
     'Google Analytics'          => "https://www.google.com/analytics/web/#report/visitors-overview/a629388w1051956p1037262/",
@@ -133,7 +136,11 @@ RailsAdmin.config do |config|
       field :subdomain
       field :infos
       field :offices
-      field :sites
+      # field :sites
+
+      field :headcopy
+
+      field :site_top_img
     end
   end
 

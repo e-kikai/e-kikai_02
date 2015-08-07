@@ -1,4 +1,6 @@
 class MainController < ApplicationController
+  before_action :contact_ab_test, only: [:search, :machine]
+
   ### トップページ ###
   def index
     @genres = LargeGenre.list.all.order('large_genres.order_no, middle_genres.order_no')
@@ -14,10 +16,12 @@ class MainController < ApplicationController
 
   ### 検索結果一覧 ###
   def search
-    @params   = search_params
+    @params = search_params
 
-    @machines  = Machine.search_list(@params)
-    @names     = Machine.search_names(@params)
+    invoke :test1, :search do
+      @machines = Machine.search_list(@params)
+      @names    = Machine.search_names(@params)
+    end
     @nmachines = @machines.group_by(&:name)
 
     # @addr1s   = Machine.search_addr(@params)
@@ -60,7 +64,8 @@ class MainController < ApplicationController
       @title       = "中古#{title}一覧"
       @description = "中古#{title}の在庫一覧を掲載しています。中古#{title}の価格も簡単に問合せ出来ます。中古機械・中古#{title}の販売買取はe-kikaiにおまかせ下さい！"
     end
-
+  rescue => e
+    redirect_to "/", alert: "検索エラーが発生しました : " + e.message
   end
 
   ### 機械詳細 ###
@@ -101,6 +106,7 @@ class MainController < ApplicationController
   end
 
   def contact_fin
+    finished :contact_label
   end
 
   def about
@@ -121,13 +127,18 @@ class MainController < ApplicationController
   private
 
   def search_params
-    params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :company_id_eq, :addr1_eq, :maker_eq)
-    # redirect_to root_url, status: :bad_request, alert: "検索条件がありません" if params.blank?
+    invoke :test1, :params do
+      params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :company_id_eq, :addr1_eq, :maker_eq)
+    end
   rescue
-    redirect_to "/", status: :bad_request, alert: "検索条件が不正です"
+    raise "検索条件が不正です"
   end
 
   def contact_params
     params.require(:contact).permit(:name, :mail, :content, :machine_id, :company_id, :officer, :tel)
+  end
+
+  def contact_ab_test
+    @contact_label = ab_test :contact_label, "問い合わせ", "メール"
   end
 end

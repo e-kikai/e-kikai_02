@@ -53,7 +53,7 @@ module Test1
               [
                 :groupings,
                 NKF.nkf("-wZX--cp932", v).upcase.split(/[[:blank:]]/).map do |w|
-                  { name_or_maker_or_model_or_addr1_or_addr2_or_addr3_or_capacity_or_spec_or_company_name_cont: w }
+                  { name_or_maker_or_model_or_addr1_or_addr2_or_addr3_or_spec_or_company_name_cont: w }
                 end
               ]
             else
@@ -62,7 +62,7 @@ module Test1
           end.to_h
           @q = list.search(res)
 
-          raise "検索条件がありません" if @q.conditions.blank? && res[:groupings].blank?
+          raise "検索条件がありません #{@q.result}" if @q.conditions.blank? && res[:groupings].blank?
         end
       end
     end

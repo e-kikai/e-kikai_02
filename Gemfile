@@ -121,3 +121,6 @@ gem 'nested_form'
 # Split
 gem 'split', require: 'split/dashboard'
 gem 'chanko'
+
+# 解析系
+gem 'newrelic_rpm'

@@ -47,12 +47,12 @@ module Test1
             .pluck(:name).uniq
         end
 
-        def set_query(param)
-          res = param.map do |k,v|
-            if k == :keyword
+        def set_query(params)
+          res = params.map do |k,v|
+            if k == "keywords"
               [
                 :groupings,
-                NKF.nkf("-wZX--cp932", k).upcase.split(/[[:blank:]]/).map do |w|
+                NKF.nkf("-wZX--cp932", v).upcase.split(/[[:blank:]]/).map do |w|
                   { name_or_maker_or_model_or_addr1_or_addr2_or_addr3_or_capacity_or_spec_or_company_name_cont: w }
                 end
               ]
@@ -62,7 +62,7 @@ module Test1
           end.to_h
           @q = list.search(res)
 
-          raise "検索条件がありません" if @q.conditions.blank? && params[:groupings].blank?
+          raise "検索条件がありません" if @q.conditions.blank? && res[:groupings].blank?
         end
       end
     end

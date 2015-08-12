@@ -73,7 +73,7 @@
           - if @machine.genre.capacity_unit.present?
             tr 
               th = @machine.genre.capacity_label
-              td = @machine.capacity.present? ? "#{@machine.capacity.to_i}#{@machine.genre.capacity_unit}" : "-"
+              td = @machine.capacity.present? ? "#{@machine.capacity.to_f}#{@machine.genre.capacity_unit}" : "-"
           tr
             th 在庫場所
             td

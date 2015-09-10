@@ -10,6 +10,7 @@ gem 'pg'
 # Use SCSS for stylesheets
 # gem 'bootstrap-sass', '~> 3.3.5'
 gem 'sass-rails', '~> 5.0'
+# gem 'sass-rails', '~> 4.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -32,6 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Unicorn as the app server
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -124,3 +126,6 @@ gem 'chanko'
 
 # 解析系
 gem 'newrelic_rpm'
+# gem 'fluentd'
+# gem 'fluentd-ui'
+# gem 'rack-common_logger-fluent'

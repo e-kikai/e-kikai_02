@@ -88,21 +88,21 @@ class MainController < ApplicationController
     @machine = Machine.find(params[:contact][:machine_id])
     @contact = Contact.new(contact_params)
 
-    begin
-      Contact.transaction do
-        @contact.save!
+    raise "入力された文字が画像と違っています" unless simple_captcha_valid?
 
-        # ContactMailer.contact(@contact, @machine).deliver_later
-        # ContactMailer.contact_confirm(@contact, @machine).deliver_later
-        ContactMailer.contact(@contact, @machine).deliver
-        ContactMailer.contact_confirm(@contact, @machine).deliver
-      end
+    Contact.transaction do
+      @contact.save!
 
-      redirect_to "/contact_fin", notice: '問い合わせを送信しました'
-    rescue => e
-      flash.now[:alert] = e.message
-      render :action => :contact
+      # ContactMailer.contact(@contact, @machine).deliver_later
+      # ContactMailer.contact_confirm(@contact, @machine).deliver_later
+      ContactMailer.contact(@contact, @machine).deliver
+      ContactMailer.contact_confirm(@contact, @machine).deliver
     end
+
+    redirect_to "/contact_fin", notice: '問い合わせを送信しました'
+  rescue => e
+    flash.now[:alert] = e.message
+    render :action => :contact
   end
 
   def contact_fin

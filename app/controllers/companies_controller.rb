@@ -36,20 +36,20 @@ class CompaniesController < ApplicationController
 
   def contact_create
     @contact = Contact.new(contact_params)
+    
+    raise "入力された文字が画像と違っています" unless simple_captcha_valid?
 
-    begin
-      Contact.transaction do
-        @contact.save!
+    Contact.transaction do
+      @contact.save!
 
-        ContactMailer.company_contact(@contact, @company).deliver
-        ContactMailer.company_contact_confirm(@contact, @company).deliver
-      end
-
-      redirect_to "/#{@company.subdomain}/contact_fin", notice: '問い合わせを送信しました'
-    rescue => e
-      flash.now[:alert] = e.message
-      render :action => :contact
+      ContactMailer.company_contact(@contact, @company).deliver
+      ContactMailer.company_contact_confirm(@contact, @company).deliver
     end
+
+    redirect_to "/#{@company.subdomain}/contact_fin", notice: '問い合わせを送信しました'
+  rescue => e
+    flash.now[:alert] = e.message
+    render :action => :contact
   end
 
   def contact_fin

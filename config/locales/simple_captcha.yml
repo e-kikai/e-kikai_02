@@ -1,0 +1,7 @@
+ja:
+  simple_captcha:
+    placeholder: "↑の文字を入力"
+    label: "画像に表示されている文字を入力してください:"
+    refresh_button_text: "別の文字を表示"
+    message:
+      default: "入力された文字が画像と違っています"

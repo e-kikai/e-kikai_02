@@ -129,3 +129,5 @@ gem 'newrelic_rpm'
 # gem 'fluentd'
 # gem 'fluentd-ui'
 # gem 'rack-common_logger-fluent'
+
+gem 'simple_captcha2', git: 'https://github.com/pludoni/simple-captcha.git', require: true

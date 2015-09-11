@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/pludoni/simple-captcha.git
+  revision: 95b6d88a504c8f6975adb7bf5c84b417052b30f7
+  specs:
+    simple_captcha2 (0.3.4)
+      rails (>= 4.1)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -412,6 +419,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sidekiq
+  simple_captcha2!
   sitemap_generator
   slim
   slim-rails

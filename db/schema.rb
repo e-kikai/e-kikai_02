@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724005858) do
+ActiveRecord::Schema.define(version: 20150911143011) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -165,6 +165,15 @@ ActiveRecord::Schema.define(version: 20150724005858) do
 
   add_index "middle_genres", ["deleted_at"], name: "index_middle_genres_on_deleted_at"
   add_index "middle_genres", ["large_genre_id"], name: "index_middle_genres_on_large_genre_id"
+
+  create_table "simple_captcha_data", force: :cascade do |t|
+    t.string   "key",        limit: 40
+    t.string   "value",      limit: 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simple_captcha_data", ["key"], name: "idx_key"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

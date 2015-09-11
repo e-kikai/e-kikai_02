@@ -40,14 +40,14 @@
             .input-group
               span.input-group-addon
                 span.glyphicon.glyphicon-home
-              = f.text_field :name, class: 'form-control', placeholder: "会社名(個人の場合は個人名)(必須)"
+              = f.text_field :name, class: 'form-control', placeholder: "会社名(個人の場合は個人名)(必須)", required: "required"
 
           .form-group
             = f.label :mail
             .input-group
               span.input-group-addon
                 span.glyphicon.glyphicon-envelope
-              = f.text_field :mail, class: 'form-control', placeholder: "メールアドレス(必須)"
+              = f.text_field :mail, class: 'form-control', placeholder: "メールアドレス(必須)", required: "required"
 
           .form-group
             = f.label :officer
@@ -65,7 +65,10 @@
 
           .form-group
             = f.label :content
-            = f.text_area :content, class: 'form-control', style:"height:100px;"
+            = f.text_area :content, class: 'form-control', style:"height:100px;", required: "required"
+          
+          .form-group
+            = show_simple_captcha(input_html: { class: 'form-control' })
 
           = f.button type:"submit", class: 'btn btn-primary', data: {confirm: "お問い合わせを送信します。よろしいですか。", disable_with: '送信中・・・' } do
             span.glyphicon.glyphicon-send

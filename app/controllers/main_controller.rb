@@ -1,5 +1,6 @@
 class MainController < ApplicationController
-  before_action :contact_ab_test, only: [:search, :machine]
+  before_action :contact_ab_test, only: [:search, :machine, :detail]
+  before_action :detail_ab_test
 
   ### トップページ ###
   def index
@@ -78,6 +79,14 @@ class MainController < ApplicationController
     @nmachines = Machine.search_list(q).group_by(&:name)
   end
 
+  def detail
+    @machine = Machine.find(params[:id])
+
+    q = {middle_genre_id_eq: @machine.genre.middle_genre_id}
+    @names     = Machine.search_names(q)
+    @nmachines = Machine.search_list(q).group_by(&:name)
+  end
+
   ### 機械問い合わせ ###
   def contact
     @machine = Machine.find(params[:id])
@@ -107,6 +116,7 @@ class MainController < ApplicationController
 
   def contact_fin
     finished :contact_label
+    finished :detail_link
   end
 
   def about
@@ -140,5 +150,9 @@ class MainController < ApplicationController
 
   def contact_ab_test
     @contact_label = ab_test :contact_label, "問い合わせ", "メール"
+  end
+
+  def detail_ab_test
+    @detail_link = ab_test :detail_link, "machine", "detail"
   end
 end

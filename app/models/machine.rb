@@ -37,7 +37,7 @@ class Machine < ActiveRecord::Base
   has_one    :large_genre,  :through => :middle_genre
   has_many   :images, :as => :parent
   has_many   :contacts
-  
+
   scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre, :image) }
 
   enum commission: {不可:'0' ,可:'1'}
@@ -59,10 +59,15 @@ class Machine < ActiveRecord::Base
   end
 
   def self.crawl
-    Company.where.not(machinelife_id: nil).each do |c|
+    Company.where.not(machinelife_id: nil).order(:id).each do |c|
       puts "<< #{c.name} >>"
-      datas = self.get_datas("t=machines&c=#{c.machinelife_id}")
-      return if datas.blank?
+      begin
+        datas = self.get_datas("t=machines&c=#{c.machinelife_id}")
+      rescue => e
+        puts e.message
+        next
+      end
+      next if datas.blank?
 
       machinelife_ids = c.machines.pluck(:machinelife_id)
       numbers, deleted = 0

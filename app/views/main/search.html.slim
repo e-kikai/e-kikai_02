@@ -28,7 +28,7 @@
         .list-group-item
           .media-left.hidden-sm.hidden-xs
             .machine-image.text-center
-              = link_to "/machine/#{m.id}" do
+              = link_to "/#{@detail_link}/#{m.id}" do
                 - if m[:machinelife_images].present?
                   = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", alt: "#{m.name} #{m.maker} #{m.model}"
                 - elsif m.image.present?
@@ -36,7 +36,7 @@
                 - else
                   = image_tag "/images/nopicture.gif"
           .media-body style="position:relative;"
-            h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/machine/#{m.id}"
+            h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/#{@detail_link}/#{m.id}"
             p.machine-spec.hidden-xs.hidden-sm = m.spec
             .machine-other
               =< "#{m.year}年式" if m.year.to_i > 0

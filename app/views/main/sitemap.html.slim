@@ -53,4 +53,12 @@
       -next if gm[2].blank?
       .col-lg-3.col-md-3.col-xs-12.col-sm-12
         = link_to "#{gm[1]}/#{gm[2]}", "/search?genre_id_eq=#{gm[0]}&maker_eq=#{gm[2]}" 
-          
+        
+.col-lg-12.col-md-12.col-xs-12.col-sm-12
+  .panel.panel-default
+    .panel-heading 在庫機械一覧
+    - @genres.each do |g|
+      - g.machines.each do |m|
+        .col-lg-3.col-md-3.col-xs-12.col-sm-12
+          = link_to "#{m.name}", "/machine/#{m.id}/"
+          = link_to " #{m.maker} #{m.model}", "/detail/#{m.id}/"

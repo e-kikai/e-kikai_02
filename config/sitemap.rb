@@ -57,5 +57,6 @@ SitemapGenerator::Sitemap.create do
   # 機械詳細
   Machine.select(:id, :updated_at).each do |m|
     add "/machine/#{m.id}", :priority => 0.6, :changefreq => 'daily', :lastmod => m.updated_at
+    add "/detail/#{m.id}",  :priority => 0.6, :changefreq => 'daily', :lastmod => m.updated_at
   end
 end

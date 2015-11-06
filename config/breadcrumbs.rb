@@ -57,7 +57,7 @@ crumb :detail do |m|
   if m.genre.present?
     link m.genre.name, "/search?genre_id_eq=#{m.genre.id}"
   end
-  
+
   link "#{m.name} #{m.maker} #{m.model}", "/machine/#{m.id}"
 end
 

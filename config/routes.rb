@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get  "large_genre/:id", to: "main#large_genre",   as: "large_genre"
   get  "search",          to: "main#search",        as: "search"
   get  "machine/:id",     to: "main#machine",       as: "machine"
+  get  "detail/:id",      to: "main#detail",       as: "detail"
   get  "contact/:id",     to: "main#contact",       as: "contact"
   post "contact",         to: "main#contact_create"
   get  "contact_fin",     to: "main#contact_fin",   as: "contact_fin"

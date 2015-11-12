@@ -8,7 +8,7 @@
     table.table
       tr
         th 問い合わせ機械
-        td = link_to "#{@machine.name} #{@machine.maker} #{@machine.model}", "/machine/#{@machine.id}"
+        td = link_to "#{@machine.name} #{@machine.maker} #{@machine.model}", "/#{@detail_link}/#{@machine.id}"
       tr
         th 問い合わせ先
         td = link_to @machine.company.name, "/#{@machine.company.subdomain}"
@@ -34,6 +34,7 @@
           
           = f.hidden_field :machine_id
           = f.hidden_field :company_id
+          = hidden_field_tag :ref, @ref
 
           .form-group
             = f.label :name

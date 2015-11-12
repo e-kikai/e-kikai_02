@@ -44,8 +44,6 @@
               =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
               
           .machine-buttons.media-right
-            = link_to "/contact/#{m.id}", class:"btn btn-lg btn-primary" do
+            = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
               span.glyphicon.glyphicon-envelope
-              .visible-md-inline.visible-lg-inline =< @contact_label
-              .visible-sm-inline.visible-xs-inline =< @contact_label == "問い合わせ" ? "問合" : "メール"
-                  
+              =< " メール"

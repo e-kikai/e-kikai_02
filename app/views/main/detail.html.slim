@@ -1,4 +1,4 @@
-- set_meta_tags title:       "#{@machine.name} #{@machine.maker} #{@machine.model}"
+- set_meta_tags title:       "◎#{@machine.name} #{@machine.maker} #{@machine.model}"
 - set_meta_tags keywords: "#{@machine.name},#{@machine.maker},#{@machine.model},#{@machine.genre.name},#{@machine.middle_genre.name},#{@machine.large_genre.name},#{@machine.addr1},中古機械,e-kikai,Used machinery, Used machine"
 - set_meta_tags description: "◎#{@machine.name} #{@machine.maker} #{@machine.model}の中古機械情報です"
 
@@ -54,9 +54,9 @@
           => "次の機械へ" 
           span.glyphicon.glyphicon-forward
       
-    address.clearfix = link_to "/contact/#{@machine.id}", class:"btn btn-lg btn-primary pull-right", style:"margin-top:8px;" do
+    address.clearfix = link_to "/contact/#{@machine.id}?ref=◎", class:"btn btn-lg btn-primary pull-right", style:"margin-top:8px;" do
       span.glyphicon.glyphicon-envelope
-      =< "#{@contact_label}はこちら"
+      =< "メールはこちら"
     
     .panel.panel-default
       .panel-heading

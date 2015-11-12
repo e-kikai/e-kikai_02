@@ -1,5 +1,5 @@
 class MainController < ApplicationController
-  before_action :contact_ab_test, only: [:search, :machine, :detail]
+  # before_action :contact_ab_test, only: [:search, :machine, :detail]
   before_action :detail_ab_test,  except: [:contact_fin]
 
   ### トップページ ###
@@ -91,15 +91,18 @@ class MainController < ApplicationController
   def contact
     @machine = Machine.find(params[:id])
     @contact = Contact.new(machine_id: @machine.id, company_id: @machine.company_id)
+    @ref     = params[:ref]
   end
 
   def contact_create
     @machine = Machine.find(params[:contact][:machine_id])
     @contact = Contact.new(contact_params)
+    @ref     = params[:ref]
 
     raise "入力された文字が画像と違っています" unless simple_captcha_valid?
 
     Contact.transaction do
+      @contact[:content] = @ref + @contact[:content]
       @contact.save!
 
       # ContactMailer.contact(@contact, @machine).deliver_later
@@ -111,11 +114,11 @@ class MainController < ApplicationController
     redirect_to "/contact_fin", notice: '問い合わせを送信しました'
   rescue => e
     flash.now[:alert] = e.message
-    render :action => :contact
+    render action: :contact
   end
 
   def contact_fin
-    finished :contact_label
+    # finished :contact_label
     finished :detail_link
   end
 
@@ -148,9 +151,9 @@ class MainController < ApplicationController
     params.require(:contact).permit(:name, :mail, :content, :machine_id, :company_id, :officer, :tel)
   end
 
-  def contact_ab_test
-    @contact_label = ab_test :contact_label, "問い合わせ", "メール"
-  end
+  # def contact_ab_test
+  #   @contact_label = ab_test :contact_label, "問い合わせ", "メール"
+  # end
 
   def detail_ab_test
     @detail_link = ab_test :detail_link, "machine", "detail"

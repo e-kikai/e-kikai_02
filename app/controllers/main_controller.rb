@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   before_action :contact_ab_test, only: [:search, :machine, :detail]
-  before_action :detail_ab_test
+  before_action :detail_ab_test,  except: [:contact_fin]
 
   ### トップページ ###
   def index

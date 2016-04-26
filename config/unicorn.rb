@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # unicornのプロセスがリスンするアドレスとポートを指定
-listen "127.0.0.1:3000"
+# listen "127.0.0.1:3000"
 
 # pid fileの位置を指定する
 # pid "/run/unicorn_e-kikai.pid"

@@ -13,15 +13,29 @@
 //= require jquery
 //= require jquery.lazyload
 //= require jquery_ujs
-//= require turbolinks
+// require turbolinks
 //= require google-analytics-turbolinks
 //= require bootstrap-sass-official
 //= require jquery_nested_form
+//= require ahoy
 //= require_tree .
 
+var start
 var ready = function() {
+    // ahoy.trackView();
+
     $("img.lazy").lazyload({ effect : "fadeIn" });
 };
 
 $(document).ready(ready);
-$(document).on('page:load', ready);
+// $(document).on('page:load', ready);
+
+$(window).on("load", function() {
+  start = new Date;
+});
+
+$(window).on("beforeunload", function() {
+    var time = (new Date - start) / 1000;
+
+    ahoy.track("view", {path: location.pathname, title: document.title, time: time});
+});

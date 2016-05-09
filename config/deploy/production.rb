@@ -10,6 +10,7 @@ role :db,  %w{vagrant@e-kikai_production}
 
 set :rails_env, :production
 set :unicorn_rack_env, :production
+set :unicorn_options,  " -p 3000 "
 
 ask(:branch, 'master')
 

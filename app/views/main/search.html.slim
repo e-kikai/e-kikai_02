@@ -36,7 +36,7 @@
                 - else
                   = image_tag "/images/nopicture.gif"
           .media-body style="position:relative;"
-            h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/#{@detail_link}/#{m.id}"
+            h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/#{@detail_link}/#{m.id}", data: { id: m.id }
             p.machine-spec.hidden-xs.hidden-sm = m.spec
             .machine-other
               =< "#{m.year}年式" if m.year.to_i > 0

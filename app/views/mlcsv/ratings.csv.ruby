@@ -1,10 +1,10 @@
 require 'nkf'
 
-header =%w|machine_id visitor_token rating|
+header =%w|visitor_token machine_id rating|
 csv = NKF::nkf('--sjis -Lw', header.to_csv)
 
 @ratings.each do |k, v|
-  line = [ k[1], k[0], v[:rating] ]
+  line = [ k[0], k[1], v[:rating] ]
   csv << NKF::nkf('--sjis -Lw', line.to_csv)
 end
 

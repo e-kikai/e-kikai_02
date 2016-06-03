@@ -70,6 +70,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  get "mlcsv/machines", to: "mlcsv#machines"
+  get "mlcsv/visitors", to: "mlcsv#visitors"
+  get "mlcsv/ratings",  to: "mlcsv#ratings"
+
   # 機械検索
   get  "large_genre/:id", to: "main#large_genre",   as: "large_genre"
   get  "search",          to: "main#search",        as: "search"

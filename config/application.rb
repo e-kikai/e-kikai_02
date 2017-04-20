@@ -35,6 +35,9 @@ module EKikai
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
 
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.default_url_options = { :host => 'localhost' }
+    config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       :address => 'smtp5.gmoserver.jp',
       :port => 587,

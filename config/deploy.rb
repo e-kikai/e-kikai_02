@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.5.0'
+lock '3.7.0'
 
 set :application, 'e-kikai_02'
 set :repo_url, 'git@github.com:e-kikai/e-kikai_02.git'

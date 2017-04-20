@@ -52,8 +52,8 @@ Rails.application.configure do
   #   :enable_starttls_auto => true
   # }
 
-  config.action_mailer.smtp_settings = {
-    :address   => 'mail.e-kikai.com',
-    :port      => 587,
-  }
+  # config.action_mailer.smtp_settings = {
+  #   :address   => 'mail.e-kikai.com',
+  #   :port      => 587,
+  # }
 end

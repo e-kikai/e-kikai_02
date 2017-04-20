@@ -34,5 +34,14 @@ module EKikai
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+
+    config.action_mailer.smtp_settings = {
+      :address => 'smtp5.gmoserver.jp',
+      :port => 587,
+      :user_name => 'admin@e-kikai.com',
+      :password => 'horikawa#2349',
+      :authentication => :plain,
+      :enable_starttls_auto => true
+    }
   end
 end

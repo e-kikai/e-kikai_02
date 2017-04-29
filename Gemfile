@@ -107,7 +107,7 @@ end
 
 # 太田機械クローラ
 gem 'mechanize'
-gem 'whenever', :require => false
+gem 'whenever', '~> 0.9.4', :require => false
 
 # SEO
 gem 'sitemap_generator'

@@ -39,10 +39,11 @@ module EKikai
     config.action_mailer.default_url_options = { :host => 'localhost' }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      :address => 'smtp5.gmoserver.jp',
+      :address => Rails.application.secrets.mail_smtp_server,
       :port => 587,
-      :user_name => 'admin@e-kikai.com',
-      :password => 'horikawa#2349',
+      :user_name => Rails.application.secrets.mail_user_name,
+      :password => Rails.application.secrets.mail_passwd,
+      
       :authentication => :plain,
       :enable_starttls_auto => true
     }

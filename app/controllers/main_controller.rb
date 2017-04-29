@@ -121,7 +121,7 @@ class MainController < ApplicationController
 
   def contact_fin
     # finished :contact_label
-    finished :detail_link
+    ab_finished :detail_link
   end
 
   def about

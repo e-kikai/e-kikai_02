@@ -61,6 +61,9 @@ class Machine < ActiveRecord::Base
   def self.crawl
     Company.where.not(machinelife_id: nil).order(:id).each do |c|
       puts "<< #{c.name} >>"
+
+      # next if c.machinelife_id == 9
+
       begin
         datas = self.get_datas("t=machines&c=#{c.machinelife_id}")
       rescue => e
@@ -78,6 +81,9 @@ class Machine < ActiveRecord::Base
           genre_id = Genre.find_by(machinelife_id: d["genre_id"]).id
 
           machine = c.machines.find_or_create_by(:machinelife_id => d["id"])
+          machinelife_ids.delete(d["id"])
+
+          next if machine.id.present?
 
           # 名前整形
           if d['capacity_unit'].present? && d['capacity'].present? && /^[0-9]/ !~ d['name']
@@ -113,8 +119,6 @@ class Machine < ActiveRecord::Base
 
           # puts machine[:machinelife_images]
           # puts "OK #{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
-
-          machinelife_ids.delete(d["id"])
 
         rescue => e
           puts e.message

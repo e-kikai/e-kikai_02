@@ -28,10 +28,10 @@ rails_env = ENV['RAILS_ENV'] || :development
 set :environment, rails_env
 
 # 2時間毎に実行するスケジューリング
-every " 0 7-20 * * * " do
+every " 5 2 * * * " do
   runner "Machine.crawl"
 end
 
-every " 10 7-20 * * * " do
+every " 0 2 * * * " do
   runner "Machine.crawl_ota"
 end

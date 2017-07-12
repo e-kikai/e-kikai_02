@@ -3,7 +3,7 @@
 
 - breadcrumb  :search, "#{@title}", @breads
 
-= invoke :test1, :search_area_for_search
+/ = invoke :test1, :search_area_for_search
 
 = form_tag "/search", method: "GET" do
   - @params.each do |key, p|

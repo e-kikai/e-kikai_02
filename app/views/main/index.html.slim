@@ -4,19 +4,19 @@
 
 .row
   .col-lg-9.col-md-9.col-xs-12.col-sm-12
-    = invoke :test1, :search_area
+    / = invoke :test1, :search_area
     
     .panel.panel-default
       .panel-heading ジャンルで検索
       .panel-body.hidden-sm.hidden-xs
         - arr2 = {0 => 0, 1 => 0, 2 => 0}
         - gs   = [[], [], []]
-
+    
         - @genres.each_with_index do |l, i|
           - key = arr2.min { |x, y| x[1] <=> y[1] }[0]
           - gs[key] << l
           - arr2[key] += (1 + l.middle_genres.length)
-
+    
         - gs.each do |ls|
           .col-lg-4.col-md-4
             - ls.each do |l|
@@ -28,11 +28,11 @@
                   - l.middle_genres.each_with_index do |m, j|
                     - next if @middle_genre_counts[m.id] == 0
                     = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
-              
-      .list-group.hidden-lg.hidden-md
-        / 大ジャンル一覧
-        - @genres.each_with_index do |l, i|
-          = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
+                
+        .list-group.hidden-lg.hidden-md
+          / 大ジャンル一覧
+          - @genres.each_with_index do |l, i|
+            = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
 
   .col-lg-3.col-md-3.col-xs-12.col-sm-12
     .panel.panel-default

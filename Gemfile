@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.3'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-gem 'pg'
+gem 'pg', '= 0.20.0'
 
 # Use SCSS for stylesheets
 # gem 'bootstrap-sass', '~> 3.3.5'
@@ -122,14 +122,15 @@ gem 'nested_form'
 
 # Split
 gem 'split', require: 'split/dashboard'
-gem 'chanko'
+# gem 'chanko'
 
 # 解析系
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 # gem 'fluentd'
 # gem 'fluentd-ui'
 # gem 'rack-common_logger-fluent'
-gem 'fluent-logger'
+
+# gem 'fluent-logger'
 
 # gem 'simple_captcha2', git: 'https://github.com/pludoni/simple-captcha', require: true
 gem 'simple_captcha2', require: 'simple_captcha'

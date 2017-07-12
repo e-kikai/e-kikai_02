@@ -19,10 +19,10 @@ class MainController < ApplicationController
   def search
     @params = search_params
 
-    invoke :test1, :search do
+    # invoke :test1, :search do
       @machines = Machine.search_list(@params)
       @names    = Machine.search_names(@params)
-    end
+    # end
     @nmachines = @machines.group_by(&:name)
 
     # @addr1s   = Machine.search_addr(@params)
@@ -142,9 +142,9 @@ class MainController < ApplicationController
   private
 
   def search_params
-    invoke :test1, :params do
+    # invoke :test1, :params do
       params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :company_id_eq, :addr1_eq, :maker_eq)
-    end
+    # end
   rescue
     raise "検索条件が不正です"
   end

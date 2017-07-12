@@ -1,6 +1,6 @@
 module ApplicationHelper
-  include Chanko::Invoker
-  include Chanko::Helper
+  # include Chanko::Invoker
+  # include Chanko::Helper
 
   def lazy_image_tag source, options = {}
     options['data-original'] = source

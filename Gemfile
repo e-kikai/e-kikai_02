@@ -121,7 +121,7 @@ gem 'nested_form'
 # gem 'hashie'
 
 # Split
-gem 'split', require: 'split/dashboard'
+# gem 'split', require: 'split/dashboard'
 # gem 'chanko'
 
 # 解析系

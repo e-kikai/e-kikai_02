@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, at: "/sidekiq"
 
-  mount Split::Dashboard, :at => '/split'
+  # mount Split::Dashboard, :at => '/split'
 
   root to: "main#index"
 

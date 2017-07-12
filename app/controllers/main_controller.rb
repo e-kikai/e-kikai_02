@@ -158,6 +158,7 @@ class MainController < ApplicationController
   # end
 
   def detail_ab_test
-    @detail_link = ab_test :detail_link, "machine", "detail"
+    # @detail_link = ab_test :detail_link, "machine", "detail"
+    @detail_link = "machine"
   end
 end

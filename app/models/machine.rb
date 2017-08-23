@@ -58,8 +58,8 @@ class Machine < ActiveRecord::Base
   def self.search_names(q)
     # includes(:large_genre).search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
 
-    includes(:large_genre).search(q).result.select(:name).uniq
-      .order(:name)
+    # includes(:large_genre).search(q).result.select(:name).uniq.order(:name)
+    search(q).result.select(:name).uniq.order(:name).pluck(:name)
   end
 
   def self.crawl

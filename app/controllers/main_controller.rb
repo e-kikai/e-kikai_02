@@ -19,11 +19,19 @@ class MainController < ApplicationController
   def search
     @params = search_params
 
-    # invoke :test1, :search do
-      @machines = Machine.search_list(@params)
-      @names    = Machine.search_names(@params)
-    # end
-    @nmachines = @machines.group_by(&:name)
+    # # invoke :test1, :search do
+    #   @machines = Machine.search_list(@params)
+    #   @names    = Machine.search_names(@params)
+    # # end
+    # @nmachines = @machines.group_by(&:name)
+
+    # @names     = Machine.search_names(@params)
+    # @pnames    = @names.page(params[:page])
+    # @machines  = Machine.search_list(@params)
+    # @nmachines = @machines.where(name: @pnames.pluck(:name)).group_by(&:name)
+
+    @machines  = Machine.search_list(@params)
+    @pmachines = @machines.page(params[:page])
 
     # @addr1s   = Machine.search_addr(@params)
     @addr1s = @machines.map(&:addr1).uniq.reject(&:blank?)

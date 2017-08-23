@@ -16,34 +16,66 @@
       =< "さらに都道府県でさがす"
     = select_tag :addr1_eq, options_for_select(@addr1s, selected: @params[:addr1_eq]), prompt: "すべて表示" ,class: "form-control", onchange: "this.form.submit();"
 
-- @names.each do |n|
-  .panel.panel-default
-    .panel-heading
-      h3.panel-title = n
-      
-    .list-group
-      / - @machines.each do |m|
-        / - if m.name == n
-      - @nmachines[n].each do |m|
-        .list-group-item
-          .media-left.hidden-sm.hidden-xs
-            .machine-image.text-center
-              = link_to "/#{@detail_link}/#{m.id}" do
-                - if m[:machinelife_images].present?
-                  = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", alt: "#{m.name} #{m.maker} #{m.model}"
-                - elsif m.image.present?
-                  = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
-                - else
-                  = image_tag "/images/nopicture.gif"
-          .media-body style="position:relative;"
-            h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/#{@detail_link}/#{m.id}", data: { id: m.id }
-            p.machine-spec.hidden-xs.hidden-sm = m.spec
-            .machine-other
-              =< "#{m.year}年式" if m.year.to_i > 0
-              =< m.addr1
-              =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
-              
-          .machine-buttons.media-right
-            = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
-              span.glyphicon.glyphicon-envelope
-              =< " メール"
+/ = paginate @pnames
+= paginate @pmachines
+
+/ - @pnames.pluck(:name).each do |n|
+/   .panel.panel-default
+/     .panel-heading
+/       h3.panel-title = n
+/       
+/     .list-group
+/       / - @machines.each do |m|
+/         / - if m.name == n
+/       - @nmachines[n].each do |m|
+/         .list-group-item
+/           .media-left.hidden-sm.hidden-xs
+/             .machine-image.text-center
+/               = link_to "/#{@detail_link}/#{m.id}" do
+/                 - if m[:machinelife_images].present?
+/                   = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", alt: "#{m.name} #{m.maker} #{m.model}"
+/                 - elsif m.image.present?
+/                   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
+/                 - else
+/                   = image_tag "/images/nopicture.gif"
+/           .media-body style="position:relative;"
+/             h4.machine-link = link_to "#{m.maker} #{m.model}".presence || "(詳細はこちら ->)", "/#{@detail_link}/#{m.id}", data: { id: m.id }
+/             p.machine-spec.hidden-xs.hidden-sm = m.spec
+/             .machine-other
+/               =< "#{m.year}年式" if m.year.to_i > 0
+/               =< m.addr1
+/               =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
+/               
+/           .machine-buttons.media-right
+/             = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
+/               span.glyphicon.glyphicon-envelope
+/               =< " メール"
+
+.panel.panel-default
+  .list-group
+    - @pmachines.each do |m|
+      .list-group-item
+        .media-left.hidden-sm.hidden-xs
+          .machine-image.text-center
+            = link_to "/#{@detail_link}/#{m.id}" do
+              - if m[:machinelife_images].present?
+                = lazy_image_tag "http://www.zenkiren.net/media/machine/#{m[:machinelife_images].first}", alt: "#{m.name} #{m.maker} #{m.model}"
+              - elsif m.image.present?
+                = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
+              - else
+                = image_tag "/images/nopicture.gif"
+        .media-body style="position:relative;"
+          h4.machine-link = link_to "#{m.name} #{m.maker} #{m.model}", "/#{@detail_link}/#{m.id}", data: { id: m.id }
+          p.machine-spec.hidden-xs.hidden-sm = m.spec
+          .machine-other
+            =< "#{m.year}年式" if m.year.to_i > 0
+            =< m.addr1
+            =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
+            
+        .machine-buttons.media-right
+          = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
+            span.glyphicon.glyphicon-envelope
+            =< " メール"
+
+/ = paginate @pnames
+= paginate @pmachines

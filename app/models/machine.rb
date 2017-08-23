@@ -51,12 +51,15 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_list(q)
-    # list.search(q).result.order("machines.name, CASE WHEN maker_kana IS NULL OR maker_kana = '' THEN '1' ELSE '0' END, maker_kana, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
-    list.search(q).result.order("machines.name")
+    list.search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name, CASE WHEN maker_kana IS NULL OR maker_kana = '' THEN '1' ELSE '0' END, maker_kana, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
+    # list.search(q).result.order("machines.name")
   end
 
   def self.search_names(q)
-    includes(:large_genre).search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
+    # includes(:large_genre).search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name").pluck(:name).uniq
+
+    includes(:large_genre).search(q).result.select(:name).uniq
+      .order(:name)
   end
 
   def self.crawl

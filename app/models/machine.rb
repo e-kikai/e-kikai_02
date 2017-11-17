@@ -38,7 +38,8 @@ class Machine < ActiveRecord::Base
   has_many   :images, :as => :parent
   has_many   :contacts
 
-  scope :list, -> { eager_load(:genre, :company, :middle_genre, :large_genre, :image) }
+  # scope :list, -> { includes(:genre, :company, :middle_genre, :large_genre, :image) }
+  scope :list, -> { includes(:company, :image) }
 
   enum commission: {不可:'0' ,可:'1'}
 
@@ -51,8 +52,8 @@ class Machine < ActiveRecord::Base
   end
 
   def self.search_list(q)
-    list.search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name, CASE WHEN maker_kana IS NULL OR maker_kana = '' THEN '1' ELSE '0' END, maker_kana, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
-    # list.search(q).result.order("machines.name")
+    # list.search(q).result.order("large_genres.order_no, middle_genres.order_no, genres.order_no, capacity IS NULL, capacity, machines.name, CASE WHEN maker_kana IS NULL OR maker_kana = '' THEN '1' ELSE '0' END, maker_kana, CASE WHEN maker IS NULL OR maker = '' THEN '1' ELSE '0' END, maker, CASE WHEN model = '' THEN '1' ELSE '0' END, model")
+    list.search(q).result.order("machines.name, machines.created_at DESC")
   end
 
   def self.search_names(q)

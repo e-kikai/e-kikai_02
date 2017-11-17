@@ -85,7 +85,7 @@ class MainController < ApplicationController
     # @machines  = Machine.search_list(q)
     @names     = Machine.search_names(q)
     # @nmachines = Machine.search_list(q).group_by(&:name)
-    @nmachines = Machine.search(q).result.select(:id, :name, :genre).group_by(&:name)
+    @nmachines = Machine.search(q).result.select(:id, :name, :maker, :model).group_by(&:name)
   end
 
   def detail
@@ -93,7 +93,7 @@ class MainController < ApplicationController
 
     q = {genre_id_eq: @machine.genre_id}
     @names     = Machine.search_names(q)
-    @nmachines = Machine.search(q).result.select(:id, :name, :genre).group_by(&:name)
+    @nmachines = Machine.search(q).result.select(:id, :name, :maker, :model).group_by(&:name)
   end
 
   ### 機械問い合わせ ###

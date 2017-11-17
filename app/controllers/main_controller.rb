@@ -81,18 +81,18 @@ class MainController < ApplicationController
   def machine
     @machine = Machine.find(params[:id])
 
-    q = {middle_genre_id_eq: @machine.genre.middle_genre_id}
+    q = {genre_id_eq: @machine.genre.genre_id}
     # @machines  = Machine.search_list(q)
     @names     = Machine.search_names(q)
-    @nmachines = Machine.search_list(q).group_by(&:name)
+    @nmachines = Machine.search_list(q).select(:id, :name, :genre).group_by(&:name)
   end
 
   def detail
     @machine = Machine.find(params[:id])
 
-    q = {middle_genre_id_eq: @machine.genre.middle_genre_id}
+    q = {genre_id_eq: @machine.genre_id}
     @names     = Machine.search_names(q)
-    @nmachines = Machine.search_list(q).group_by(&:name)
+    @nmachines = Machine.search_list(q).select(:id, :name, :genre).group_by(&:name)
   end
 
   ### 機械問い合わせ ###

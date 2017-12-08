@@ -42,7 +42,7 @@ class CompaniesController < ApplicationController
     Contact.transaction do
       @contact.save!
 
-      railse "testtest"
+      raise "testtest"
 
       ContactMailer.company_contact(@contact, @company).deliver
       ContactMailer.company_contact_confirm(@contact, @company).deliver

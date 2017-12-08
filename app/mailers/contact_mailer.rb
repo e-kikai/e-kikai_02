@@ -32,7 +32,7 @@ class ContactMailer < ApplicationMailer
     @company = company
     @contact = contact
 
-    mailto = Rails.env.production? ? @machine.company.contact_mail : @contact.mail
+    mailto = Rails.env.production? ? @company.contact_mail : @contact.mail
 
     mail(
       from:    "e-kikai Network<admin@e-kikai.com>",

@@ -43,8 +43,6 @@ class CompaniesController < ApplicationController
       @contact.save!
 
       ContactMailer.company_contact(@contact, @company).deliver
-      raise "testtest"
-
       ContactMailer.company_contact_confirm(@contact, @company).deliver
     end
 

@@ -36,11 +36,13 @@ class CompaniesController < ApplicationController
 
   def contact_create
     @contact = Contact.new(contact_params)
-    
+
     raise "入力された文字が画像と違っています" unless simple_captcha_valid?
 
     Contact.transaction do
       @contact.save!
+
+      railse "testtest"
 
       ContactMailer.company_contact(@contact, @company).deliver
       ContactMailer.company_contact_confirm(@contact, @company).deliver

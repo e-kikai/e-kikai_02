@@ -4,7 +4,7 @@ class MainController < ApplicationController
 
   ### トップページ ###
   def index
-    @genres = LargeGenre.list.all.order('large_genres.order_no, middle_genres.order_no')
+    @genres = LargeGenre.list.all.order('large_genres.order_no')
     @companies = Company.all.order('company_kana')
 
     @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
@@ -137,15 +137,15 @@ class MainController < ApplicationController
   end
 
   def sitemap
-    @genres = LargeGenre.list.all.order('large_genres.order_no, middle_genres.order_no, genres.order_no')
+    @genres = LargeGenre.list.all.order('large_genres.order_no')
     @companies = Company.all.order('company_kana')
 
-    @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
-    @genre_counts = Genre.group("genres.id").includes(:machines).count('machines.id')
+    # @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
+    # @genre_counts = Genre.group("genres.id").includes(:machines).count('machines.id')
 
     @makers = Machine.group(:maker).order(:maker).pluck(:maker)
 
-    @genremakers = Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys
+    # @genremakers = Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys
   end
 
   private

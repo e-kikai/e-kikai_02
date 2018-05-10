@@ -142,6 +142,6 @@ gem 'simple_captcha2', require: 'simple_captcha'
 
 # gem 'recommendify'
 
-gem 'ahoy_matey'
+# gem 'ahoy_matey'
 
 gem 'kaminari'

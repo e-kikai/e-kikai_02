@@ -1,6 +1,5 @@
-# class Ahoy::Store < Ahoy::Stores::ActiveRecordTokenStore
-#   # customize here
-#   def exclude?
-#     bot? || request.ip == "192.168.1.1"
-#   end
-# end
+class Ahoy::Store < Ahoy::DatabaseStore
+end
+
+# set to true for JavaScript tracking
+Ahoy.api = false

@@ -1,18 +1,8 @@
-module Ahoy
-  class Event < ActiveRecord::Base
-    self.table_name = "ahoy_events"
+class Ahoy::Event < ActiveRecord::Base
+  include Ahoy::QueryMethods
 
-    belongs_to :visit
-    belongs_to :user
+  self.table_name = "ahoy_events"
 
-    serialize :properties, JSON
-
-    scope :select_interval, -> { select("*", 'EXTRACT(EPOCH from (lead(TIME) OVER (PARTITION BY visit_id)) - TIME)  AS interval') }
-
-    scope :interval_day, -> (days) { where('time > ?', Date.today.days_ago(days.to_i)) }
-
-    def self.ml_events(days=7)
-      includes(:visit).interval_day(days).select_interval
-    end
-  end
+  belongs_to :visit
+  belongs_to :user
 end

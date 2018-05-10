@@ -127,7 +127,7 @@ class Machine < ActiveRecord::Base
 
         rescue => e
           puts e.message
-          puts "#{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{d["company"]}"
+          puts "#{d["genre_id"]} | #{d["name"]} #{d["maker"]} #{d["model"]} | #{c.name}"
           next
         end
       end

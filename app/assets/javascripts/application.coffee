@@ -31,7 +31,7 @@ ready = ->
 
   console.log(machine_ids)
 
-  ahoy.track("view", {path: location.pathname, title: document.title, machine_ids: machine_ids})
+  # ahoy.track("view", {path: location.pathname, title: document.title, machine_ids: machine_ids})
 
 
 $(document).ready(ready)

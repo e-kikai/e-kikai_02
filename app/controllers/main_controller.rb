@@ -120,7 +120,7 @@ class MainController < ApplicationController
       ContactMailer.contact_confirm(@contact, @machine).deliver
     end
 
-    ahoy.track(:contact, {id: params[:contact][:machine_id]})
+    # ahoy.track(:contact, {id: params[:contact][:machine_id]})
 
     redirect_to "/contact_fin", notice: '問い合わせを送信しました'
   rescue => e

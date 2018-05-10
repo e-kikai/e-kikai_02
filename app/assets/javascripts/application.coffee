@@ -17,7 +17,7 @@
 #= require google-analytics-turbolinks
 #= require bootstrap-sass-official
 #= require jquery_nested_form
-#= require ahoy
+# require ahoy
 #= require_tree .
 
 ready = ->

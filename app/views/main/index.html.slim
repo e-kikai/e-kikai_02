@@ -5,10 +5,9 @@
 .row
   .col-lg-9.col-md-9.col-xs-12.col-sm-12
     / = invoke :test1, :search_area
+    = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
 
     .panel.panel-default
-      = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
-
       .panel-heading ジャンルで検索
       .panel-body.hidden-sm.hidden-xs
         - arr2 = {0 => 0, 1 => 0, 2 => 0}

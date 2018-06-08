@@ -5,30 +5,32 @@
 .row
   .col-lg-9.col-md-9.col-xs-12.col-sm-12
     / = invoke :test1, :search_area
-    
+
     .panel.panel-default
+      = link_to(image_tag(asset_url("auction_01.jpg"), style: ""), "https://www.mnok.net/", target: "_blank")
+
       .panel-heading ジャンルで検索
       .panel-body.hidden-sm.hidden-xs
         - arr2 = {0 => 0, 1 => 0, 2 => 0}
         - gs   = [[], [], []]
-    
+
         - @genres.each_with_index do |l, i|
           - key = arr2.min { |x, y| x[1] <=> y[1] }[0]
           - gs[key] << l
           - arr2[key] += (1 + l.middle_genres.length)
-    
+
         - gs.each do |ls|
           .col-lg-4.col-md-4
             - ls.each do |l|
               .panel.panel-default
                 .panel-heading = l.name
-              
+
                 / 中ジャンル一覧
                 .list-group
                   - l.middle_genres.each_with_index do |m, j|
                     - next if @middle_genre_counts[m.id] == 0
                     = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
-                
+
         .list-group.hidden-lg.hidden-md
           / 大ジャンル一覧
           - @genres.each_with_index do |l, i|
@@ -39,8 +41,8 @@
       .panel-heading e-kikai Network メンバ
       - @companies.each do |c|
         = link_to c.name_strip_kabu, "/#{c.subdomain}", class: "btn btn-default btn-lg btn-block", style: "margin: 8px auto;width:95%;"
-      
-/ .col-lg-3.col-md-3.col-xs-12.col-sm-12  
+
+/ .col-lg-3.col-md-3.col-xs-12.col-sm-12
 /   .panel.panel-default
 /     .panel-heading キーワードで検索
 /     .panel-body
@@ -51,8 +53,8 @@
 /             = button_tag type:"submit", class: 'btn btn-primary', data: {disable_with: '検索中・・・' } do
 /               span.glyphicon.glyphicon-search
 /               =< "検索"
-/           
-/ .col-lg-3.col-md-3.col-xs-12.col-sm-12  
+/
+/ .col-lg-3.col-md-3.col-xs-12.col-sm-12
 /   .panel.panel-default
 /     .panel-heading 売りたし買いたし
 /     .panel-body 準備中

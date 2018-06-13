@@ -17,7 +17,7 @@
   /             = link_to "#collapse_#{i}", class: (n != @machine.name ? "accordion-toggle collapsed" : "accordion-toggle"), data:{toggle: "collapse", parent: "#accordion"} do
   /               = n
   /               span.glyphicon.glyphicon-chevron-down.pull-right
-  / 
+  /
   /         .panel-collapse.collapse id="collapse_#{i}" class=("in" if n == @machine.name)
   /           .list-group
   /             - no = 0
@@ -30,7 +30,7 @@
   /                 = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", "/machine/#{m.id}", class: "list-group-item"
   /                 - next_id = m.id if now_id.present? && next_id.blank?
   /                 - prev_id = m.id if now_id.blank?
-  
+
   - now_id  = nil
   - prev_id = nil
   - next_id = nil
@@ -41,7 +41,7 @@
       - else
         - next_id = m.id if now_id.present? && next_id.blank?
         - prev_id = m.id if now_id.blank?
-            
+
   / article.col-lg-4.col-md-4.col-sm-5.col-xs-12
   article.col-lg-5.col-md-5.col-sm-5.col-xs-12
     ul.pager style="margin:0;"
@@ -51,13 +51,13 @@
           =< "前の機械へ"
       - if next_id.present?
         li.next = link_to "/#{@detail_link}/#{next_id}" do
-          => "次の機械へ" 
+          => "次の機械へ"
           span.glyphicon.glyphicon-forward
-      
+
     address.clearfix = link_to "/contact/#{@machine.id}?ref=◎", class:"btn btn-lg btn-primary pull-right", style:"margin-top:8px;" do
       span.glyphicon.glyphicon-envelope
       =< "メールはこちら"
-    
+
     .panel.panel-default
       .panel-heading
         span.glyphicon.glyphicon-th-list
@@ -83,7 +83,7 @@
             th 年式
             td = @machine.year.to_i > 0 ? "#{@machine.year}年式" : "-"
           - if @machine.genre.capacity_unit.present?
-            tr 
+            tr
               th = @machine.genre.capacity_label
               td
                 - if @machine.capacity.blank?
@@ -97,7 +97,7 @@
             td
               div = @machine.location if @machine.location.present?
               div = "#{@machine.addr1} #{@machine.addr2} #{@machine.addr3}" if @machine.addr3.present?
-              
+
               - if @machine.addr1 && @machine.addr2 && @machine.addr3
                 div = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@machine.addr1}#{@machine.addr2}#{@machine.addr3}",
                 target: "_blank", class:"accessmap"

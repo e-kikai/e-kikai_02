@@ -30,7 +30,10 @@
                   = link_to "#{no}) #{m.maker.presence || "(不明)"} #{m.model}", "/#{@detail_link}/#{m.id}", class: "list-group-item"
                   - next_id = m.id if now_id.present? && next_id.blank?
                   - prev_id = m.id if now_id.blank?
-            
+
+    = link_to(image_tag(asset_url("auction_02.jpg"), style: "width:100%;margin-top:8px;"), "https://www.mnok.net/", target: "_blank")
+
+
   article.col-lg-4.col-md-4.col-sm-5.col-xs-12
     ul.pager style="margin:0;"
       - if prev_id.present?
@@ -39,13 +42,13 @@
           =< "前の機械へ"
       - if next_id.present?
         li.next = link_to "/#{@detail_link}/#{next_id}" do
-          => "次の機械へ" 
+          => "次の機械へ"
           span.glyphicon.glyphicon-forward
-      
+
     address.clearfix = link_to "/contact/#{@machine.id}?ref=◆", class:"btn btn-lg btn-primary pull-right", style:"margin-top:8px;" do
       span.glyphicon.glyphicon-envelope
       =< "メールはこちら"
-    
+
     .panel.panel-default
       .panel-heading
         span.glyphicon.glyphicon-th-list
@@ -71,7 +74,7 @@
             th 年式
             td = @machine.year.to_i > 0 ? "#{@machine.year}年式" : "-"
           - if @machine.genre.capacity_unit.present?
-            tr 
+            tr
               th = @machine.genre.capacity_label
               td
                 - if @machine.capacity.blank?
@@ -85,7 +88,7 @@
             td
               div = @machine.location if @machine.location.present?
               div = "#{@machine.addr1} #{@machine.addr2} #{@machine.addr3}" if @machine.addr3.present?
-              
+
               - if @machine.addr1 && @machine.addr2 && @machine.addr3
                 div = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@machine.addr1}#{@machine.addr2}#{@machine.addr3}",
                 target: "_blank", class:"accessmap"

@@ -75,3 +75,5 @@ namespace :deploy do
   end
 
 end
+
+after 'deploy:restart', 'sitemap:refresh'

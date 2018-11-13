@@ -8,12 +8,12 @@
     p = simple_format @company.company_content
   .col-lg-5.col-md-5.col-sm-12
     - if @company[:machinelife_images].present?
-      = image_tag "http://www.zenkiren.net/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
+      = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
     - elsif @company.images.present?
       = image_tag @company.images.first.img.url, width: "100%", itemprop: "image"
     - else
       = image_tag "/images/nopicture.gif", width:"100%"
-  
+
   h3 会社概要
   .col-lg-10.col-lg-offset-1
     table.table
@@ -37,13 +37,13 @@
             =< link_to "[アクセスMAP]", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}",
             target: "_blank", class:"accessmap"
           - if @company.infos["access_train"].present?
-            div 
+            div
             p
               div ＜電車でのアクセス＞
               = simple_format @company.infos["access_train"]
           - if @company.infos["access_car"].present?
             p
-              div ＜車でのアクセス＞ 
+              div ＜車でのアクセス＞
               = simple_format @company.infos["access_car"]
       tr
         th 問い合わせTEL
@@ -60,7 +60,7 @@
       tr
         th 古物免許
         td = @company.infos["license"]
-        
+
       - if @company.offices.present?
         tr
           th 営業所・倉庫
@@ -77,7 +77,7 @@
       tr
         th ウェブサイト
         td = link_to @company.website, @company.website, target: "_blank", itemprop: "url" if @company.website.present?
-        
+
 - if @company.makers.present?
   .row
     h3 取り扱いメーカー
@@ -89,7 +89,7 @@
             = link_to ma["name"], ma["url"], target: "_blank"
           - else
             = ma["name"]
-    
+
 - if @company.histories.present?
   .row
     h3 沿革
@@ -100,5 +100,3 @@
           tr
             th = h["date"]
             td = h["content"]
-    
-    

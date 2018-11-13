@@ -94,13 +94,13 @@ class Company < ActiveRecord::Base
 
       # imgs.each do |i|
       #   if image = c.images.find_by(img_name: i)
-      #     content_length = open("http://www.zenkiren.net/media/company/#{i}").meta["content-length"].to_i
+      #     content_length = open("https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{i}").meta["content-length"].to_i
       #     break if content_length == image.img.size
       #   else
       #     image = c.images.build
       #   end
       #
-      #   image.img_url = "http://www.zenkiren.net/media/company/#{i}"
+      #   image.img_url = "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{i}"
       #   image.save
       # end
     end

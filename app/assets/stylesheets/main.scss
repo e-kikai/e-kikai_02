@@ -36,7 +36,7 @@ p.machine-spec {
   vertical-align: middle;
 }
 
-@media(min-width:992px){
+@media(min-width:992px) {
   .machine-other {
     position: absolute;
     bottom: 0;
@@ -55,7 +55,6 @@ p.machine-spec {
 }
 a.accordion-toggle {
   display: block;
-  padding: 8px 15px;
 }
 
 a.accordion-toggle.collapsed > span.glyphicon-chevron-down:before {

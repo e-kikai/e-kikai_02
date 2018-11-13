@@ -33,7 +33,7 @@ class Company < ActiveRecord::Base
   serialize :offices, Array
   store :sites, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
 
-  dragonfly_accessor :site_top_img
+  # dragonfly_accessor :site_top_img
 
   has_many :machines
   has_many :users

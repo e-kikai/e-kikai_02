@@ -12,7 +12,7 @@
 #
 
 class Image < ActiveRecord::Base
-  dragonfly_accessor :img
+  # dragonfly_accessor :img
   belongs_to :parent, :polymorphic => true
 
   validates :img, presence: true

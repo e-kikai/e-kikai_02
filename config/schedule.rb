@@ -32,9 +32,9 @@ every " 5 2 * * * " do
   runner "Machine.crawl"
 end
 
-every " 0 2 * * * " do
-  runner "Machine.crawl_ota"
-end
+# every " 0 2 * * * " do
+#   runner "Machine.crawl_ota"
+# end
 
 # sitemap
 every 1.day, at: '5:00 am' do

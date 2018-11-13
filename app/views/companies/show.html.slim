@@ -10,7 +10,7 @@
       = link_to "/#{@company.subdomain}/contact", class: "btn btn-primary btn-lg" do
         span.glyphicon.glyphicon-envelope
         =<  "問い合わせ"
-        
+
     - if @company.top_summary_title.present?
       h2 = @company.top_summary_title
     p = simple_format @company.top_summary_content
@@ -21,8 +21,8 @@
     h3 #{@company.name}について
     - if @company[:machinelife_images].present?
       = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%"
-    - elsif @company.images.present?
-      = image_tag @company.images.first.img.url, width:"100%"
+    / - elsif @company.images.present?
+    /   = image_tag @company.images.first.img.url, width:"100%"
 
     table.table
       tr

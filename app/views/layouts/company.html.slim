@@ -81,12 +81,17 @@ html
           span.glyphicon.glyphicon-exclamation-sign
           =< alert
 
-    . = @company.site_top_img_uid
     / - if current_page?(controller: "companies", action: "show") && @company.site_top_img
     /   .jumbotron
     /     = image_tag @company.site_top_img.url
     /     .top_img_title = @company.top_img_title
     /     .top_img_content = simple_format @company.top_img_content
+
+    - if current_page?(controller: "companies", action: "show") && @company.machinelife_images.first
+      .jumbotron
+        = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}"
+        .top_img_title = @company.top_img_title
+        .top_img_content = simple_format @company.top_img_content
 
     .container
       = yield

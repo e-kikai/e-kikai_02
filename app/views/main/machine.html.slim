@@ -109,9 +109,9 @@
       - @machine[:machinelife_images].each do |i|
         = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{i}", target:"_blank" do
           = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{i}", alt: "#{@machine.name} #{@machine.maker} #{@machine.model}"
-    - elsif @machine.images.present?
-      - @machine.images.each do |i|
-        = link_to i.img.url, target:"_blank" do
-          = lazy_image_tag i.img.url, alt: "#{@machine.name} #{@machine.maker} #{@machine.model}"
+    / - elsif @machine.images.present?
+    /   - @machine.images.each do |i|
+    /     = link_to i.img.url, target:"_blank" do
+    /       = lazy_image_tag i.img.url, alt: "#{@machine.name} #{@machine.maker} #{@machine.model}"
     - else
       = image_tag "/images/nopicture.gif"

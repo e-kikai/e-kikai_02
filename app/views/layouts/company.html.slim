@@ -6,7 +6,7 @@ html
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1"
     = display_meta_tags site: "#{@company.name}｜e-kikai", reverse: true, separator: ""
-    
+
     / = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     / = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = stylesheet_link_tag    'application', media: 'all'
@@ -18,41 +18,41 @@ html
         background: #{@c[:base]};
         border-color: #{@c[:darkness]};
       }
-      
+
       body.company strong.headcopy,
       body.company footer {
         background: #{@c[:darkness]};
       }
-      
+
       body.company .navbar-default .navbar-nav > li > a:hover,
       body.company .navbar-default .navbar-nav > li > a:focus {
         background: #{@c[:dark]};
       }
-      
+
       body.company h2 {
         border-color: #{@c[:rev]};
       }
-      
+
       body.company h3 {
         border-color: #{@c[:darkness]};
       }
-      
+
       body.company .toppage .btn {
         border-color: #{@c[:darknessrev]};
         background-color: #{@c[:rev]};
       }
-      
+
       body.company .toppage .btn:hover,
       body.company .toppage .btn:focus {
         background-color: #{@c[:darkrev]};
       }
-      
+
       body.company .makers .maker::before {
         color: #{@c[:rev]};
       }
-      
+
     = render "analytics"
-      
+
   body.company
     strong.headcopy = @company.headcopy || "中古機械のスペシャリスト #{@company.name} #{@company.addr1}"
     header.navbar.navbar-default.container-fluid role="navigation"
@@ -81,17 +81,18 @@ html
           span.glyphicon.glyphicon-exclamation-sign
           =< alert
 
-    - if current_page?(controller: "companies", action: "show") && @company.site_top_img
-      .jumbotron
-        = image_tag @company.site_top_img.url
-        .top_img_title = @company.top_img_title
-        .top_img_content = simple_format @company.top_img_content
-      
+    . = @company.site_top_img_uid
+    / - if current_page?(controller: "companies", action: "show") && @company.site_top_img
+    /   .jumbotron
+    /     = image_tag @company.site_top_img.url
+    /     .top_img_title = @company.top_img_title
+    /     .top_img_content = simple_format @company.top_img_content
+
     .container
       = yield
-    
+
     = render "trackingcode"
-    
+
     footer.container-fluid
       div Copyright &copy; #{Time.now.year} #{@company.name}, All Rights reserved.
       div Powerd by #{link_to "e-kikai Network.", "/"}

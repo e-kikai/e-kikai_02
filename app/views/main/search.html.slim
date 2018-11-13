@@ -60,8 +60,8 @@
             = link_to "/#{@detail_link}/#{m.id}" do
               - if m[:machinelife_images].present?
                 = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m[:machinelife_images].first}", alt: "#{m.name} #{m.maker} #{m.model}"
-              - elsif m.image.present?
-                = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
+              / - elsif m.image.present?
+              /   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
               - else
                 = image_tag "/images/nopicture.gif"
         .media-body style="position:relative;"

@@ -366,7 +366,7 @@ DEPENDENCIES
   capistrano-sidekiq
   capistrano3-unicorn
   charwidth
-  coffee-rails (~> 4.2.1)
+  coffee-rails (~> 4.2)
   devise
   devise-i18n
   dragonfly
@@ -406,4 +406,4 @@ DEPENDENCIES
   whenever (= 0.9.4)
 
 BUNDLED WITH
-   1.16.2
+   2.0.0.pre.2

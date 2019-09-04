@@ -1,5 +1,5 @@
 - set_meta_tags title: @title, description: @description
-- set_meta_tags keywords: "#{@title},中古機械,中古工作機械,e-kikai,工作機械,Used machinery, Used machine"
+/ - set_meta_tags keywords: "#{@title},中古機械,中古工作機械,e-kikai,工作機械,Used machinery, Used machine"
 
 - breadcrumb  :search, "#{@title}", @breads
 
@@ -80,4 +80,6 @@
 / = paginate @pnames
 = paginate @pmachines
 
-= link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-top:8px;"), "https://www.mnok.net/", target: "_blank")
+= render "/main/ads_frames", okw: title
+
+/ = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-top:8px;"), "https://www.mnok.net/", target: "_blank")

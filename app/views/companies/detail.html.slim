@@ -7,10 +7,10 @@
       h3 = @company.company_title
     p = simple_format @company.company_content
   .col-lg-5.col-md-5.col-sm-12
-    - if @company[:machinelife_images].present?
+    - if @company.machinelife_images.present?
       = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
-    - elsif @company.images.present?
-      = image_tag @company.images.first.img.url, width: "100%", itemprop: "image"
+    / - elsif @company.images.present?
+    /   = image_tag @company.images.first.img.url, width: "100%", itemprop: "image"
     - else
       = image_tag "/images/nopicture.gif", width:"100%"
 

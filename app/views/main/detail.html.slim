@@ -115,8 +115,8 @@
             td = simple_format(@machine.comment)
   / .col-lg-5.col-md-5.col-sm-7.col-xs-12.machine-img
   .col-lg-7.col-md-7.col-sm-7.col-xs-12.machine-img
-    - if @machine[:machinelife_images].present?
-      - @machine[:machinelife_images].each do |i|
+    - if @machine.machinelife_images.present?
+      - @machine.machinelife_images.each do |i|
         = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{i}", target:"_blank" do
           = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{i}", alt: "#{@machine.name} #{@machine.maker} #{@machine.model}"
     / - elsif @machine.images.present?

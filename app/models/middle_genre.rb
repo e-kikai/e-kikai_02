@@ -1,41 +1,16 @@
-# == Schema Information
-#
-# Table name: middle_genres
-#
-#  id             :integer          not null, primary key
-#  name           :string           not null
-#  order_no       :integer
-#  large_genre_id :integer
-#  deleted_at     :datetime
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  machinelife_id :integer
-#
+class MiddleGenre < MachinelifeDb
+  ### 2 newsystems DB ###
+  self.table_name  = 'large_genres'
+  alias_attribute :name,           :large_genre
+  alias_attribute :large_genre_id, :xl_genre_id
 
-class MiddleGenre < ActiveRecord::Base
-  require 'open-uri'
-
-  belongs_to :large_genre
-  has_many   :genres
-  has_many   :machines, :through => :genres
+  belongs_to :large_genre, foreign_key: :xl_genre_id
+  has_many   :genres,      foreign_key: :large_genre_id
+  has_many   :machines,    through: :genres
 
   validates :name, presence: true
 
-  def self.crawl
-    # マシンライフからJSONデータを取得
-    json  = open("http://www.zenkiren.net/system/ajax/e-kikai_crawled_get.php?t=middle_genres").read
-    datas = ActiveSupport::JSON.decode json rescue raise json
-    raise "マシンライフからデータを取得できませんでした" if !datas[0].include?("id")
-
-    # データの整形
-    datas.each do |d|
-      next unless large_genre_id = LargeGenre.find_by(machinelife_id: d["xl_genre_id"]).id
-
-      find_or_create_by(:machinelife_id => d["id"]).update({
-        name:           d["large_genre"],
-        order_no:       d["order_no"],
-        large_genre_id: large_genre_id,
-      })
-    end
+  def name
+    self[:large_genre]
   end
 end

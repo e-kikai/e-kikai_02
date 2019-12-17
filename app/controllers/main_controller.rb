@@ -4,15 +4,18 @@ class MainController < ApplicationController
 
   ### トップページ ###
   def index
-    @genres = LargeGenre.list.all.order('large_genres.order_no')
+    # @genres = LargeGenre.list.all.order('large_genres.order_no')
+    @genres = LargeGenre.list.all.order('xl_genres.order_no')
     @companies = Company.all.order('company_kana')
 
-    @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
+    # @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
+    @middle_genre_counts = MiddleGenre.group("large_genres.id").includes(:machines).order("large_genres.order_no").count('machines.id')
   end
 
   def large_genre
     @large_genre = LargeGenre.find(params[:id])
-    @middle_genre_counts = @large_genre.middle_genres.group("middle_genres.id").includes(:machines).count('machines.id')
+    # @middle_genre_counts = @large_genre.middle_genres.group("middle_genres.id").includes(:machines).count('machines.id')
+    @middle_genre_counts = @large_genre.middle_genres.group("large_genres.id").includes(:machines).count('machines.id')
   end
 
   ### 検索結果一覧 ###
@@ -137,7 +140,8 @@ class MainController < ApplicationController
   end
 
   def sitemap
-    @genres = LargeGenre.list.all.order('large_genres.order_no')
+    # @genres = LargeGenre.list.all.order('large_genres.order_no')
+    @genres = LargeGenre.list.all.order('xl_genres.order_no')
     @companies = Company.all.order('company_kana')
 
     # @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')

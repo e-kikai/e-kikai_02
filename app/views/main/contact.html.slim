@@ -19,7 +19,7 @@
         =< "電話でお問い合わせ"
       .panel-body
         h2 お問い合わせTEL : #{@machine.company.contact_tel}
-    
+
     .panel.panel-default
       .panel-heading
         span.glyphicon.glyphicon-envelope
@@ -31,7 +31,7 @@
               ul
                 - @contact.errors.full_messages.each do |msg|
                   li = msg
-          
+
           = f.hidden_field :machine_id
           = f.hidden_field :company_id
           = hidden_field_tag :ref, @ref
@@ -67,7 +67,7 @@
           .form-group
             = f.label :content
             = f.text_area :content, class: 'form-control', style:"height:100px;", required: "required"
-          
+
           .form-group
             = show_simple_captcha(input_html: { class: 'form-control' })
 

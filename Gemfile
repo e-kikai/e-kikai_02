@@ -76,7 +76,7 @@ gem 'slim-rails'
 gem 'rails_admin'
 
 # 画像ファイルアップロード
-gem 'dragonfly'
+# gem 'dragonfly'
 gem 'rack-cache', require: 'rack/cache'
 
 # 認証
@@ -144,6 +144,6 @@ gem 'simple_captcha2', require: 'simple_captcha'
 
 # gem 'recommendify'
 
-gem 'ahoy_matey'
+# gem 'ahoy_matey'
 
 gem 'kaminari'

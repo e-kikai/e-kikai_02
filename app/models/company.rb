@@ -1,47 +1,41 @@
-# == Schema Information
-#
-# Table name: companies
-#
-#  id             :integer          not null, primary key
-#  name           :string
-#  company_kana   :string
-#  representative :string
-#  officer        :string
-#  tel            :string
-#  fax            :string
-#  mail           :string
-#  zip            :string
-#  addr1          :string
-#  addr2          :string
-#  addr3          :string
-#  contact_tel    :string
-#  contact_fax    :string
-#  contact_mail   :string
-#  website        :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  deleted_at     :datetime
-#  machinelife_id :integer
-#
+class Company < MachinelifeDb
+  ### 2 newsystems DB ###
+  MACHINELIFE_IDS = {
+  "horikawakikai"    => 1,
+   "kusumotokikai"   => 2,
+   "kataekikai"      => 3,
+   "henmiseiki"      => 324,
+   "okabekikai"      => 5,
+   "sanwaseiki"      => 6,
+   "kobayashikikai"  => 9,
+   "sanwa_kitakanto" => 62,
+   # "otakikai"        => 235,
+   "deguchikikai"    => 258,
+   "ishino"          => 301,
+   "senbakikai"      => 318,
+   "daihoukikai"     => 320,
+   "okabe_okayama"   => 343,
+   "sanwa_fukuyama"  => 348,
+   "ibuki_kanto"     => 382,
+   "ibuki_thai"      => 407,
+  }
 
-class Company < ActiveRecord::Base
-  require 'open-uri'
-  # include Hashie::Mash
+  # self.primary_key = "company_id"
 
-  serialize :machinelife_images, Array
+  default_scope { where(id: Company::MACHINELIFE_IDS.values, deleted_at: nil) }
+
+  alias_attribute :name, :company
+
   serialize :infos
-  serialize :offices, Array
-  store :sites, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
-
-  # dragonfly_accessor :site_top_img
+  store :deleted_at, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
 
   has_many :machines
   has_many :users
-  has_many :images, :as => :parent
+  # has_many :images, :as => :parent
   has_many :contacts
   has_many :company_users
 
-  accepts_nested_attributes_for :images
+  # accepts_nested_attributes_for :images
 
   validates :name, presence: true
 
@@ -52,57 +46,33 @@ class Company < ActiveRecord::Base
   }
 
   def name_strip_kabu
-    name.gsub(/(株式|有限|合.)会社/, '')
+    company.gsub(/(株式|有限|合.)会社/, '')
   end
 
   def zip_shaping
     /^([0-9]{3}).*([0-9]{4})$/ =~ zip ? "#{$1}-#{$2}" : zip
   end
 
-  def self.crawl
-    where.not(machinelife_id: nil).each do |c|
-      # マシンライフからJSONデータを取得
-      json  = open("http://www.zenkiren.net/system/ajax/e-kikai_crawled_get.php?t=companies&c=#{c.machinelife_id}").read
-      data  = ActiveSupport::JSON.decode json rescue raise json
-      raise "マシンライフからデータを取得できませんでした" unless data.include?("id")
+  def subdomain
+    (MACHINELIFE_IDS.find { |k,v| v == self.id })[0]
+  end
 
-      # 画像配列整形
-      imgs = (data["imgs"].kind_of? Hash) ? data["imgs"].values : Array(data["imgs"])
-      imgs.unshift(data["top_img"]).reject!(&:blank?)
+  def self.subdomain2id(subdomain)
+    MACHINELIFE_IDS[subdomain]
+  end
 
-      # データの整形
-      c.update({
-        name:           data["company"],
-        company_kana:   data["company_kana"],
-        representative: data["representative"],
-        officer:        data["officer"],
-        tel:            data["tel"],
-        fax:            data["fax"],
-        mail:           data["mail"],
-        zip:            data["zip"],
-        contact_tel:    data["contact_tel"],
-        contact_fax:    data["contact_fax"],
-        contact_mail:   data["contact_mail"],
-        addr1:          data["addr1"],
-        addr2:          data["addr2"],
-        addr3:          data["addr3"],
-        website:        data["website"],
-        infos:          data["infos"].to_h,
-        offices:        data["offices"],
-        machinelife_images: imgs,
-      })
+  def machinelife_images
+    temp = JSON.parse(imgs.presence || "[]").to_a
+    temp.unshift top_img if top_img.present?
 
-      # imgs.each do |i|
-      #   if image = c.images.find_by(img_name: i)
-      #     content_length = open("https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{i}").meta["content-length"].to_i
-      #     break if content_length == image.img.size
-      #   else
-      #     image = c.images.build
-      #   end
-      #
-      #   image.img_url = "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{i}"
-      #   image.save
-      # end
-    end
+    temp
+  end
+
+  def offices
+    JSON.parse(self[:offices].presence || "{}")
+  end
+
+  def infos
+    JSON.parse(self[:infos].presence || "{}")
   end
 end

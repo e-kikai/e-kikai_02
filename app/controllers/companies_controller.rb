@@ -58,9 +58,11 @@ class CompaniesController < ApplicationController
   private
 
   def find_company
-    @company = Company.find_by(subdomain: params[:subdomain])
+    # @company = Company.find_by(subdomain: params[:subdomain])
+    @company = Company.find(Company.subdomain2id(params[:subdomain]))
 
-    c   = Sass::Script::Color.from_hex(@company.theme_color || Company::THEME_COLORS[:cyan])
+    # c   = Sass::Script::Color.from_hex(@company.theme_color || Company::THEME_COLORS[:cyan])
+    c   = Sass::Script::Color.from_hex(Company::THEME_COLORS[:cyan])
     rev = c.with(hue: ((c.hue + 180) % 360))
     @c = {
       base:        c.inspect,
@@ -74,7 +76,7 @@ class CompaniesController < ApplicationController
       darknessrev: rev.with(saturation: 100, lightness: 15).inspect,
     }
   rescue
-    redirect_to "/", alert: "e-kikaiメンバ情報が取得できませんでした"
+    redirect_to "/", alert: "e-kikaiメンバ情報が取得できませんでした > #{@company.name}"
   end
 
   def search_params

@@ -9,8 +9,9 @@ gem 'rails', '~> 4.2'
 gem 'bootsnap', require: false
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-gem 'pg', '0.21'
+# gem 'sqlite3'
+# gem 'pg', '0.21'
+gem 'pg', '~> 0.21'
 
 # Use SCSS for stylesheets
 # gem 'bootstrap-sass', '~> 3.3.5'

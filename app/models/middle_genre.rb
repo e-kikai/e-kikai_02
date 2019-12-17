@@ -1,4 +1,4 @@
-class MiddleGenre < MachinelifeDb
+class MiddleGenre < ActiveRecord::Base
   ### 2 newsystems DB ###
   self.table_name  = 'large_genres'
   alias_attribute :name,           :large_genre

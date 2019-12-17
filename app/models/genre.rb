@@ -1,4 +1,4 @@
-class Genre < MachinelifeDb
+class Genre < ActiveRecord::Base
   ### 2 newsystems DB ###
   alias_attribute :name,           :genre
   alias_attribute :middle_genre_id, :large_genre_id

@@ -1,4 +1,4 @@
-class Company < MachinelifeDb
+class Company < ActiveRecord::Base
   ### 2 newsystems DB ###
   MACHINELIFE_IDS = {
   "horikawakikai"    => 1,

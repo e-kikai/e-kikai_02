@@ -1,4 +1,4 @@
-class Machine < MachinelifeDb
+class Machine < ActiveRecord::Base
 
   # self.primary_key = "machine_id"
 

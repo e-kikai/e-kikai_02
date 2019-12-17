@@ -1,4 +1,4 @@
-class Contact < MachinelifeDb
+class Contact < ActiveRecord::Base
   ### 2 newsystems DB ###
   alias_attribute :name, :user_company
   alias_attribute :officer, :user_name

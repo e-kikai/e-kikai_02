@@ -30,7 +30,7 @@ module EKikai
     I18n.available_locales = I18n.available_locales.push(:ja)
     config.i18n.default_locale = :ja
 
-    config.active_job.queue_adapter = :sidekiq
+    # config.active_job.queue_adapter = :sidekiq
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
@@ -43,7 +43,7 @@ module EKikai
       :port => 587,
       :user_name => Rails.application.secrets.mail_user_name,
       :password => Rails.application.secrets.mail_passwd,
-      
+
       :authentication => :plain,
       :enable_starttls_auto => true
     }

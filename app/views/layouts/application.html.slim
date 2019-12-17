@@ -6,15 +6,15 @@ html
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1"
     = display_meta_tags site: "e-kikai", reverse: true, separator: "｜"
-    
+
     / = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     / = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-    
+
     = render "analytics"
-  
+
   body
     header.navbar.navbar-default.container-fluid role="navigation"
       .container-fluid
@@ -32,7 +32,7 @@ html
             li = link_to 'e-kikaiについて', "/about"
             / li = link_to 'お問い合わせ',    "/contact"
             li = link_to 'サイトマップ',    "/sitemap"
-            li = link_to '管理者画面',      "/company_users/sign_in"
+            / li = link_to '管理者画面',      "/company_users/sign_in"
             / - if user_signed_in?
             /   li = link_to "会員ページ", member_root_path
             / - else
@@ -50,7 +50,7 @@ html
       - if content_for?(:page_title)
         / h1.hidden-xs.hidden-sm = yield(:page_title)
       = yield
-    
+
       = render "trackingcode"
-    
+
     footer.container-fluid Copyright &copy; #{Time.now.year} e-kikai Network, All Rights reserved.

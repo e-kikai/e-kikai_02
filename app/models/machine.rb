@@ -15,15 +15,15 @@ class Machine < ActiveRecord::Base
   # has_many   :images, :as => :parent
   has_many   :contacts
 
-  enum commissions: {none:'0' ,ok:'1'}
+  enum commission: {不可:'0' ,可:'1'}
 
   validates :name,       presence: true
   validates :genre_id,   presence: true
   validates :company_id, presence: true
 
-  def commission_enum
-    Machine.commissions
-  end
+  # def commission_enum
+  #   Machine.commissions
+  # end
 
   def self.search_list(q)
     includes(:company).search(q).result.order("machines.name, machines.created_at DESC")

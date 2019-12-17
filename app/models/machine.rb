@@ -4,6 +4,7 @@ class Machine < ActiveRecord::Base
 
   ### 2 newsystems DB ###
   default_scope { where(company_id: Company::MACHINELIFE_IDS.values, deleted_at: nil) }
+  alias_attribute :updated_at, :changed_at
 
   # serialize :imgs
 

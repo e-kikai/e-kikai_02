@@ -15,7 +15,7 @@ class Machine < ActiveRecord::Base
   # has_many   :images, :as => :parent
   has_many   :contacts
 
-  enum commissions: {不可:'0' ,可:'1'}
+  enum commissions: {不可:'0' ,可:'1'}, _suffix: true
 
   validates :name,       presence: true
   validates :genre_id,   presence: true

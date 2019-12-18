@@ -148,3 +148,5 @@ gem 'simple_captcha2', require: 'simple_captcha'
 # gem 'ahoy_matey'
 
 gem 'kaminari'
+
+gem 'recaptcha', require: "recaptcha/rails"

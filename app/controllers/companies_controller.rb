@@ -37,7 +37,8 @@ class CompaniesController < ApplicationController
   def contact_create
     @contact = Contact.new(contact_params)
 
-    raise "入力された文字が画像と違っています" unless simple_captcha_valid?
+    # raise "入力された文字が画像と違っています" unless simple_captcha_valid?
+    raise "認証に失敗しました" unless verify_recaptcha
 
     Contact.transaction do
       @contact.save!

@@ -111,10 +111,13 @@ class MainController < ApplicationController
     @contact = Contact.new(contact_params)
     @ref     = params[:ref]
 
-    raise "入力された文字が画像と違っています" unless simple_captcha_valid?
+    # raise "入力された文字が画像と違っています" unless simple_captcha_valid?
+    raise "認証に失敗しました" unless verify_recaptcha
 
     Contact.transaction do
-      @contact[:content] = @ref + @contact[:content]
+      # @contact[:content] = @ref + @contact[:content]
+
+      @contact.content = "#{@ref}#{@contact.content}"
       @contact.save!
 
       # ContactMailer.contact(@contact, @machine).deliver_later
@@ -133,7 +136,7 @@ class MainController < ApplicationController
 
   def contact_fin
     # finished :contact_label
-    ab_finished :detail_link
+    # ab_finished :detail_link
   end
 
   def about

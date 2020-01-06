@@ -155,6 +155,26 @@ class MainController < ApplicationController
     # @genremakers = Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys
   end
 
+
+  def ads
+    ### 検索キーワード ###
+    @keywords = params[:keywords].to_s.normalize_charwidth.strip
+
+    # クエリ作成
+    lim = 5
+    @machines = Machine.with_keywords(@keywords).reorder(" RANDOM() ").limit(lim)
+
+    if lim > @machines.count
+      @machines += Machine.reorder(" RANDOM() ").limit(lim - @machines.count)
+    end
+
+    @res = params[:res]
+
+    response.headers['X-Frame-Options'] = 'ALLOWALL'
+
+    render layout: false
+  end
+
   private
 
   def search_params

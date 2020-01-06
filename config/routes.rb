@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
   # devise_for :company_users
 
-  # 管理者画面(同期) rails_adminより優先
-  get "admin/crawl/:target", to: "admin#crawl", as: "admin_crawl"
+  # constraints -> { |request| request.subdomain != "www" } do
+  #   get  "",             to: "companies#show"
+  #   # get  ":subdomain/search"  ,    to: "companies#search" ,       as: "member_site_machines"
+  #   get  "contact",     to: "companies#contact",       as: "member_site_contact"
+  #   post "contact",     to: "companies#contact_create"
+  #   get  "contact_fin", to: "companies#contact_fin",   as: "member_site_contact_fin"
+  #   get  "detail",      to: "companies#detail"
+  #   get  "map",         to: "companies#map"
+  # end
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+
+  # 管理者画面(同期) rails_adminより優先
+  # get "admin/crawl/:target", to: "admin#crawl", as: "admin_crawl"
+  #
+  # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # require 'sidekiq/web'
   # mount Sidekiq::Web, at: "/sidekiq"
@@ -84,6 +96,8 @@ Rails.application.routes.draw do
   get  "contact_fin",     to: "main#contact_fin",   as: "contact_fin"
   get  "about",           to: "main#about",         as: "about"
   get  "sitemap",         to: "main#sitemap",       as: "sitemap"
+
+  get  "ads",             to: "main#ads",           as: "ads"
 
   namespace :member do
     root to: "main#index"

@@ -1,5 +1,8 @@
 class Machine < ActiveRecord::Base
 
+  OR_MARKER  = "[[xxxxorxxx]]"
+  KEYWORDS = " name || ' ' || coalesce(maker, '') || ' ' || coalesce(model, '') || ' ' || coalesce(no, '') || ' ' || coalesce(hint, '') || ' ' || coalesce(addr1, '') || ' ' || coalesce(addr2, '') || ' ' || coalesce(location, '') "
+
   # self.primary_key = "machine_id"
 
   ### 2 newsystems DB ###
@@ -25,6 +28,27 @@ class Machine < ActiveRecord::Base
   # def commission_enum
   #   Machine.commissions
   # end
+
+  scope :with_keywords, -> keywords {
+    keywords = keywords.to_s.normalize_charwidth.strip
+
+    if keywords.present?
+      res = self
+
+      keywords.gsub(/[[:space:]]*[\|｜]+[[:space:]]*/, OR_MARKER).split(/[[:space:]]/).reject(&:empty?).each do |keyword|
+        res = case
+        when keyword.include?(OR_MARKER)
+          res.where("#{KEYWORDS} SIMILAR TO ?", "%(#{keyword.gsub(OR_MARKER, "|")})%")
+        when keyword =~ /^\-(.*)/
+          res.where("#{KEYWORDS} NOT LIKE ?", "%#{$1}%")
+        else
+          res.where("#{KEYWORDS} LIKE ?", "%#{keyword}%")
+        end
+      end
+
+      res
+    end
+  }
 
   def self.search_list(q)
     includes(:company).search(q).result.order("machines.name, machines.created_at DESC")

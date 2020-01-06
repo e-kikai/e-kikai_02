@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    - set_meta_tags title: "おすすめ機械"
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => :reload
+    = javascript_include_tag 'application', 'data-turbolinks-track' => :reload
+    / = render 'application/favicon'
+    = csrf_meta_tags
+
+  body.ads_body
+    .
+      - if @machines.present?
+        - @machines.each do |m|
+          .thumbnail.product-pannel
+            = link_to "/machine/#{m.id}?r=#{@res}", target: "_blank", title: m.name do
+              = image_tag("https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.top_img}", alt: m.name)
+              .maker = m.maker
+              .name = m.name
+              .model = m.model
+
+
+    = link_to "/", class: "ads_logo", target: "_blank" do
+      = image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'
+      .site by e-kikai.com
+      .desc 厳選された中古機械・工具情報をお届けします。e-kikai Network

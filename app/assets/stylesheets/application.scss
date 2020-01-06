@@ -89,3 +89,119 @@ iframe.mnok_ads {
   border: none;
   overflow: hidden;
 }
+
+body.ads_body {
+  border: 1px solid #2fb941;
+  overflow: hidden;
+  position: absolute;
+}
+
+a.ads_logo {
+  display: block;
+
+  img {
+    height: 50px;
+    margin-left: 32px;
+    border: 1px solid #CFC;
+  }
+
+  .site {
+    position: absolute;
+    bottom: 8px;
+    left: 198px;
+  }
+
+  .desc {
+    position: absolute;
+    color: #333;
+    bottom: 8px;
+    bottom: 32px;
+    left: 198px;
+  }
+}
+
+.thumbnail.product-pannel {
+  width: 172px;
+  height: 172px;
+  margin: 0;
+  white-space: normal;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  border-radius: 0;
+  border: 0;
+  position: relative;
+
+  a {
+    display: block;
+    padding: 4px;
+    border: 1px solid #FFF;
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+      background: #FFFFE0;
+      text-decoration: none;
+      border: 1px solid #2fb941;
+
+      img {
+        opacity: 1;
+      }
+
+    }
+  }
+
+  img {
+    // max-width: 132px;
+    // max-height: 98px;
+    max-width: 120px;
+    max-height: 90px;
+    display: block;
+    margin: auto;
+  }
+
+  .maker {
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: absolute;
+    bottom: 54px;
+    width: 170px;
+  }
+
+  .name {
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: absolute;
+    bottom: 34px;
+    width: 170px;
+  }
+
+  .model {
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: absolute;
+    bottom: 14px;
+    width: 170px;
+  }
+
+  .price {
+    color: #333;
+    position: absolute;
+    bottom: 0;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
+  .max_price {
+    font-size: 18px;
+    margin-left: 3px;
+  }
+}

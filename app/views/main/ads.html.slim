@@ -14,7 +14,10 @@ html
         - @machines.each do |m|
           .thumbnail.product-pannel
             = link_to "/machine/#{m.id}?r=#{@res}", target: "_blank", title: m.name do
-              = image_tag("https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.top_img}", alt: m.name)
+              - if m.top_img.present?
+                = image_tag("https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.top_img}", alt: m.name)
+              - else
+                = image_tag "/images/nopicture.gif"
               .maker = m.maker
               .name = m.name
               .model = m.model

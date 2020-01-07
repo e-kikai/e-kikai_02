@@ -117,7 +117,7 @@ class MainController < ApplicationController
     Contact.transaction do
       # @contact[:content] = @ref + @contact[:content]
 
-      @contact.content = "#{@ref}#{@contact.content}"
+      @contact.content = "#{@ref}[[e-kikaiからの問合せ]]\n#{@contact.content}"
       @contact.save!
 
       # ContactMailer.contact(@contact, @machine).deliver_later

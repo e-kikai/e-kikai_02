@@ -41,6 +41,7 @@ class CompaniesController < ApplicationController
     raise "認証に失敗しました" unless verify_recaptcha
 
     Contact.transaction do
+      @contact.content = "[[e-kikaiからの問合せ]]\n#{@contact.content}"
       @contact.save!
 
       ContactMailer.company_contact(@contact, @company).deliver
@@ -63,6 +64,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(Company.subdomain2id(params[:subdomain]))
 
     # c   = Sass::Script::Color.from_hex(@company.theme_color || Company::THEME_COLORS[:cyan])
+    # c   = Sass::Script::Color.from_hex(@company.companysite.theme || Company::THEME_COLORS[:cyan])
     c   = Sass::Script::Color.from_hex(Company::THEME_COLORS[:cyan])
     rev = c.with(hue: ((c.hue + 180) % 360))
     @c = {

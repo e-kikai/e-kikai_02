@@ -4,7 +4,7 @@ class Company < ActiveRecord::Base
   "horikawakikai"    => 1,
    "kusumotokikai"   => 2,
    "kataekikai"      => 3,
-   "henmiseiki"      => 324,
+   "henmiseiki"      => 4,
    "okabekikai"      => 5,
    "sanwaseiki"      => 6,
    "kobayashikikai"  => 9,
@@ -14,10 +14,12 @@ class Company < ActiveRecord::Base
    "ishino"          => 301,
    "senbakikai"      => 318,
    "daihoukikai"     => 320,
+   "nakafujikikai"   => 324,
    "okabe_okayama"   => 343,
    "sanwa_fukuyama"  => 348,
    "ibuki_kanto"     => 382,
    "ibuki_thai"      => 407,
+   "okabe_kanto"     => 416,
   }
 
   # self.primary_key = "company_id"
@@ -30,10 +32,12 @@ class Company < ActiveRecord::Base
   store :deleted_at, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
 
   has_many :machines
-  has_many :users
+  # has_many :users
   # has_many :images, :as => :parent
   has_many :contacts
-  has_many :company_users
+  # has_many :company_users
+
+  has_one :companysite
 
   # accepts_nested_attributes_for :images
 

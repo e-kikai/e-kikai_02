@@ -67,17 +67,35 @@ footer {
   color: #FFF;
   background: $e-kikai-color-dark;
   text-align: center;
+
+  a {
+    color: #b3d7f7;
+    margin: 0 8px;
+  }
 }
 
 header {
   &.navbar {
     background-image: url(/images/e-kikai-header-bg.png);
     background-size: cover;
+    border-radius: 0;
+    border-bottom: 1px solid #a0fea9;
   }
 
   a.navbar-brand {
     padding: 0;
     overflow: hidden;
+  }
+
+  .navbar-text {
+    color: #009c0c;
+  }
+
+  ul.nav a {
+    &:hover {
+      background: #009c0c;
+      color: #FFF;
+    }
   }
 }
 
@@ -102,7 +120,8 @@ a.ads_logo {
   img {
     height: 50px;
     margin-left: 32px;
-    border: 1px solid #CFC;
+    border: 1px solid #009c0c;
+    margin-bottom: 4px;
   }
 
   .site {
@@ -204,4 +223,8 @@ a.ads_logo {
     font-size: 18px;
     margin-left: 3px;
   }
+}
+
+.logo_banner {
+  border: 1px solid #009c0c;
 }

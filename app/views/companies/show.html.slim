@@ -15,7 +15,7 @@
       h2 = @company.top_summary_title
     p = simple_format @company.top_summary_content
 
-    = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), "/"
+    = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索', class: "logo_banner"), "/"
 
   .col-lg-6.col-md-6.col-sm-12
     h3 #{@company.name}について

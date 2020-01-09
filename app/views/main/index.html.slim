@@ -8,11 +8,13 @@
 .row
   .col-lg-9.col-md-9.col-xs-12.col-sm-12
     / = invoke :test1, :search_area
-    = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
+    / = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
 
     .panel.panel-default
-      .panel-heading ジャンルで検索
-      .panel-body.hidden-sm.hidden-xs
+      .panel-heading
+        span.glyphicon.glyphicon-search
+        =< "ジャンルからさがす"
+      .panel-body.hidden-sm.hidden-xs.row
         - arr2 = {0 => 0, 1 => 0, 2 => 0}
         - gs   = [[], [], []]
 
@@ -24,7 +26,7 @@
         - gs.each do |ls|
           .col-lg-4.col-md-4
             - ls.each do |l|
-              .panel.panel-default
+              .panel.panel-info
                 .panel-heading = l.name
 
                 / 中ジャンル一覧
@@ -39,8 +41,12 @@
             = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
 
   .col-lg-3.col-md-3.col-xs-12.col-sm-12
-    .panel.panel-default
-      .panel-heading e-kikai Network メンバ
+    = link_to(image_tag(asset_url("auction_02.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
+
+    .panel.panel-success
+      .panel-heading
+        span.glyphicon.glyphicon-home
+        =< "e-kikai Network メンバー"
       - @companies.each do |c|
         = link_to c.name_strip_kabu, "/#{c.subdomain}", class: "btn btn-default btn-lg btn-block", style: "margin: 8px auto;width:95%;"
 
@@ -60,3 +66,5 @@
 /   .panel.panel-default
 /     .panel-heading 売りたし買いたし
 /     .panel-body 準備中
+
+= render "/main/ads_frames", okw: ""

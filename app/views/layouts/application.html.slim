@@ -16,7 +16,7 @@ html
     = render "analytics"
 
   body
-    header.navbar.navbar-default.container-fluid role="navigation"
+    header.navbar.container-fluid role="navigation"
       .container-fluid
         .navbar-header
           button.navbar-toggle data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -26,6 +26,8 @@ html
             span.icon-bar
           / = link_to 'e-kikai お探しの中古機械を簡単検索', "/", class: 'navbar-brand'
           = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), "/", class: 'navbar-brand'
+
+          .navbar-text 厳選された中古機械・工具情報をお届けします。e-kikai Network
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li = link_to 'HOME',            "/"
@@ -51,6 +53,9 @@ html
         / h1.hidden-xs.hidden-sm = yield(:page_title)
       = yield
 
-      = render "trackingcode"
+      / = render "trackingcode"
 
-    footer.container-fluid Copyright &copy; #{Time.now.year} e-kikai Network, All Rights reserved.
+    footer.container-fluid
+      | Copyright &copy; #{Time.now.year}
+      = link_to "e-kikai Network", "/"
+      | , All Rights reserved.

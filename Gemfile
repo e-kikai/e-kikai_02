@@ -104,14 +104,14 @@ group :development do
 end
 
 # assets
-source 'https://rails-assets.org' do
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-jquery-ujs'
-  # gem 'rails-assets-bootstrap'
-  gem 'rails-assets-bootstrap-sass-official'
-  # gem 'rails-assets-fontawesome'
-  gem 'rails-assets-jquery.lazyload'
-end
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-jquery'
+#   gem 'rails-assets-jquery-ujs'
+#   # gem 'rails-assets-bootstrap'
+#   gem 'rails-assets-bootstrap-sass-official'
+#   # gem 'rails-assets-fontawesome'
+#   gem 'rails-assets-jquery.lazyload'
+# end
 
 # 太田機械クローラ
 gem 'mechanize'

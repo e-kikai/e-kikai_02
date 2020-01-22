@@ -63,7 +63,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          h1 = link_to @company.name, "/#{@company.subdomain}", class: 'navbar-brand'
+          h1 = link_to @company.name, root_url(subdomain: @company.subdomain), class: 'navbar-brand'
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             / li = link_to 'トップページ', "/#{@company.subdomain}"

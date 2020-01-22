@@ -7,15 +7,16 @@
     p.contact_tel 問い合わせTEL : #{@company.contact_tel}
     p.contact_fax 問い合わせFAX : #{@company.contact_fax}
     .btn_area
-      = link_to "/#{@company.subdomain}/contact", class: "btn btn-primary btn-lg" do
+      / = link_to "/#{@company.subdomain}/contact", class: "btn btn-primary btn-lg" do
+      = link_to "#{root_url(subdomain: @company.subdomain)}/contact", class: "btn btn-primary btn-lg" do
         span.glyphicon.glyphicon-envelope
-        =<  "問い合わせ"
+        span.btn-content 問い合わせ
 
-    - if @company.top_summary_title.present?
-      h2 = @company.top_summary_title
-    p = simple_format @company.top_summary_content
+    - if @company_configs[:top_summary_title].present?
+      h2 = @company_configs[:top_summary_title]
+    p = simple_format @company_configs[:top_summary_contents]
 
-    = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索', class: "logo_banner"), "/"
+    = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索', class: "logo_banner"), root_url(subdomain: "www")
 
   .col-lg-6.col-md-6.col-sm-12
     h3 #{@company.name}について
@@ -50,9 +51,10 @@
         td = link_to @company.website, @company.website, :target => "_blank" if @company.website.present?
 
     .btn_area
-      = link_to "/#{@company.subdomain}/detail", class: "btn btn-primary btn-lg" do
+      = link_to "#{root_url(subdomain: @company.subdomain)}detail", class: "btn btn-primary btn-lg" do
         span.glyphicon.glyphicon-home
-        =<  "会社情報"
-      = link_to "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank", class: "btn btn-primary btn-lg" do
-        span.glyphicon.glyphicon-map-marker
-        =<  "アクセスMAP"
+        span.btn-content 会社情報
+      / = link_to "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank", class: "btn btn-primary btn-lg" do
+      = link_to "#{root_url(subdomain: @company.subdomain)}map", class: "btn btn-primary btn-lg" do
+        span.glyphicon.glyphicon-globe
+        span.btn-content アクセスMAP

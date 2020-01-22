@@ -54,7 +54,7 @@ html
     = render "analytics"
 
   body.company
-    strong.headcopy = @company.headcopy || "中古機械のスペシャリスト #{@company.name} #{@company.addr1}"
+    strong.headcopy = @company_configs[:headcopy].presence || "中古機械のスペシャリスト #{@company.name} #{@company.addr1}"
     header.navbar.navbar-default.container-fluid role="navigation"
       .container-fluid
         .navbar-header
@@ -66,11 +66,18 @@ html
           h1 = link_to @company.name, "/#{@company.subdomain}", class: 'navbar-brand'
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
-            li = link_to 'トップページ', "/#{@company.subdomain}"
-            li = link_to "在庫機械一覧", "/search?company_id_eq=#{@company.id}"
-            li = link_to '会社情報', "/#{@company.subdomain}/detail"
-            li = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank"
-            li = link_to '問い合わせ', "/#{@company.subdomain}/contact"
+            / li = link_to 'トップページ', "/#{@company.subdomain}"
+            / li = link_to "在庫機械一覧", "/search?company_id_eq=#{@company.id}"
+            / li = link_to '会社情報', "/#{@company.subdomain}/detail"
+            / li = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank"
+            / li = link_to '問い合わせ', "/#{@company.subdomain}/contact"
+
+            li = link_to 'トップページ', root_url(subdomain: @company.subdomain)
+            li = link_to "在庫機械一覧", "#{root_url(subdomain: "www")}search?company_id_eq=#{@company.id}"
+            li = link_to '会社情報',     "#{root_url(subdomain: @company.subdomain)}detail"
+            li = link_to "アクセスMAP",  "#{root_url(subdomain: @company.subdomain)}map"
+            li = link_to '問い合わせ',   "#{root_url(subdomain: @company.subdomain)}contact"
+
     .container
       = raw breadcrumbs autoroot: false, style: :bootstrap, semantic: true
 
@@ -90,14 +97,14 @@ html
     - if current_page?(controller: "companies", action: "show") && @company.machinelife_images.first
       .jumbotron
         = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}"
-        .top_img_title = @company.top_img_title
-        .top_img_content = simple_format @company.top_img_content
+        / .top_img_title = @company.companysite.top_img_title
+        / .top_img_content = simple_format @company.companysite.top_img_content
 
     .container
       = yield
 
-    = render "trackingcode"
+    / = render "trackingcode"
 
     footer.container-fluid
       div Copyright &copy; #{Time.now.year} #{@company.name}, All Rights reserved.
-      div Powerd by #{link_to "e-kikai Network.", "/"}
+      div Powerd by #{link_to "e-kikai Network.", root_url(subdomain: "www")}

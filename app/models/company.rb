@@ -29,7 +29,7 @@ class Company < ActiveRecord::Base
   alias_attribute :name, :company
 
   serialize :infos
-  store :deleted_at, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
+  # store :deleted_at, accessors: [:theme_color, :headcopy, :top_img_title, :top_img_content, :top_summary_title, :top_summary_content, :company_title, :company_content, :makers, :histories, :site_top_img_uid]
 
   has_many :machines
   # has_many :users

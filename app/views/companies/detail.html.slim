@@ -3,9 +3,9 @@
 
 .row(itemscope itemtype="http://schema.org/LocalBusiness")
   .col-lg-7.col-md-7.col-sm-12
-    - if @company.company_title.present?
-      h3 = @company.company_title
-    p = simple_format @company.company_content
+    - if @company_configs[:company_top_title].present?
+      h3 = @company_configs[:company_top_title]
+    p = simple_format @company_configs[:company_top_contents]
   .col-lg-5.col-md-5.col-sm-12
     - if @company.machinelife_images.present?
       = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
@@ -14,56 +14,82 @@
     - else
       = image_tag "/images/nopicture.gif", width:"100%"
 
-  h3 会社概要
+.row
   .col-lg-10.col-lg-offset-1
+    h3 会社概要
     table.table
       tr
-        th 会社名
+        th
+          span.glyphicon.glyphicon-home
+          span.btn-content 会社名
         td itemprop="name" = @company.name
       tr
-        th 代表者
+        th
+          span.glyphicon.glyphicon-star
+          span.btn-content 代表者
         td itemprop="member" = @company.representative
       tr
-        th 担当者
+        th
+          span.glyphicon.glyphicon-user
+          span.btn-content 担当者
         td = @company.officer
       tr
-        th 住所
+        th
+          span.glyphicon.glyphicon-map-marker
+          span.btn-content 住所
         td(itemprop="address" itemscope itemtype="http://schema.org/PostalAddress")
           .zip itemprop="postalCode" 〒 #{@company.zip_shaping}
           .addr
             span.addr1 itemprop="addressRegion" = @company.addr1
             span.addr2 itemprop="addressLocality" = @company.addr2
             span.addr3 itemprop="streetAddress" = @company.addr3
-            =< link_to "[アクセスMAP]", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}",
-            target: "_blank", class:"accessmap"
+            / =< link_to "[アクセスMAP]", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}",
+            / target: "_blank", class:"accessmap"
+
+            = link_to "#{root_url(subdomain: @company.subdomain)}map" do
+              span.glyphicon.glyphicon-globe
+              span.btn-content アクセスMAP
+
           - if @company.infos["access_train"].present?
             div
             p
-              div ＜電車でのアクセス＞
+              . ＜電車でのアクセス＞
               = simple_format @company.infos["access_train"]
           - if @company.infos["access_car"].present?
             p
               div ＜車でのアクセス＞
               = simple_format @company.infos["access_car"]
       tr
-        th 問い合わせTEL
+        th
+          span.glyphicon.glyphicon-earphone
+          span.btn-content 問い合わせTEL
         td itemprop="telephone" = @company.contact_tel
       tr
-        th 問い合わせFAX
+        th
+          span.glyphicon.glyphicon-phone-alt
+          span.btn-content 問い合わせFAX
         td itemprop="faxNumber" = @company.contact_fax
       tr
-        th 営業時間
+        th
+          span.glyphicon.glyphicon-time
+          span.btn-content 営業時間
         td itemprop="openingHours" = @company.infos["opening"]
       tr
-        th 定休日
+        th
+          span.glyphicon.glyphicon-calendar
+          span.btn-content 定休日
         td = @company.infos["holiday"]
       tr
-        th 古物免許
+        th
+          span.glyphicon.glyphicon-file
+          span.btn-content 古物免許
         td = @company.infos["license"]
 
       - if @company.offices.present?
         tr
-          th 営業所・倉庫
+          th
+            span.glyphicon.glyphicon-briefcase
+            span.btn-content 営業所・倉庫
           td
             - @company.offices.each do |o|
               h4.office_name = o["name"]
@@ -74,29 +100,35 @@
                 span.office_addr3 = o["addr3"]
                 =< link_to "[アクセスMAP]", "https://www.google.co.jp/maps/place/#{o["addr1"]}#{o["addr2"]}#{o["addr3"]}",
                 target: "_blank", class:"accessmap"
+
       tr
-        th ウェブサイト
+        th
+          span.glyphicon.glyphicon-link
+          span.btn-content ウェブサイト
         td = link_to @company.website, @company.website, target: "_blank", itemprop: "url" if @company.website.present?
 
-- if @company.makers.present?
+- if @company_configs[:makers_name].present?
   .row
-    h3 取り扱いメーカー
-    .makers
-      - @company.makers.try :each do |ma|
-        - next if ma["name"].blank?
-        li.maker
-          - if ma["url"].present? && (URI(ma["url"]) rescue false)
-            = link_to ma["name"], ma["url"], target: "_blank"
-          - else
-            = ma["name"]
-
-- if @company.histories.present?
-  .row
-    h3 沿革
     .col-lg-10.col-lg-offset-1
+      h3 取り扱いメーカー
+      .makers
+        - @company_configs[:makers_name].try :each_with_index do |ma, i|
+          - next if ma.blank?
+
+          li.maker
+            - if @company_configs.dig(:makers_url, i).present? && (URI(@company_configs.dig(:makers_url, i)) rescue false)
+              = link_to ma, @company_configs.dig(:makers_url, i), target: "_blank"
+            - else
+              = ma
+
+- if @company_configs[:histories_date].present?
+  .row
+    .col-lg-8.col-lg-offset-2
+      h3 沿革
       table.table.histories
-        - @company.histories.try :each do |h|
-          - next if h["content"].blank?
+        - @company_configs[:histories_date].try :each_with_index do |da, i|
+          - next if da.blank? ||  @company_configs.dig(:histories_contents, i).blank?
+
           tr
-            th = h["date"]
-            td = h["content"]
+            th = da
+            td = @company_configs.dig(:histories_contents, i)

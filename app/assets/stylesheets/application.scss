@@ -228,3 +228,34 @@ a.ads_logo {
 .logo_banner {
   border: 1px solid #009c0c;
 }
+
+table.members-table {
+  margin-bottom: 8px;
+
+  td.img {
+    padding: 2px;
+    width: 124px;
+    text-align: center;
+
+    img {
+      max-width: 120px;
+      max-height: 90px;
+    }
+  }
+
+  td.machines {
+    width: 120px;
+    text-align: center;
+  }
+}
+
+#gmap2 {
+  width: 100%;
+  height: 480px;
+  border: 1px solid #AAA;
+  margin: 0 auto 16px auto;
+}
+
+.btn-content {
+  margin-left: 4px;
+}

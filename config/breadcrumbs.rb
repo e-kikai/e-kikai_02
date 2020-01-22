@@ -67,7 +67,7 @@ crumb :contact do |m|
 end
 
 crumb :companies do |c|
-  link "会員会社一覧", "/companies"
+  link "e-kikai Network 会員一覧", "/companies"
   parent :root
 end
 

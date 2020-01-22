@@ -1,17 +1,27 @@
 - set_meta_tags title: "アクセスMAP"
 - breadcrumb  :company_help, @company, "アクセスMAP"
 
-.container
-  .col-lg-offset-2.col-lg-8
-    table.table
-      tr
-        th 問い合わせ先
-        td = link_to @company.name, "/#{@company.subdomain}"
+<iframe id="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.jp/maps?f=q&amp;q=#{@company.addr1}#{@company.addr2}#{@company.addr3}&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe>
 
-    .panel.panel-default
-      .panel-heading
-        span.glyphicon.glyphicon-phone-alt
-        =< "電話でお問い合わせ"
-      .panel-body
-        h2 お問い合わせTEL : #{@company.contact_tel}
-    
+.row
+  .col-lg-offset-3.col-lg-6.col-md-offset-3.col-md-6.col-sm-12
+    . = link_to "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}", target: "_blank" do
+      span.glyphicon.glyphicon-globe
+      span.btn-content 大きな地図を表示
+
+    .zip itemprop="postalCode" 〒 #{@company.zip_shaping}
+    .addr
+      span.addr1 itemprop="addressRegion"   = @company.addr1
+      span.addr2 itemprop="addressLocality" = @company.addr2
+      span.addr3 itemprop="streetAddress"   = @company.addr3
+
+    - if @company.infos["access_train"].present?
+    p
+      . ＜電車でのアクセス＞
+      = simple_format @company.infos["access_train"]
+      . = link_to "Google乗換案内", "https://www.google.co.jp/maps?daddr=#{@company.addr1}#{@company.addr2}#{@company.addr3}&hl=ja&ie=UTF8", target: "_blank"
+    - if @company.infos["access_car"].present?
+    p
+      div ＜車でのアクセス＞
+      = simple_format @company.infos["access_car"]
+      . = link_to "Googleルート案内", "https://www.google.co.jp/maps?daddr=#{@company.addr1}#{@company.addr2}#{@company.addr3}&hl=ja&ie=UTF8&dirflg=d", target: "_blank"

@@ -10,45 +10,49 @@
     / = invoke :test1, :search_area
     / = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
 
-    .panel.panel-default
-      .panel-heading
-        span.glyphicon.glyphicon-search
-        =< "ジャンルからさがす"
-      .panel-body.hidden-sm.hidden-xs.row
-        - arr2 = {0 => 0, 1 => 0, 2 => 0}
-        - gs   = [[], [], []]
+    h4
+      span.glyphicon.glyphicon-search
+      span.btn-content ジャンルからさがす
 
+    .row
+      - arr2 = {0 => 0, 1 => 0, 2 => 0}
+      - gs   = [[], [], []]
+
+      - @genres.each_with_index do |l, i|
+        - key = arr2.min { |x, y| x[1] <=> y[1] }[0]
+        - gs[key] << l
+        - arr2[key] += (1 + l.middle_genres.length)
+
+      - gs.each do |ls|
+        .col-lg-4.col-md-4
+          - ls.each do |l|
+            .panel.panel-info
+              .panel-heading
+                span.glyphicon.glyphicon-wrench
+                span.btn-content = l.name
+
+              / 中ジャンル一覧
+              .list-group
+                - l.middle_genres.each_with_index do |m, j|
+                  - next if @middle_genre_counts[m.id] == 0
+                  = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
+
+      .list-group.hidden-lg.hidden-md
+        / 大ジャンル一覧
         - @genres.each_with_index do |l, i|
-          - key = arr2.min { |x, y| x[1] <=> y[1] }[0]
-          - gs[key] << l
-          - arr2[key] += (1 + l.middle_genres.length)
-
-        - gs.each do |ls|
-          .col-lg-4.col-md-4
-            - ls.each do |l|
-              .panel.panel-info
-                .panel-heading = l.name
-
-                / 中ジャンル一覧
-                .list-group
-                  - l.middle_genres.each_with_index do |m, j|
-                    - next if @middle_genre_counts[m.id] == 0
-                    = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
-
-        .list-group.hidden-lg.hidden-md
-          / 大ジャンル一覧
-          - @genres.each_with_index do |l, i|
-            = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
+          = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
 
   .col-lg-3.col-md-3.col-xs-12.col-sm-12
     = link_to(image_tag(asset_url("auction_02.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
 
     .panel.panel-success
       .panel-heading
-        span.glyphicon.glyphicon-home
-        =< "e-kikai Network メンバー"
+        = link_to "/companies/" do
+          span.glyphicon.glyphicon-home
+          span.btn-content e-kikai Network メンバー
       - @companies.each do |c|
-        = link_to c.name_strip_kabu, "/#{c.subdomain}", class: "btn btn-default btn-lg btn-block", style: "margin: 8px auto;width:95%;"
+        / = link_to c.name_strip_kabu, "/#{c.subdomain}", class: "btn btn-default btn-lg btn-block", style: "margin: 8px auto;width:95%;"
+        = link_to c.name_strip_kabu, root_url(subdomain: c.subdomain), class: "btn btn-default btn-lg btn-block", style: "margin: 8px auto;width:95%;"
 
 / .col-lg-3.col-md-3.col-xs-12.col-sm-12
 /   .panel.panel-default

@@ -1,29 +1,37 @@
-- set_meta_tags title: "会員会社一覧"
+- set_meta_tags title: "e-kikai Network メンバー一覧"
 
 - breadcrumb  :companies
 
 .row
   .col
-      table.table-striped.table-hover.table-bordered.table-condensed.search-table.col-lg-12
+      table.table-striped.table-hover.table-bordered.table-condensed.search-table.col-lg-12.members-table
         thead
           tr
            th.img     画像
            th.name    会社名
            th.addr    住所
            th.tel     TEL・FAX
-           th.machine 在庫
+           th.machine 在庫一覧
         tbody
           - @companies.each do |c|
             tr
               td.img
-              td.name = link_to c.name, "/#{c.subdomain}"
+                  = link_to root_url(subdomain: c.subdomain) do
+                    - if  c.top_img.present?
+                      = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{c.top_img}", alt: c.name
+
+              / td.name = link_to c.name, "/#{c.subdomain}"
+              td.name = link_to c.name, root_url(subdomain: c.subdomain)
               td.addr
                 .zip 〒 #{c.zip_shaping}
-                .addr 
+                .addr
                   span.addr1 = c.addr1
                   span.addr2 = c.addr2
                   span.addr3 = c.addr3
               td.tel
                 .tel = c.tel if c.tel
                 .fax = c.fax if c.fax
-              td.machine = link_to "在庫", "/search?company_id_eq=#{c.id}"
+              td.machines
+                = link_to "/search?company_id_eq=#{c.id}", class:"btn btn-md btn-success" do
+                  span.glyphicon.glyphicon-list
+                  span.btn-content 在庫一覧

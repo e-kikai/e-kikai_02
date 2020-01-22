@@ -8,7 +8,9 @@
     table.table
       tr
         th 問い合わせ先
-        td = link_to @company.name, "/#{@company.subdomain}"
+        / td = link_to @company.name, "/#{@company.subdomain}"
+        td = link_to @company.name, root_url(subdomain: @company.subdomain)
+
 
     .panel.panel-default
       .panel-heading

@@ -2,6 +2,7 @@ doctype html
 html
   head
     - set_meta_tags title: "おすすめ機械"
+    - set_meta_tags nofollow: false, noindex: true
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => :reload
     = javascript_include_tag 'application', 'data-turbolinks-track' => :reload

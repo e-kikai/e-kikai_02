@@ -61,11 +61,26 @@ class CompaniesController < ApplicationController
 
   def find_company
     # @company = Company.find_by(subdomain: params[:subdomain])
-    @company = Company.find(Company.subdomain2id(params[:subdomain]))
+
+    @subdomain = params[:sd].presence || request.subdomain
+    company_id =  Company.subdomain2id(@subdomain)
+
+    # if company_id.blank?
+    #   root_url(subdomain: "www")
+    # end
+
+    @company = Company.find(company_id)
+
+    @companysite = @company.companysite
+    @company_configs = @companysite ? JSON.parse(@companysite.company_configs, symbolize_names: true) : {}
+    # @company_configs = JSON.parse(@company.companysite.company_configs, symbolize_names: true) rescue {}
 
     # c   = Sass::Script::Color.from_hex(@company.theme_color || Company::THEME_COLORS[:cyan])
-    # c   = Sass::Script::Color.from_hex(@company.companysite.theme || Company::THEME_COLORS[:cyan])
-    c   = Sass::Script::Color.from_hex(Company::THEME_COLORS[:cyan])
+
+    template = @companysite.try(:template).to_s.gsub(/[_0-9]+$/, '') || "cyan"
+    c = Sass::Script::Color.from_hex(Company::THEME_COLORS[template.to_sym] || Company::THEME_COLORS[:cyan])
+    # c   = Sass::Script::Color.from_hex(Company::THEME_COLORS[:cyan])
+
     rev = c.with(hue: ((c.hue + 180) % 360))
     @c = {
       base:        c.inspect,
@@ -79,7 +94,7 @@ class CompaniesController < ApplicationController
       darknessrev: rev.with(saturation: 100, lightness: 15).inspect,
     }
   rescue
-    redirect_to "/", alert: "e-kikaiメンバ情報が取得できませんでした > #{@company.name}"
+    redirect_to root_url(subdomain: "www"), alert: "e-kikaiメンバ情報が取得できませんでした"
   end
 
   def search_params

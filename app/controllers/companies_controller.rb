@@ -72,7 +72,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(company_id)
 
     @companysite = @company.companysite
-    @company_configs = @companysite ? JSON.parse(@companysite.company_configs, symbolize_names: true) : {}
+    @company_configs = @companysite ? JSON.parse((@companysite.company_configs || "{}"), symbolize_names: true) : {}
     # @company_configs = JSON.parse(@company.companysite.company_configs, symbolize_names: true) rescue {}
 
     # c   = Sass::Script::Color.from_hex(@company.theme_color || Company::THEME_COLORS[:cyan])
@@ -93,7 +93,8 @@ class CompaniesController < ApplicationController
       darkrev:     rev.with(saturation: 100, lightness: 30).inspect,
       darknessrev: rev.with(saturation: 100, lightness: 15).inspect,
     }
-  rescue
+  rescue => e
+    logger.error e
     redirect_to root_url(subdomain: "www"), alert: "e-kikaiメンバ情報が取得できませんでした"
   end
 

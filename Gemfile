@@ -24,6 +24,9 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'coffee-rails', '~> 4.1.0'
 gem 'coffee-rails', '~> 4.2'
 
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -104,14 +107,14 @@ group :development do
 end
 
 # assets
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-jquery'
-#   gem 'rails-assets-jquery-ujs'
-#   # gem 'rails-assets-bootstrap'
-#   gem 'rails-assets-bootstrap-sass-official'
-#   # gem 'rails-assets-fontawesome'
-#   gem 'rails-assets-jquery.lazyload'
-# end
+source 'https://rails-assets.org' do
+  gem 'rails-assets-jquery'
+  gem 'rails-assets-jquery-ujs'
+  # gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap-sass-official'
+  # gem 'rails-assets-fontawesome'
+  gem 'rails-assets-jquery.lazyload'
+end
 
 # 太田機械クローラ
 gem 'mechanize'
@@ -150,3 +153,5 @@ gem 'simple_captcha2', require: 'simple_captcha'
 gem 'kaminari'
 
 gem 'recaptcha', require: "recaptcha/rails"
+
+# gem "bower-rails"

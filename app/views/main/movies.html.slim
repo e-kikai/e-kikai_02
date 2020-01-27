@@ -16,3 +16,5 @@ p e-kikaiに登録されている中古機械動画ギャラリーです。
       / <iframe width="270" height="152" src="https://www.youtube.com/embed/#{ma.youtube_id}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       /
       / . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"
+
+= render "/main/ads_frames", okw: ""

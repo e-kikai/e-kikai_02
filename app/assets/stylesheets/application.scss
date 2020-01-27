@@ -285,12 +285,32 @@ a.mnok_company_link {
   }
 }
 
+.top-movie-head {
+  h4 {
+    display: inline-block;;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: 2px;
+  }
+}
+
 .top-movie_area {
   .top-movie-machine {
     margin-right: 8px;
     display:inline-block;
-    width:200px;
+    width:270px;
+    vertical-align: top;
+  }
+}
 
-
+.movies_area {
+  .movies-machine {
+    margin-right: 12px;
+    margin-bottom: 12px;
+    display:inline-block;
+    width:270px;
+    vertical-align: top;
   }
 }

@@ -50,6 +50,10 @@ class Machine < ActiveRecord::Base
     end
   }
 
+  scope :movies, -> {
+    where.not(youtube: [nil, "http://youtu.be/", ""])
+  }
+
   def self.search_list(q)
     includes(:company).search(q).result.order("machines.name, machines.created_at DESC")
   end
@@ -63,5 +67,9 @@ class Machine < ActiveRecord::Base
     temp.unshift top_img if top_img.present?
 
     temp
+  end
+
+  def youtube_id
+    youtube.to_s =~ /([\w\-]{11})/ ? $1 : ""
   end
 end

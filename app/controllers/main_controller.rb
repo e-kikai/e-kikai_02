@@ -11,7 +11,7 @@ class MainController < ApplicationController
     # @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
     @middle_genre_counts = MiddleGenre.group("large_genres.id").includes(:machines).order("large_genres.order_no").count('machines.id')
 
-    @movies = Machine.where.not(youtube: [nil, "http://youtu.be/", ""]).order(id: :desc).limit(4)
+    @movies = Machine.movies.order(id: :desc).limit(3)
   end
 
   def large_genre
@@ -157,6 +157,9 @@ class MainController < ApplicationController
     # @genremakers = Machine.joins(:genre).group(:genre_id, "genres.name", :maker).having("count(*) > 5").count.keys
   end
 
+  def movies
+    @movies = Machine.movies.order(id: :desc)
+  end
 
   def ads
     ### 検索キーワード ###

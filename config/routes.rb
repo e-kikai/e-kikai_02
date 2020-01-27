@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get  "contact_fin",     to: "main#contact_fin",   as: "contact_fin"
     get  "about",           to: "main#about",         as: "about"
     get  "sitemap",         to: "main#sitemap",       as: "sitemap"
+    get  "movies",          to: "main#movies"
 
     get  "ads",             to: "main#ads",           as: "ads"
 

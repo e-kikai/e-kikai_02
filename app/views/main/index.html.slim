@@ -1,5 +1,5 @@
 - set_meta_tags site:        "中古機械情報 e-kikai 中古機械・探す・見つける"
-- set_meta_tags keywords:    "中古機械,中古工作機械,工作機械 中古,平面研磨機 中古,e-kikai"
+/ - set_meta_tags keywords:    "中古機械,中古工作機械,工作機械 中古,平面研磨機 中古,e-kikai"
 - set_meta_tags description: "中古機械・中古工作機械・中古NC旋盤・中古研削盤,中古プレス機械など、お探しの機械を簡単検索できます"
 
 /// BING ///
@@ -12,18 +12,20 @@
 
 
     / . = Machine.where.not(youtube: [nil, "http://youtu.be/", ""]).first.youtube
-    h4
-      span.glyphicon.glyphicon-film
-      span.btn-content 動画のある機械
+    .top-movie-head
+      h4
+        span.glyphicon.glyphicon-film
+        span.btn-content 動画のある機械
+      = link_to "/movies", class: "btn btn-info pull-right" do
+        span.glyphicon.glyphicon-facetime-video
+        span.btn-content 動画ギャラリー
 
     .top-movie_area
       - @movies.each do |ma|
         .top-movie-machine
-          <iframe width="200" height="113" src="https://www.youtube.com/embed/#{ma.youtube.match(/([\w\-]{11})/)[1]}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe width="270" height="152" src="https://www.youtube.com/embed/#{ma.youtube_id}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
           . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"
-
-
 
     h4
       span.glyphicon.glyphicon-search

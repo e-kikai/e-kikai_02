@@ -105,6 +105,9 @@
             th コメント
             td = simple_format(@machine.comment)
   .col-lg-5.col-md-5.col-sm-7.col-xs-12.machine-img
+    - if @machine.youtube_id.present?
+      <iframe width="458" height="258" src="https://www.youtube.com/embed/#{@machine.youtube_id}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     - if @machine.machinelife_images.present?
       - @machine.machinelife_images.each do |i|
         = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{i}", target:"_blank" do

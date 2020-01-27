@@ -19,7 +19,7 @@
     .top-movie_area
       - @movies.each do |ma|
         .top-movie-machine
-          <iframe width="200" height="150" src="https://www.youtube.com/embed/#{ma.youtube}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe width="200" height="113" src="https://www.youtube.com/embed/#{ma.youtube.match(/([\w\-]{11})/)[1]}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
           . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"
 

@@ -11,14 +11,14 @@
         td = link_to "#{@machine.name} #{@machine.maker} #{@machine.model}", "/#{@detail_link}/#{@machine.id}"
       tr
         th 問い合わせ先
-        td = link_to @machine.company.name, "/#{@machine.company.subdomain}"
+        td = link_to @machine.company.name, root_url(subdomain: @machine.company.subdomain)
 
     .panel.panel-default
       .panel-heading
         span.glyphicon.glyphicon-phone-alt
         =< "電話でお問い合わせ"
       .panel-body
-        h2 お問い合わせTEL : #{@machine.company.contact_tel}
+        h3.contact_tel お問い合わせTEL : #{@machine.company.contact_tel}
 
     .panel.panel-default
       .panel-heading
@@ -61,12 +61,38 @@
             = f.label :tel
             .input-group
               span.input-group-addon
+                span.glyphicon.glyphicon-earphone
+              = f.text_field :tel, class: 'form-control', placeholder: "電話番号(電話でのご連絡を希望の場合は記入してください)"
+
+          .form-group
+            = f.label :fax
+            .input-group
+              span.input-group-addon
                 span.glyphicon.glyphicon-phone-alt
-              = f.text_field :tel, class: 'form-control', placeholder: "電話番号(電話でのご連絡を希望の場合は必須)"
+              = f.text_field :fax, class: 'form-control', placeholder: "FAX番号(FAXでのご連絡を希望の場合は記入してください)"
 
           .form-group
             = f.label :content
-            = f.text_area :content, class: 'form-control', style:"height:100px;", required: "required"
+            .
+              .checkbox
+                label = check_box_tag("sub_contents[]", "この機械の状態を知りたい") + "この機械の状態を知りたい"
+              .checkbox
+                label = check_box_tag("sub_contents[]", "この機械の価格を知りたい") + "この機械の価格を知りたい"
+              .checkbox
+                label = check_box_tag("sub_contents[]", "送料を知りたい") + "送料を知りたい (↓に送付先住所を記入してください)"
+              .checkbox
+                label = check_box_tag("sub_contents[]", "現物を見たい") + "現物を見たい"
+              .checkbox
+                label = check_box_tag("sub_contents[]", "試運転は可能ですか") + "試運転は可能ですか"
+              . その他の問い合わせは下記に記入してください。
+              = f.text_area :content, class: 'form-control', style:"height:100px;", required: "required"
+
+          .form-group
+            = f.label :return_time
+            .
+              label.checkbox-inline = check_box_tag("returns[]", "メールで連絡を希望") + "メールで連絡を希望"
+              label.checkbox-inline = check_box_tag("returns[]", "電話で連絡を希望") + "電話で連絡を希望"
+              label.checkbox-inline = check_box_tag("returns[]", "FAXで連絡を希望") + "FAXで連絡を希望"
 
           .form-group
             / = show_simple_captcha(input_html: { class: 'form-control' })

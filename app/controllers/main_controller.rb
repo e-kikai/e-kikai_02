@@ -119,7 +119,14 @@ class MainController < ApplicationController
     Contact.transaction do
       # @contact[:content] = @ref + @contact[:content]
 
+      @contact.content = "#{params[:sub_contents].join("\n")}\n#{@contact.content}" if params[:sub_contents].present?
+
+      # raise params.to_s
+
       @contact.content = "#{@ref}[[e-kikaiからの問合せ]]\n#{@contact.content}"
+
+      @contact.return_time = params[:returns].join("\n") if params[:returns].present?
+
       @contact.save!
 
       # ContactMailer.contact(@contact, @machine).deliver_later

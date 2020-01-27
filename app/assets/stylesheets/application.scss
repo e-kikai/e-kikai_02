@@ -108,6 +108,13 @@ iframe.mnok_ads {
   overflow: hidden;
 }
 
+@media (max-width: 991px) {
+  iframe.mnok_ads {
+    width: 350px;
+    height: 574px;
+  }
+}
+
 body.ads_body {
   border: 1px solid #2fb941;
   overflow: hidden;

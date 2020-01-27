@@ -42,13 +42,16 @@ class CompaniesController < ApplicationController
 
     Contact.transaction do
       @contact.content = "[[e-kikaiからの問合せ]]\n#{@contact.content}"
+
+      @contact.return_time = params[:returns].join("\n") if params[:returns].present?
+
       @contact.save!
 
       ContactMailer.company_contact(@contact, @company).deliver
       ContactMailer.company_contact_confirm(@contact, @company).deliver
     end
 
-    redirect_to "/#{@company.subdomain}/contact_fin", notice: '問い合わせを送信しました'
+    redirect_to root_url(subdomain: @company.subdomain) + "/contact_fin", notice: '問い合わせを送信しました'
   rescue => e
     flash.now[:alert] = e.message
     render :action => :contact

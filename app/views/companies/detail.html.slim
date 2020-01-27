@@ -13,7 +13,9 @@
       hr
       = link_to "https://www.mnok.net/products?keywords=#{@company.name_strip_kabu}&success=start", class: "mnok_company_link", target: "_blank" do
         = image_tag "https://www.mnok.net/assets/logo_02-c9f870dff013b8ca9af2382dd5c457613913d43aac9945c2eb4b496d4901577e.png"
-        span = "#{@company.name_strip_kabu} 出品中"
+        .company_name
+          span.glyphicon.glyphicon-gift
+          span.btn-content = "#{@company.name_strip_kabu} 出品中"
         
   .col-lg-5.col-md-5.col-sm-12
     - if @company.machinelife_images.present?

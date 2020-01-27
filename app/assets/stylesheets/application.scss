@@ -265,7 +265,7 @@ h3.contact_tel {
 }
 
 a.mnok_company_link {
-  width: 460px;
+  width: 400px;
   border: 1px solid #8630e4;
   display: block;
   text-align: center;
@@ -273,13 +273,24 @@ a.mnok_company_link {
   text-decoration: none;
 
   img {
-    width: 360px;
+    width: 320px;
     display: block;
     margin: auto;
   }
 
-  span {
+  .company_name {
     font-size: 24px;
-    color: #8630e4;
+    color: #1407d2;
+    font-weight: bold;
+  }
+}
+
+.top-movie_area {
+  .top-movie-machine {
+    margin-right: 8px;
+    display:inline-block;
+    width:200px;
+
+
   }
 }

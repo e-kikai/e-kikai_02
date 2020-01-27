@@ -10,6 +10,8 @@ class MainController < ApplicationController
 
     # @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
     @middle_genre_counts = MiddleGenre.group("large_genres.id").includes(:machines).order("large_genres.order_no").count('machines.id')
+
+    @movies = Machine.where.not(youtube: [nil, "http://youtu.be/", ""]).order(id: :desc).limit(4)
   end
 
   def large_genre

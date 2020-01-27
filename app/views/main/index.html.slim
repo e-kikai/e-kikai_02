@@ -13,6 +13,19 @@
 
     / . = Machine.where.not(youtube: [nil, "http://youtu.be/", ""]).first.youtube
     h4
+      span.glyphicon.glyphicon-film
+      span.btn-content 動画のある機械
+
+    .top-movie_area
+      - @movies.each do |ma|
+        .top-movie-machine
+          <iframe width="200" height="150" src="https://www.youtube.com/embed/#{ma.youtube}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+          . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"
+
+
+
+    h4
       span.glyphicon.glyphicon-search
       span.btn-content ジャンルからさがす
 

@@ -306,11 +306,48 @@ a.mnok_company_link {
 }
 
 .movies_area {
+  margin: 0 -10px;
+
   .movies-machine {
-    margin-right: 12px;
-    margin-bottom: 12px;
+    margin: 0 10px 20px 10px;
     display:inline-block;
     width:270px;
     vertical-align: top;
   }
+}
+
+
+.youtube {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	width: 270px;
+	height: 152px;
+}
+
+.youtube::before {
+	position: absolute;
+	content: "クリックで再生";
+	color: #fff;
+  text-shadow: 1px 1px 0 #000,
+               -1px 1px 0 #000,
+               1px -1px 0 #000,
+               -1px -1px 0 #000;
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+	line-height: 164px;
+	// background: rgba(0, 0, 0, 0.6);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	transition: all 0.3s;
+}
+
+.youtube:hover::before {
+	background: rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+	transition: all 0.3s;
 }

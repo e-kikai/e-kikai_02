@@ -27,6 +27,7 @@ SitemapGenerator::Sitemap.create do
 
   add "/sitemap", :priority => 0.5, :changefreq => 'weekly'
   add "/about",   :priority => 0.3, :changefreq => 'monthly'
+  add "/movies",   :priority => 0.7, :changefreq => 'monthly'
 
   LargeGenre.select(:id).each do |l|
     add "/large_genre/#{l.id}", :priority => 0.4, :changefreq => 'monthly'
@@ -53,6 +54,9 @@ SitemapGenerator::Sitemap.create do
   Company.select(:id).each do |c|
     # add "/#{c.subdomain}/", :priority => 0.8, :changefreq => 'daily'
     add "https://#{c.subdomain}.e-kikai.com", :priority => 0.9, :changefreq => 'daily'
+    add "https://#{c.subdomain}.e-kikai.com/detail", :priority => 0.8, :changefreq => 'daily'
+    add "https://#{c.subdomain}.e-kikai.com/map", :priority => 0.8, :changefreq => 'daily'
+
     add "/search?company_id_eq=#{c.id}", :priority => 0.7, :changefreq => 'daily'
   end
 

@@ -9,6 +9,10 @@ p e-kikaiに登録されている中古機械動画ギャラリーです。
 .movies_area
   - @movies.each do |ma|
     .movies-machine
-      <iframe width="270" height="152" src="https://www.youtube.com/embed/#{ma.youtube_id}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+      .youtube data-video="https://www.youtube.com/embed/#{ma.youtube_id}?autoplay=1"
+        = image_tag "https://img.youtube.com/vi/#{ma.youtube_id}/mqdefault.jpg", alt: ""
       . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"
+
+      / <iframe width="270" height="152" src="https://www.youtube.com/embed/#{ma.youtube_id}?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      /
+      / . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"

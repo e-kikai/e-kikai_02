@@ -33,6 +33,9 @@ ready = ->
 
   # ahoy.track("view", {path: location.pathname, title: document.title, machine_ids: machine_ids})
 
+  $('.youtube').click ->
+    video = "<iframe src='#{$(@).attr('data-video')}' frameborder='0' width='270' height='153'></iframe>"
+    $(@).replaceWith(video)
 
 $(document).ready(ready)
 # $(document).on('page:load', ready)

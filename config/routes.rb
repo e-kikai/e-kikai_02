@@ -47,12 +47,12 @@ Rails.application.routes.draw do
     # 会社情報
     resources :companies, :only => [:index]
     get  ":sd",             to: "companies#show"
-    # get  ":sd/search"  ,    to: "companies#search" ,       as: "member_site_machines"
-    get  ":sd/contact",     to: "companies#contact",       as: "member_site_contact"
-    post ":sd/contact",     to: "companies#contact_create"
-    get  ":sd/contact_fin", to: "companies#contact_fin",   as: "member_site_contact_fin"
-    get  ":sd/detail",      to: "companies#detail"
-    get  ":sd/map",         to: "companies#map"
+    # get  ":sd/contact",     to: "companies#contact",       as: "member_site_contact"
+    # post ":sd/contact",     to: "companies#contact_create"
+    # get  ":sd/contact_fin", to: "companies#contact_fin",   as: "member_site_contact_fin"
+    # get  ":sd/detail",      to: "companies#detail"
+    # get  ":sd/map",         to: "companies#map"
+
   end
 
   constraints lambda { |request| request.subdomain != "www" } do

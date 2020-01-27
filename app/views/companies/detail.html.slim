@@ -4,8 +4,17 @@
 .row(itemscope itemtype="http://schema.org/LocalBusiness")
   .col-lg-7.col-md-7.col-sm-12
     - if @company_configs[:company_top_title].present?
-      h3 = @company_configs[:company_top_title]
+      h3
+        span.glyphicon.glyphicon-cog
+        span.btn-content = @company_configs[:company_top_title]
     p = simple_format @company_configs[:company_top_contents]
+
+    - if @company.subdomain == "horikawakikai"
+      hr
+      = link_to "https://www.mnok.net/products?keywords=#{@company.name_strip_kabu}&success=start", class: "mnok_company_link", target: "_blank" do
+        = image_tag "https://www.mnok.net/assets/logo_02-c9f870dff013b8ca9af2382dd5c457613913d43aac9945c2eb4b496d4901577e.png"
+        span = "#{@company.name_strip_kabu} 出品中"
+        
   .col-lg-5.col-md-5.col-sm-12
     - if @company.machinelife_images.present?
       = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
@@ -16,7 +25,9 @@
 
 .row
   .col-lg-10.col-lg-offset-1
-    h3 会社概要
+    h3
+      span.glyphicon.glyphicon-cog
+      span.btn-content 会社概要
     table.table
       tr
         th
@@ -110,7 +121,9 @@
 - if @company_configs[:makers_name].present?
   .row
     .col-lg-10.col-lg-offset-1
-      h3 取り扱いメーカー
+      h3
+        span.glyphicon.glyphicon-cog
+        span.btn-content 取り扱いメーカー
       .makers
         - @company_configs[:makers_name].try :each_with_index do |ma, i|
           - next if ma.blank?
@@ -124,7 +137,9 @@
 - if @company_configs[:histories_date].present?
   .row
     .col-lg-8.col-lg-offset-2
-      h3 沿革
+      h3
+        span.glyphicon.glyphicon-cog
+        span.btn-content 沿革
       table.table.histories
         - @company_configs[:histories_date].try :each_with_index do |da, i|
           - next if da.blank? ||  @company_configs.dig(:histories_contents, i).blank?

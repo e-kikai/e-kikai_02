@@ -44,7 +44,7 @@
 /             .machine-other
 /               =< "#{m.year}年式" if m.year.to_i > 0
 /               =< m.addr1
-/               =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
+/               =< link_to m.company.name_strip_kabu, root_url(subdomain: m.company.subdomain)
 /
 /           .machine-buttons.media-right
 /             = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
@@ -70,7 +70,7 @@
           .machine-other
             =< "#{m.year}年式" if m.year.to_i > 0
             =< m.addr1
-            =< link_to m.company.name_strip_kabu, "/#{m.company.subdomain}"
+            =< link_to m.company.name_strip_kabu, root_url(subdomain: m.company.subdomain)
 
         .machine-buttons.media-right
           = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do

@@ -57,7 +57,7 @@
         table.table.detail-table
           tr
             th 出品会社
-            td = link_to @machine.company.name, "/#{@machine.company.subdomain}"
+            td = link_to @machine.company.name, root_url(subdomain: @machine.company.subdomain)
           tr
             th 管理番号
             td = @machine.no

@@ -44,6 +44,7 @@ ja:
         mail: メールアドレス
         tel: 電話番号
         content: 内容
+        return_time: 希望連絡方法
       large_genre:
         name: 大ジャンル名
         order_no: 並び順
@@ -58,5 +59,3 @@ ja:
       image:
         parent: 親要素
         img: 画像
-
-

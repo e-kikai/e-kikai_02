@@ -105,6 +105,11 @@ html
 
     / = render "trackingcode"
 
+
+    - if request.subdomain == "horikawakikai"
+      = render "/main/ads_frames", okw: "堀川機械"
+
+
     footer.container-fluid
       div Copyright &copy; #{Time.now.year} #{@company.name}, All Rights reserved.
       div Powerd by #{link_to "e-kikai Network.", root_url(subdomain: "www")}

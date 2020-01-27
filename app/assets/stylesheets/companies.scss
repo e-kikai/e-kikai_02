@@ -20,7 +20,8 @@ body.company {
     font-size: 20px;
     border-left: 6px solid #666;
     text-indent: 13px;
-    margin: 8px 0 8px 6px;
+    // margin: 8px 0 8px 6px;
+    margin: 0;
     height: 24px;
     line-height: 24px;
   }
@@ -126,6 +127,7 @@ body.company {
 
       &::before {
         content: "◆";
+        margin-right: 4px;
       }
     }
   }

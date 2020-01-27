@@ -78,7 +78,8 @@ end
 
 ### 会社情報 ###
 crumb :company_show do |c|
-  link "#{c.name}", "/#{c.subdomain}"
+  # link "#{c.name}", "/#{c.subdomain}"
+  link "#{c.name}", root_url(subdomain: c.subdomain)
 end
 
 crumb :company_help do |c, title|

@@ -259,3 +259,27 @@ table.members-table {
 .btn-content {
   margin-left: 4px;
 }
+
+h3.contact_tel {
+  margin: 0;
+}
+
+a.mnok_company_link {
+  width: 460px;
+  border: 1px solid #8630e4;
+  display: block;
+  text-align: center;
+  padding: 2px 8px;
+  text-decoration: none;
+
+  img {
+    width: 360px;
+    display: block;
+    margin: auto;
+  }
+
+  span {
+    font-size: 24px;
+    color: #8630e4;
+  }
+}

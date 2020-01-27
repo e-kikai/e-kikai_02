@@ -51,7 +51,8 @@ SitemapGenerator::Sitemap.create do
   # e-kikai Network
   # Company.select(:id, :subdomain).each do |c|
   Company.select(:id).each do |c|
-    add "/#{c.subdomain}/", :priority => 0.8, :changefreq => 'daily'
+    # add "/#{c.subdomain}/", :priority => 0.8, :changefreq => 'daily'
+    add root_url(subdomain: c.subdomain), :priority => 0.9, :changefreq => 'daily'
     add "/search?company_id_eq=#{c.id}", :priority => 0.7, :changefreq => 'daily'
   end
 

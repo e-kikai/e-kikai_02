@@ -62,14 +62,16 @@ class CompaniesController < ApplicationController
   def find_company
     # @company = Company.find_by(subdomain: params[:subdomain])
 
-    @subdomain = params[:sd].presence || request.subdomain
+    ### 旧URLからのアクセスをリダイレクト ###
+    redirect_to root_url(subdomain: params[:sd]) and return if params[:sd].present?
+
+    # @subdomain = params[:sd].presence || request.subdomain
+    @subdomain = request.subdomain
     company_id =  Company.subdomain2id(@subdomain)
 
-    # if company_id.blank?
-    #   root_url(subdomain: "www")
-    # end
-
-    @company = Company.find(company_id)
+    ### 会社情報取得 ###
+    @company = Company.find_by(id: company_id)
+    redirect_to root_url(subdomain: "www") and return if @company.blank?
 
     @companysite = @company.companysite
     @company_configs = @companysite ? JSON.parse((@companysite.company_configs || "{}"), symbolize_names: true) : {}
@@ -102,7 +104,8 @@ class CompaniesController < ApplicationController
     params.permit(:large_genre_id_eq, :middle_genre_id_eq, :genre_id_eq, :addr1_eq)
     # redirect_to root_url, status: :bad_request, alert: "検索条件がありません" if params.blank?
   rescue
-    redirect_to "/#{@company.subdomain}/", status: :bad_request, alert: "検索条件が不正です"
+    # redirect_to "/#{@company.subdomain}/", status: :bad_request, alert: "検索条件が不正です"
+    redirect_to root_url(subdomain: @company.subdomain), status: :bad_request, alert: "検索条件が不正です"
   end
 
   def contact_params

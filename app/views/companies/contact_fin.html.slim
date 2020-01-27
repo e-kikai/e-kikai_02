@@ -14,4 +14,4 @@
 
   p 今後とも、#{@company.name} e-kikai Networkをよろしくお願いいたします。
 
-  p = link_to "e-#{@company.name} トップページに戻る", "/#{@company.subdomain}"
+  p = link_to "e-#{@company.name} トップページに戻る", root_url(subdomain: @company.subdomain)

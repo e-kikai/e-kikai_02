@@ -3,7 +3,9 @@
 
 .row.toppage
   .col-lg-6.col-md-6.col-sm-12.top_summary
-    h2 お気軽にお問い合わせください
+    h2
+      span.glyphicon.glyphicon-cog
+      span.btn-content お気軽にお問い合わせください
     p.contact_tel 問い合わせTEL : #{@company.contact_tel}
     p.contact_fax 問い合わせFAX : #{@company.contact_fax}
     .btn_area
@@ -13,13 +15,23 @@
         span.btn-content 問い合わせ
 
     - if @company_configs[:top_summary_title].present?
-      h2 = @company_configs[:top_summary_title]
+      h2
+        span.glyphicon.glyphicon-cog
+        span.btn-content = @company_configs[:top_summary_title]
     p = simple_format @company_configs[:top_summary_contents]
 
     = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索', class: "logo_banner"), root_url(subdomain: "www")
 
+    - if @company.subdomain == "horikawakikai"
+      hr
+      = link_to "https://www.mnok.net/products?keywords=#{@company.name_strip_kabu}&success=start", class: "mnok_company_link", target: "_blank" do
+        = image_tag "https://www.mnok.net/assets/logo_02-c9f870dff013b8ca9af2382dd5c457613913d43aac9945c2eb4b496d4901577e.png"
+        span = "#{@company.name_strip_kabu} 出品中"
+
   .col-lg-6.col-md-6.col-sm-12
-    h3 #{@company.name}について
+    h3
+      span.glyphicon.glyphicon-home
+      span.btn-content #{@company.name}について
     - if @company.machinelife_images.present?
       = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%"
     / - elsif @company.images.present?

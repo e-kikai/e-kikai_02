@@ -10,6 +10,8 @@
     / = invoke :test1, :search_area
     / = link_to(image_tag(asset_url("auction_01.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")
 
+
+    / . = Machine.where.not(youtube: [nil, "http://youtu.be/", ""]).first.youtube
     h4
       span.glyphicon.glyphicon-search
       span.btn-content ジャンルからさがす

@@ -16,7 +16,7 @@
         .company_name
           span.glyphicon.glyphicon-gift
           span.btn-content = "#{@company.name_strip_kabu} 出品中"
-        
+
   .col-lg-5.col-md-5.col-sm-12
     - if @company.machinelife_images.present?
       = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
@@ -118,7 +118,7 @@
         th
           span.glyphicon.glyphicon-link
           span.btn-content ウェブサイト
-        td = link_to @company.website, @company.website, target: "_blank", itemprop: "url" if @company.website.present?
+        td = link_to (@company.website.presence || root_url(subdomain: @company.subdomain)), @company.website, target: "_blank", itemprop: "url"
 
 - if @company_configs[:makers_name].present?
   .row

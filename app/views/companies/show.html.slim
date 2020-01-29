@@ -62,7 +62,7 @@
         td = @company.infos["license"].to_s
       tr
         th ウェブサイト
-        td = link_to @company.website, @company.website, :target => "_blank" if @company.website.present?
+        td = link_to (@company.website.presence || root_url(subdomain: @company.subdomain)), @company.website, :target => "_blank"
 
     .btn_area
       = link_to "#{root_url(subdomain: @company.subdomain)}detail", class: "btn btn-primary btn-lg" do

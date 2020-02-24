@@ -1,0 +1,26 @@
+res = [
+  {
+    "@context": "http://schema.org",
+    "@type":    "Organization",
+    "url":      "https://#{@company.subdomain}.e-kikai.com/",
+    "logo":     "https://#{@company.subdomain}.e-kikai.com/images/e-kikai-header-logo.gif",
+    name:       "e-kikai Network",
+    contactPoint: {
+      "@type":     "ContactPoint",
+      telephone:   "+81-#{@company.tel.gsub(/^0/, '')}",
+      faxNumber:   "+81-#{@company.fax.gsub(/^0/, '')}",
+      contactType: "Customer service",
+      areaServed:  "JP",
+      availableLanguage: "Japanese",
+    },
+    address: {
+      "@type":         "PostalAddress",
+      postalCode:      "#{@company.zip}",
+      addressRegion:   "#{@company.addr1}",
+      addressLocality: "#{@company.addr2}",
+      streetAddress:   "#{@company.addr3}",
+    }
+  }
+]
+
+res

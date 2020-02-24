@@ -155,3 +155,5 @@ gem 'kaminari'
 gem 'recaptcha', require: "recaptcha/rails"
 
 # gem "bower-rails"
+
+gem 'jb'

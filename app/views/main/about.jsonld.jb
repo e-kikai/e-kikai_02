@@ -1,0 +1,26 @@
+res = [
+  {
+    "@context": "http://schema.org",
+    "@type":    "Organization",
+    "url":      "https://www.e-kikai.com/",
+    "logo":     "https://www.e-kikai.com/images/e-kikai-header-logo.gif",
+    name:       "e-kikai Network",
+    contactPoint: {
+      "@type":     "ContactPoint",
+      telephone:   "+81-6-6747-7613",
+      faxNumber:   "+81-6-6745-4566",
+      contactType: "Customer service",
+      areaServed:  "JP",
+      availableLanguage: "Japanese",
+    },
+    address: {
+      "@type":         "PostalAddress",
+      postalCode:      "578-0965",
+      addressRegion:   "大阪府",
+      addressLocality: "大阪市",
+      streetAddress:   "城東区関目1丁目13-15",
+    }
+  }
+]
+
+res

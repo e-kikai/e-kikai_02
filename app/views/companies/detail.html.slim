@@ -1,6 +1,8 @@
 - set_meta_tags title: "会社情報"
 - breadcrumb  :company_help, @company, "会社情報"
 
+= jsonld_script_tag
+
 .row(itemscope itemtype="http://schema.org/LocalBusiness")
   .col-lg-7.col-md-7.col-sm-12
     - if @company_configs[:company_top_title].present?

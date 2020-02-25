@@ -13,6 +13,9 @@ html
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
+    = render partial: '/layouts/breadcrumbs_json_ld', breadcrumbs: breadcrumbs(autoroot: false)
+    = jsonld_script_tag
+
     css:
       body.company header.navbar {
         background: #{@c[:base]};
@@ -79,7 +82,8 @@ html
             li = link_to '問い合わせ',   "#{root_url(subdomain: @company.subdomain)}contact"
 
     .container
-      = raw breadcrumbs autoroot: false, style: :bootstrap, semantic: true
+      / = raw breadcrumbs autoroot: false, style: :bootstrap, semantic: true
+      = raw breadcrumbs autoroot: false, style: :bootstrap, semantic: false
 
       - if notice.present?
         .alert.alert-success = notice

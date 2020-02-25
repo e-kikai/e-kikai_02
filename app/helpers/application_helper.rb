@@ -14,8 +14,10 @@ module ApplicationHelper
 
   ### JSON-LD 生成 ###
   def jsonld_script_tag
-    jsonld = controller.render_to_string(formats: :jsonld)
-    content_tag :script, jsonld.html_safe, type: Mime[:jsonld].to_s
+    if controller.template_exists?("#{controller.action_name}.jsonld.jb", controller._prefixes)
+      jsonld = controller.render_to_string(formats: :jsonld)
+      content_tag :script, jsonld.html_safe, type: Mime[:jsonld].to_s
+    end
   rescue ActionView::ActionViewError => e
     logger.error e.message
     nil

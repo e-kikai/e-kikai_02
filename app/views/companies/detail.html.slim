@@ -1,9 +1,9 @@
 - set_meta_tags title: "会社情報"
 - breadcrumb  :company_help, @company, "会社情報"
 
-= jsonld_script_tag
+/ = jsonld_script_tag
 
-.row(itemscope itemtype="http://schema.org/LocalBusiness")
+.row
   .col-lg-7.col-md-7.col-sm-12
     - if @company_configs[:company_top_title].present?
       h3
@@ -21,9 +21,9 @@
 
   .col-lg-5.col-md-5.col-sm-12
     - if @company.machinelife_images.present?
-      = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%", itemprop: "image"
+      = image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.machinelife_images.first}", width:"100%"
     / - elsif @company.images.present?
-    /   = image_tag @company.images.first.img.url, width: "100%", itemprop: "image"
+    /   = image_tag @company.images.first.img.url, width: "100%"
     - else
       = image_tag "/images/nopicture.gif", width:"100%"
 
@@ -37,12 +37,12 @@
         th
           span.glyphicon.glyphicon-home
           span.btn-content 会社名
-        td itemprop="name" = @company.name
+        td = @company.name
       tr
         th
           span.glyphicon.glyphicon-star
           span.btn-content 代表者
-        td itemprop="member" = @company.representative
+        td = @company.representative
       tr
         th
           span.glyphicon.glyphicon-user
@@ -52,12 +52,12 @@
         th
           span.glyphicon.glyphicon-map-marker
           span.btn-content 住所
-        td(itemprop="address" itemscope itemtype="http://schema.org/PostalAddress")
-          .zip itemprop="postalCode" 〒 #{@company.zip_shaping}
+        td
+          .zip 〒 #{@company.zip_shaping}
           .addr
-            span.addr1 itemprop="addressRegion" = @company.addr1
-            span.addr2 itemprop="addressLocality" = @company.addr2
-            span.addr3 itemprop="streetAddress" = @company.addr3
+            span.addr1 = @company.addr1
+            span.addr2 = @company.addr2
+            span.addr3 = @company.addr3
             / =< link_to "[アクセスMAP]", "https://www.google.co.jp/maps/place/#{@company.addr1}#{@company.addr2}#{@company.addr3}",
             / target: "_blank", class:"accessmap"
 
@@ -78,17 +78,17 @@
         th
           span.glyphicon.glyphicon-earphone
           span.btn-content 問い合わせTEL
-        td itemprop="telephone" = @company.contact_tel
+        td = @company.contact_tel
       tr
         th
           span.glyphicon.glyphicon-phone-alt
           span.btn-content 問い合わせFAX
-        td itemprop="faxNumber" = @company.contact_fax
+        td = @company.contact_fax
       tr
         th
           span.glyphicon.glyphicon-time
           span.btn-content 営業時間
-        td itemprop="openingHours" = @company.infos["opening"]
+        td = @company.infos["opening"]
       tr
         th
           span.glyphicon.glyphicon-calendar
@@ -120,7 +120,7 @@
         th
           span.glyphicon.glyphicon-link
           span.btn-content ウェブサイト
-        td = link_to (@company.website.presence || root_url(subdomain: @company.subdomain)), @company.website, target: "_blank", itemprop: "url"
+        td = link_to (@company.website.presence || root_url(subdomain: @company.subdomain)), @company.website, target: "_blank"
 
 - if @company_configs[:makers_name].present?
   .row

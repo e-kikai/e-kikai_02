@@ -1,10 +1,17 @@
+
+img = if @company.top_img.present?
+  "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/company/#{@company.top_img}"
+else
+  "https://sanwa_fukuyama.e-kikai.com/images/nopicture.gif"
+end
+
 res = [
   {
     "@context": "http://schema.org",
     "@type":    "Organization",
     "url":      "https://#{@company.subdomain}.e-kikai.com/",
     "logo":     "https://#{@company.subdomain}.e-kikai.com/images/e-kikai-header-logo.gif",
-    name:       "e-kikai Network",
+    name:       @company.name,
     contactPoint: {
       "@type":     "ContactPoint",
       telephone:   "+81-#{@company.tel.gsub(/^0/, '')}",
@@ -19,7 +26,52 @@ res = [
       addressRegion:   "#{@company.addr1}",
       addressLocality: "#{@company.addr2}",
       streetAddress:   "#{@company.addr3}",
+      addressCountry:  "JP",
     }
+  },
+
+  {
+    "@context": "http://schema.org",
+    "@type":    "LocalBusiness",
+    "name":     @company.name,
+    "image":    img,
+    "address": {
+      "@type": "PostalAddress",
+      streetAddress:   "#{@company.addr3}",
+      addressLocality: "#{@company.addr2}",
+      addressRegion:   "#{@company.addr1}",
+      postalCode:      "#{@company.zip}",
+      addressCountry:  "JP",
+    },
+
+    telephone: "+81-#{@company.tel.gsub(/^0/, '')}",
+    faxNumber: "+81-#{@company.fax.gsub(/^0/, '')}",
+    "url":     "https://#{@company.subdomain}.e-kikai.com/",
+
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+           "Monday",
+           "Tuesday",
+           "Wednesday",
+           "Thursday",
+           "Friday"
+         ],
+        "opens": "8:30",
+        "closes": "17:30",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Saturday",
+          "Sunday",
+          "PublicHolidays"
+        ],
+        "opens":  "00:00",
+        "closes": "00:00"
+      },
+    ]
   }
 ]
 

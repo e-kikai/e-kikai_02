@@ -120,7 +120,7 @@
         th
           span.glyphicon.glyphicon-link
           span.btn-content ウェブサイト
-        td = link_to (@company.website.presence || root_url(subdomain: @company.subdomain)), @company.website, target: "_blank"
+        td = link_to @company.view_website, @company.view_website, target: "_blank"
 
 - if @company_configs[:makers_name].present?
   .row

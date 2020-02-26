@@ -79,4 +79,14 @@ class Company < ActiveRecord::Base
   def infos
     JSON.parse(self[:infos].presence || "{}")
   end
+
+  def view_website
+    if self.website.blank?
+      "https://#{self.subdomain}.e-kikai.com/"
+    elsif self.website =~ /e-kikai/
+      "https://#{self.subdomain}.e-kikai.com/"
+    else
+      self.website
+    end
+  end
 end

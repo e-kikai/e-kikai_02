@@ -106,7 +106,7 @@
             td = simple_format(@machine.comment)
 
     .label-area
-      = @machine.commission
+      = @machine.attributes.to_s
       - if @machine.commission == 1
         span.label.label-success
           = icon :fas, :cogs

@@ -75,11 +75,13 @@
                 = icon :fas, :cogs
                 span.btn-content 試運転できます
 
-            / - if m.pdfs.present?
-            /   span.label.label-danger
-            /     span.glyphicon.glyphicon-file
-            /     span.btn-content PDF資料
-
+            - if m.pdfs.present?
+              - m.pdfs.each do |key, file|
+                .label-area
+                  = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{file}", class: "label label-info", target: "blank" do
+                    = icon :fas, "file-pdf"
+                    span.btn-content = "#{key}"
+                    = icon :fas, "external-link-alt"
 
             - if m.catalog_id.present?
               = link_to "https://catalog.zenkiren.net/catalog_pdf.php?id=#{m.catalog_id}", class: "label label-info", target: "blank" do

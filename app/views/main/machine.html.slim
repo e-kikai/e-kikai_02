@@ -111,6 +111,16 @@
           = icon :fas, :cogs
           span.btn-content 試運転できます
 
+    - if @machine.pdfs.present?
+      - @machine.pdfs.each do |key, file|
+        .label-area
+          = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{file}", class: "label label-info", target: "blank" do
+            = icon :fas, "file-pdf"
+            span.btn-content = "#{key}"
+            = icon :fas, "external-link-alt"
+          object.pdf-obj data="https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{file}" type="application/pdf"
+
+
     - if @machine.catalog_id.present?
       .label-area
         = link_to "https://catalog.zenkiren.net/catalog_pdf.php?id=#{@machine.catalog_id}", class: "label label-info", target: "blank" do

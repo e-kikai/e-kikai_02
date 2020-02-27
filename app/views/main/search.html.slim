@@ -70,7 +70,7 @@
 
 
           .label-area
-            - if m.commission == 1
+            - if m[:commission]
               span.label.label-success
                 = icon :fas, :cogs
                 span.btn-content 試運転できます

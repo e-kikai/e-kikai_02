@@ -67,10 +67,37 @@
         .media-body style="position:relative;"
           h4.machine-link = link_to "#{m.name} #{m.maker} #{m.model}", "/#{@detail_link}/#{m.id}", data: { id: m.id }
           p.machine-spec.hidden-xs.hidden-sm = m.spec
+
+
+          .label-area
+            - if m.commission
+              span.label.label-success
+                = icon :fas, :cogs
+                span.btn-content 試運転できます
+
+            / - if m.pdfs.present?
+            /   span.label.label-danger
+            /     span.glyphicon.glyphicon-file
+            /     span.btn-content PDF資料
+
+
+            - if m.catalog_id.present?
+              = link_to "https://catalog.zenkiren.net/catalog_pdf.php?id=#{m.catalog_id}", class: "label label-info", target: "blank" do
+                = icon :fas, :book
+                span.btn-content 電子カタログ
+                = icon :fas, "external-link-alt"
+
+            - if m.youtube_id.present?
+              = link_to "https://www.youtube.com/watch?v=#{m.youtube_id}?rel=0", class: "label label-danger youtube", target: "blank", "data-video": "https://www.youtube.com/embed/#{m.youtube_id}?autoplay=1" do
+                = icon :fab, :youtube
+                span.btn-content 動画
+                = icon :fas, "external-link-alt"
+
           .machine-other
             =< "#{m.year}年式" if m.year.to_i > 0
             =< m.addr1
             =< link_to m.company.name_strip_kabu, root_url(subdomain: m.company.subdomain)
+
 
         .machine-buttons.media-right
           = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do

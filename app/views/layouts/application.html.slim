@@ -63,3 +63,16 @@ html
       | Copyright &copy; #{Time.now.year}
       = link_to "e-kikai Network", "/"
       | , All Rights reserved.
+
+    #youtubeModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            button.close(type="button" data-dismiss="modal" aria-hidden="true")
+              = icon :fas, "window-close"
+            h4
+              = icon :fab, :youtube
+              span.btn-content 動画を再生
+
+          .modal-body
+            iframe frameborder="0" allowfullscreen=""

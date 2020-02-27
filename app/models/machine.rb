@@ -72,4 +72,8 @@ class Machine < ActiveRecord::Base
   def youtube_id
     youtube.to_s =~ /([\w\-]{11})/ ? $1 : ""
   end
+
+  def pdfs
+    JSON.parse(self[:pdfs].presence || "[]")
+  end
 end

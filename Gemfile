@@ -77,7 +77,7 @@ gem 'slim-rails'
 # 管理者ページ
 # gem "typus", github: "typus/typus"
 # gem 'activeadmin', github: 'activeadmin'
-gem 'rails_admin'
+# gem 'rails_admin'
 
 # 画像ファイルアップロード
 # gem 'dragonfly'
@@ -157,3 +157,5 @@ gem 'recaptcha', require: "recaptcha/rails"
 # gem "bower-rails"
 
 gem 'jb'
+
+gem 'font-awesome-sass'

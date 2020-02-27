@@ -43,13 +43,13 @@ GEM
       rake (>= 10.4, < 14.0)
     arel (6.0.4)
     bcrypt (3.1.13)
-    better_errors (2.5.1)
+    better_errors (2.6.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.4.5)
+    bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.1)
@@ -95,6 +95,8 @@ GEM
     ffi (1.12.2)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
+    font-awesome-sass (5.12.0)
+      sassc (>= 1.11)
     get_process_mem (0.2.5)
       ffi (~> 1.0)
     globalid (0.4.2)
@@ -260,6 +262,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.2.1)
+      ffi (~> 1.9)
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -331,6 +335,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-i18n
+  font-awesome-sass
   google-analytics-turbolinks
   gretel
   hirb

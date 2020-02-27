@@ -23,7 +23,7 @@
     .top-movie_area
       - @movies.each do |ma|
         .top-movie-machine
-          .youtube data-video="https://www.youtube.com/embed/#{ma.youtube_id}?autoplay=1"
+          = link_to "https://www.youtube.com/watch?v=#{ma.youtube_id}", class: "youtube thumb", target: "blank", "data-video": "https://www.youtube.com/embed/#{ma.youtube_id}?autoplay=1"
             = image_tag "https://img.youtube.com/vi/#{ma.youtube_id}/mqdefault.jpg", alt: ""
           . = link_to "#{ma.maker.presence || "(不明)"} #{ma.name}  #{ma.model} - #{ma.company.name_strip_kabu}", "/machine/#{ma.id}"
         / .top-movie-machine

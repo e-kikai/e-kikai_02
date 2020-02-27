@@ -33,9 +33,23 @@ ready = ->
 
   # ahoy.track("view", {path: location.pathname, title: document.title, machine_ids: machine_ids})
 
+  # $('.youtube').click ->
+  #   video = "<iframe src='#{$(@).attr('data-video')}' frameborder='0' width='270' height='153'></iframe>"
+  #   $(@).replaceWith(video)
+
   $('.youtube').click ->
-    video = "<iframe src='#{$(@).attr('data-video')}' frameborder='0' width='270' height='153'></iframe>"
-    $(@).replaceWith(video)
+    # video = "<iframe src='#{$(@).attr('data-video')}' frameborder='0' width='270' height='153'></iframe>"
+    # $(@).replaceWith(video)
+
+    src = $(@).attr('data-video')
+
+    $('#youtubeModal').modal("show")
+    $('#youtubeModal iframe').attr("src", src)
+
+    return false
+
+  $('#youtubeModal').on 'hide.bs.modal', ->
+    $("#youtubeModal iframe").attr("src", '')
 
 $(document).ready(ready)
 # $(document).on('page:load', ready)

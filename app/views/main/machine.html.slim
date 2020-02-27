@@ -92,9 +92,9 @@
               - if @machine.addr1 && @machine.addr2 && @machine.addr3
                 div = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@machine.addr1}#{@machine.addr2}#{@machine.addr3}",
                 target: "_blank", class:"accessmap"
-          tr
-            th 試運転
-            td = @machine.commission ? '可' : "-"
+          / tr
+          /   th 試運転
+          /   td = @machine.commission ? '可' : "-"
           tr
             th 仕様
             td = simple_format(@machine.spec)
@@ -106,7 +106,7 @@
             td = simple_format(@machine.comment)
 
     .label-area
-      - if @machine.commission
+      - if @machine.commission == 1
         span.label.label-success
           = icon :fas, :cogs
           span.btn-content 試運転できます

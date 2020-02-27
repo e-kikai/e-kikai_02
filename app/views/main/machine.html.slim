@@ -106,8 +106,9 @@
             td = simple_format(@machine.comment)
 
     .label-area
-      = @machine.attributes.to_s
-      - if @machine.commission == 1
+      = @machine[:commission]
+      / = @machine.attributes.to_s
+      - if @machine[:commission]
         span.label.label-success
           = icon :fas, :cogs
           span.btn-content 試運転できます

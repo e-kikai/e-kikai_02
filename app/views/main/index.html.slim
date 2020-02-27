@@ -16,8 +16,8 @@
       h4
         span.glyphicon.glyphicon-film
         span.btn-content 動画のある機械
-      = link_to "/movies", class: "btn btn-info pull-right" do
-        span.glyphicon.glyphicon-facetime-video
+      = link_to "/movies", class: "btn btn-danger pull-right" do
+        = icon :fab, :youtube
         span.btn-content 動画ギャラリー
 
     .top-movie_area
@@ -54,7 +54,7 @@
 
               / 中ジャンル一覧
               .list-group
-                - l.middle_genres.each_with_index do |m, j|
+                - l.middle_genres.order('order_no').each_with_index do |m, j|
                   - next if @middle_genre_counts[m.id] == 0
                   = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
 

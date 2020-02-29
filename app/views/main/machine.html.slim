@@ -87,7 +87,7 @@
             th 在庫場所
             td
               div = @machine.location if @machine.location.present?
-              div = "#{@machine.addr1} #{@machine.addr2} #{@machine.addr3}" if @machine.addr3.present?
+              div = "#{@machine.addr1} #{@machine.addr2} #{@machine.addr3}"
 
               - if @machine.addr1 && @machine.addr2 && @machine.addr3
                 div = link_to "アクセスMAP", "https://www.google.co.jp/maps/place/#{@machine.addr1}#{@machine.addr2}#{@machine.addr3}",

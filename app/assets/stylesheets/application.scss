@@ -332,8 +332,12 @@ a.mnok_company_link {
 	display: inline-block;
 	position: relative;
 	overflow: hidden;
-	width: 270px;
-	height: 152px;
+	// width: 270px;
+	// height: 152px;
+	img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .youtube.thumb::before {

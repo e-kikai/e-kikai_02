@@ -1,30 +1,31 @@
 class Company < ActiveRecord::Base
   ### 2 newsystems DB ###
-  MACHINELIFE_IDS = {
-  "horikawakikai"    => 1,
-   "kusumotokikai"   => 2,
-   "kataekikai"      => 3,
-   "henmiseiki"      => 4,
-   "okabekikai"      => 5,
-   "sanwaseiki"      => 6,
-   "kobayashikikai"  => 9,
-   "sanwa_kitakanto" => 62,
-   # "otakikai"        => 235,
-   "deguchikikai"    => 258,
-   "ishino"          => 301,
-   "senbakikai"      => 318,
-   "daihoukikai"     => 320,
-   "nakafujikikai"   => 324,
-   "okabe_okayama"   => 343,
-   "sanwa_fukuyama"  => 348,
-   "ibuki_kanto"     => 382,
-   "ibuki_thai"      => 407,
-   "okabe_kanto"     => 416,
-  }
+  # MACHINELIFE_IDS = {
+  #   "horikawakikai"   => 1,
+  #   "kusumotokikai"   => 2,
+  #   "kataekikai"      => 3,
+  #   "henmiseiki"      => 4,
+  #   "okabekikai"      => 5,
+  #   "sanwaseiki"      => 6,
+  #   "kobayashikikai"  => 9,
+  #   "sanwa_kitakanto" => 62,
+  #   # "otakikai"        => 235,
+  #   "deguchikikai"    => 258,
+  #   "ishino"          => 301,
+  #   "senbakikai"      => 318,
+  #   "daihoukikai"     => 320,
+  #   "nakafujikikai"   => 324,
+  #   "okabe_okayama"   => 343,
+  #   "sanwa_fukuyama"  => 348,
+  #   "ibuki_kanto"     => 382,
+  #   "ibuki_thai"      => 407,
+  #   "okabe_kanto"     => 416,
+  # }
 
   # self.primary_key = "company_id"
 
-  default_scope { where(id: Company::MACHINELIFE_IDS.values, deleted_at: nil) }
+  # default_scope { where(id: Company::MACHINELIFE_IDS.values, deleted_at: nil) }
+  default_scope { where(deleted_at: nil).where.not(ekikai_subdomain: nil) }
 
   alias_attribute :name, :company
 
@@ -58,12 +59,13 @@ class Company < ActiveRecord::Base
   end
 
   def subdomain
-    (MACHINELIFE_IDS.find { |k,v| v == self.id })[0]
+    # (MACHINELIFE_IDS.find { |k,v| v == self.id })[0]
+    ekikai_subdomain
   end
 
-  def self.subdomain2id(subdomain)
-    MACHINELIFE_IDS[subdomain]
-  end
+  # def self.subdomain2id(subdomain)
+  #   MACHINELIFE_IDS[subdomain]
+  # end
 
   def machinelife_images
     temp = JSON.parse(imgs.presence || "[]").to_a

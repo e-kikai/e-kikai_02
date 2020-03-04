@@ -6,7 +6,7 @@ class MainController < ApplicationController
   def index
     # @genres = LargeGenre.list.all.order('large_genres.order_no')
     @genres = LargeGenre.list.all.order('xl_genres.order_no')
-    @companies = Company.all.order('company_kana')
+    @companies = Company.all.order(:ekikai_order, 'company_kana')
 
     # @middle_genre_counts = MiddleGenre.group("middle_genres.id").includes(:machines).count('machines.id')
     @middle_genre_counts = MiddleGenre.group("large_genres.id").includes(:machines).order("large_genres.order_no").count('machines.id')

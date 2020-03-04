@@ -19,10 +19,10 @@ html
     = render "analytics"
 
   body
-    header.navbar.container-fluid role="navigation"
+    header.navbar.navbar-default.container-fluid role="navigation"
       .container-fluid
         .navbar-header
-          button.navbar-toggle data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          button.navbar-toggle data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" style="background:#f8fffa;"
             span.sr-only Toggle navigation
             span.icon-bar
             span.icon-bar
@@ -30,7 +30,6 @@ html
           / = link_to 'e-kikai お探しの中古機械を簡単検索', "/", class: 'navbar-brand'
           = link_to (image_tag "/images/e-kikai-header-logo.gif", alt:'e-kikai お探しの中古機械を簡単検索'), "/", class: 'navbar-brand'
 
-          .navbar-text 厳選された中古機械・工具情報をお届けします。e-kikai Network
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li = link_to 'HOME',            "/"
@@ -42,6 +41,8 @@ html
             /   li = link_to "会員ページ", member_root_path
             / - else
             /   li = link_to "会員ログイン", new_user_session_path
+          p.navbar-text 厳選された中古機械・工具情報をお届けします。e-kikai Network
+
     .container
       / = raw breadcrumbs style: :bootstrap, semantic: true
       = raw breadcrumbs style: :bootstrap, semantic: false

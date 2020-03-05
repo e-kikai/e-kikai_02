@@ -37,32 +37,59 @@
       span.btn-content ジャンルからさがす
 
     .row
-      - arr2 = {0 => 0, 1 => 0, 2 => 0}
-      - gs   = [[], [], []]
+      / - arr2 = {0 => 0, 1 => 0, 2 => 0}
+      / - gs   = [[], [], []]
+      /
+      / - @genres.each_with_index do |l, i|
+      /   - key = arr2.min { |x, y| x[1] <=> y[1] }[0]
+      /   - gs[key] << l
+      /   - arr2[key] += (1 + l.middle_genres.length)
+      /
+      / - gs.each do |ls|
+      /   .col-lg-4.col-md-4.col-sm-6
+      /     - ls.each do |l|
+      /       .panel.panel-info
+      /         / .panel-heading
+      /         = link_to "#collapse_genre_#{l.id}", class: "panel-heading accordion-toggle", data:{toggle: "collapse"} do
+      /
+      /           = icon :fas, "tools"
+      /           span.btn-content = l.name
+      /           span.glyphicon.glyphicon-chevron-down.pull-right
+      /           span.badge.pull-right style="margin-right:16px;" = @genre_conts[l.id]
+      /
+      /         / 中ジャンル一覧
+      /         ul.list-group.panel-collapse.collapse.in.xs-close id="collapse_genre_#{l.id}"
+      /           - l.middle_genres.order('order_no').each_with_index do |m, j|
+      /             - next if @middle_genre_counts[m.id] == 0
+      /             = link_to "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
+      /               span = m.name
+      /               span.badge = @middle_genre_counts[m.id]
 
-      - @genres.each_with_index do |l, i|
-        - key = arr2.min { |x, y| x[1] <=> y[1] }[0]
-        - gs[key] << l
-        - arr2[key] += (1 + l.middle_genres.length)
+      - @genres.each do |l|
+        .col-lg-4.col-md-4.col-sm-6 sytle="float:left;"
+          .panel.panel-info
+            / .panel-heading
+            = link_to "#collapse_genre_#{l.id}", class: "panel-heading accordion-toggle", data:{toggle: "collapse"} do
 
-      - gs.each do |ls|
-        .col-lg-4.col-md-4.col-sm-6.hidden-xs
-          - ls.each do |l|
-            .panel.panel-info
-              .panel-heading
-                span.glyphicon.glyphicon-wrench
-                span.btn-content = l.name
+              = icon :fas, "tools"
+              span.btn-content = l.name
+              span.glyphicon.glyphicon-chevron-down.pull-right
+              span.badge.pull-right style="margin-right:16px;" = @genre_conts[l.id]
 
-              / 中ジャンル一覧
-              .list-group
-                - l.middle_genres.order('order_no').each_with_index do |m, j|
-                  - next if @middle_genre_counts[m.id] == 0
-                  = link_to m.name, "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
+            / 中ジャンル一覧
+            ul.list-group.panel-collapse.collapse.in.xs-close id="collapse_genre_#{l.id}"
+              - l.middle_genres.order('order_no').each_with_index do |m, j|
+                - next if @middle_genre_counts[m.id] == 0
+                = link_to "/search?middle_genre_id_eq=#{m.id}", class:"list-group-item"
+                  span = m.name
+                  span.badge = @middle_genre_counts[m.id]
 
-      .list-group.hidden-lg.hidden-md.hidden-sm
-        / 大ジャンル一覧
-        - @genres.each_with_index do |l, i|
-          = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
+
+
+      / .list-group.hidden-lg.hidden-md.hidden-sm
+      /   / 大ジャンル一覧
+      /   - @genres.each_with_index do |l, i|
+      /     = link_to l.name, "/large_genre/#{l.id}", class:"list-group-item"
 
   .col-lg-3.col-md-3.col-xs-12.col-sm-4
     = link_to(image_tag(asset_url("auction_02.jpg"), style: "width:100%;margin-bottom:8px;"), "https://www.mnok.net/", target: "_blank")

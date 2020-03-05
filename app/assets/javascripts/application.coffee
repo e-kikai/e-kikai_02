@@ -51,6 +51,12 @@ ready = ->
   $('#youtubeModal').on 'hide.bs.modal', ->
     $("#youtubeModal iframe").attr("src", '')
 
+  # スマートフォンのみcollapseを閉じておく
+  if window.matchMedia('(max-width: 767px)').matches
+    console.log($(".xs-close").collapse('hide'))
+  if window.matchMedia('(max-width: 991px)').matches
+    console.log($(".sm-close").collapse('hide'))
+
 $(document).ready(ready)
 # $(document).on('page:load', ready)
 

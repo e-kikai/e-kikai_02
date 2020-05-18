@@ -4,6 +4,8 @@ html
     - set_meta_tags title: "おすすめ機械"
     - set_meta_tags nofollow: false, noindex: true
 
+    = display_meta_tags site: "e-kikai", reverse: true, separator: "｜", charset: "utf-8", viewport: "width=device-width, initial-scale=1"
+
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => :reload
     = javascript_include_tag 'application', 'data-turbolinks-track' => :reload
     / = render 'application/favicon'

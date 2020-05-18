@@ -150,4 +150,4 @@
     - else
       = image_tag "/images/nopicture.gif"
 
-  = render "/main/ads_frames", okw: "#{@machine.name} #{@machine.maker} #{@machine.model}|#{@machine.genre.name}"
+= render "/main/ads_frames", okw: "#{@machine.name} #{@machine.maker} #{@machine.model}|#{@machine.genre.name}"

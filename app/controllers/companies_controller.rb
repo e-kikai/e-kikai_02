@@ -74,7 +74,7 @@ class CompaniesController < ApplicationController
     ### 会社情報取得 ###
     # company_id =  Company.subdomain2id(@subdomain)
     # @company = Company.find_by(id: company_id)
-    @company = Company.find_by(ekikai_subdomain: @subdomain)
+    @company = Company.find_by(subdomain: @subdomain)
 
     redirect_to root_url(subdomain: "www") and return if @company.blank?
 

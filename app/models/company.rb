@@ -25,7 +25,7 @@ class Company < ActiveRecord::Base
   # self.primary_key = "company_id"
 
   # default_scope { where(id: Company::MACHINELIFE_IDS.values, deleted_at: nil) }
-  default_scope { where(deleted_at: nil).where.not(ekikai_subdomain: nil) }
+  default_scope { where(deleted_at: nil).where.not(subdomain: nil) }
 
   alias_attribute :name, :company
 
@@ -60,7 +60,7 @@ class Company < ActiveRecord::Base
 
   def subdomain
     # (MACHINELIFE_IDS.find { |k,v| v == self.id })[0]
-    ekikai_subdomain
+    subdomain
   end
 
   # def self.subdomain2id(subdomain)

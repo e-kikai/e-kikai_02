@@ -7,7 +7,7 @@ class Machine < ActiveRecord::Base
 
   ### 2 newsystems DB ###
   # default_scope { where(company_id: Company::MACHINELIFE_IDS.values, deleted_at: nil) }
-  default_scope { where(deleted_at: nil).where(company_id: Company.where.not(subdomain: nil).select(:id)) }
+  default_scope { where(deleted_at: nil).where(company_id: Company.where.not(ekikai_subdomain: nil).select(:id)) }
   alias_attribute :updated_at, :changed_at
 
   # serialize :imgs

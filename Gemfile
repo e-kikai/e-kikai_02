@@ -159,3 +159,4 @@ gem 'recaptcha', require: "recaptcha/rails"
 gem 'jb'
 
 gem 'font-awesome-sass'
+gem 'sassc', "2.2.1"

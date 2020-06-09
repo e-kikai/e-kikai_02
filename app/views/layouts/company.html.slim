@@ -112,7 +112,7 @@ html
 
     / - if request.subdomain == "horikawakikai"
     /   = render "/main/ads_frames", okw: "堀川機械"
-    = render "/main/ads_frames", okw: company.name_strip_kabu
+    = render "/main/ads_frames", okw: @company.name_strip_kabu
 
     footer.container-fluid
       div Copyright &copy; #{Time.now.year} #{@company.name}, All Rights reserved.

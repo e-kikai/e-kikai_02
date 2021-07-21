@@ -51,59 +51,113 @@
 /               span.glyphicon.glyphicon-envelope
 /               =< " メール"
 
-.panel.panel-default
-  .list-group
-    - @pmachines.each do |m|
-      .list-group-item
-        .media-left.hidden-sm.hidden-xs
-          .machine-image.text-center
-            = link_to "/#{@detail_link}/#{m.id}" do
-              - if m.machinelife_images.present?
-                = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.machinelife_images.first}", alt: "#{m.name} #{m.maker} #{m.model}"
-              / - elsif m.image.present?
-              /   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
-              - else
-                = image_tag "/images/nopicture.gif"
-        .media-body style="position:relative;"
-          h4.machine-link = link_to "#{m.name} #{m.maker} #{m.model}", "/#{@detail_link}/#{m.id}", data: { id: m.id }
-          p.machine-spec.hidden-xs.hidden-sm = m.spec
+/ ul.list-group
+/   - @pmachines.each do |m|
+/     .list-group-item
+/       / .media-left.hidden-sm.hidden-xs
+/       .media-left
+/         .machine-image.text-center
+/           = link_to "/#{@detail_link}/#{m.id}" do
+/             - if m.machinelife_images.present?
+/               = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.machinelife_images.first}", alt: "#{m.name} #{m.maker} #{m.model}"
+/             / - elsif m.image.present?
+/             /   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
+/             - else
+/               = image_tag "/images/nopicture.gif"
+/       .media-body style="position:relative;"
+/         h4.media-heading.machine-link = link_to "#{m.name} #{m.maker} #{m.model}", "/#{@detail_link}/#{m.id}", data: { id: m.id }
+/         p.machine-spec.hidden-xs.hidden-sm = m.spec
+/
+/
+/         .label-area
+/           - if m[:commission]
+/             span.label.label-success
+/               = icon :fas, :cogs
+/               span.btn-content 試運転できます
+/
+/           - if m.pdfs.present?
+/             - m.pdfs.each do |key, file|
+/               = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{file}", class: "label label-info", target: "blank" do
+/                 = icon :fas, "file-pdf"
+/                 span.btn-content = "#{key}"
+/                 = icon :fas, "external-link-alt"
+/
+/           - if m.catalog_id.present?
+/             = link_to "https://catalog.zenkiren.net/catalog_pdf.php?id=#{m.catalog_id}", class: "label label-info", target: "blank" do
+/               = icon :fas, :book
+/               span.btn-content 電子カタログ
+/               = icon :fas, "external-link-alt"
+/
+/           - if m.youtube_id.present?
+/             = link_to "https://www.youtube.com/watch?v=#{m.youtube_id}?rel=0", class: "label label-danger youtube", target: "blank", "data-video": "https://www.youtube.com/embed/#{m.youtube_id}?autoplay=1" do
+/               = icon :fab, :youtube
+/               span.btn-content 動画
+/               = icon :fas, "external-link-alt"
+/
+/         .machine-other
+/           =< "#{m.year}年式" if m.year.to_i > 0
+/           =< m.addr1
+/           =< link_to m.company.name_strip_kabu, root_url(subdomain: m.company.subdomain)
+/
+/
+/       .machine-buttons.media-right
+/         = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
+/           span.glyphicon.glyphicon-envelope
+/           =< " メール"
 
+.machines-area
+  - @pmachines.each do |m|
+    .row
+      / .media-left.hidden-sm.hidden-xs
+      .text-center.col-md-2.col-sm-3.col-xs-4.machine-image
+        = link_to "/#{@detail_link}/#{m.id}" do
+          - if m.machinelife_images.present?
+            = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.machinelife_images.first}", alt: "#{m.name} #{m.maker} #{m.model}"
+          / - elsif m.image.present?
+          /   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
+          - else
+            = image_tag "/images/nopicture.gif"
+      .col-md-10.col-sm-6.col-xs-8 style="position:relative;"
+        h4.media-heading.machine-link = link_to "#{m.name} #{m.maker} #{m.model}", "/#{@detail_link}/#{m.id}", data: { id: m.id }
+        p.machine-spec.hidden-xs.hidden-sm = m.spec
 
-          .label-area
-            - if m[:commission]
-              span.label.label-success
-                = icon :fas, :cogs
-                span.btn-content 試運転できます
+        .label-area
+          - if m[:commission]
+            span.label.label-success
+              = icon :fas, :cogs
+              span.btn-content 試運転できます
 
-            - if m.pdfs.present?
-              - m.pdfs.each do |key, file|
-                = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{file}", class: "label label-info", target: "blank" do
-                  = icon :fas, "file-pdf"
-                  span.btn-content = "#{key}"
-                  = icon :fas, "external-link-alt"
-
-            - if m.catalog_id.present?
-              = link_to "https://catalog.zenkiren.net/catalog_pdf.php?id=#{m.catalog_id}", class: "label label-info", target: "blank" do
-                = icon :fas, :book
-                span.btn-content 電子カタログ
+          - if m.pdfs.present?
+            - m.pdfs.each do |key, file|
+              = link_to "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{file}", class: "label label-info", target: "blank" do
+                = icon :fas, "file-pdf"
+                span.btn-content = "#{key}"
                 = icon :fas, "external-link-alt"
 
-            - if m.youtube_id.present?
-              = link_to "https://www.youtube.com/watch?v=#{m.youtube_id}?rel=0", class: "label label-danger youtube", target: "blank", "data-video": "https://www.youtube.com/embed/#{m.youtube_id}?autoplay=1" do
-                = icon :fab, :youtube
-                span.btn-content 動画
-                = icon :fas, "external-link-alt"
+          - if m.catalog_id.present?
+            = link_to "https://catalog.zenkiren.net/catalog_pdf.php?id=#{m.catalog_id}", class: "label label-info", target: "blank" do
+              = icon :fas, :book
+              span.btn-content 電子カタログ
+              = icon :fas, "external-link-alt"
 
-          .machine-other
-            =< "#{m.year}年式" if m.year.to_i > 0
-            =< m.addr1
-            =< link_to m.company.name_strip_kabu, root_url(subdomain: m.company.subdomain)
+          - if m.youtube_id.present?
+            = link_to "https://www.youtube.com/watch?v=#{m.youtube_id}?rel=0", class: "label label-danger youtube", target: "blank", "data-video": "https://www.youtube.com/embed/#{m.youtube_id}?autoplay=1" do
+              = icon :fab, :youtube
+              span.btn-content 動画
+              = icon :fas, "external-link-alt"
+
+        .machine-other
+          =< "#{m.year}年式" if m.year.to_i > 0
+          =< m.addr1
+          =< link_to m.company.name_strip_kabu, root_url(subdomain: m.company.subdomain)
 
 
-        .machine-buttons.media-right
-          = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
-            span.glyphicon.glyphicon-envelope
-            =< " メール"
+      .machine-buttons.media-right
+        = link_to "/contact/#{m.id}?ref=▲", class:"btn btn-lg btn-primary" do
+          span.glyphicon.glyphicon-envelope
+          =< " メール"
+
+
 
 / = paginate @pnames
 = paginate @pmachines

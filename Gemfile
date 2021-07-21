@@ -160,3 +160,5 @@ gem 'jb'
 
 gem 'font-awesome-sass'
 gem 'sassc', "2.2.1"
+
+gem 'nokogiri', '>= 1.6.8.rc3'

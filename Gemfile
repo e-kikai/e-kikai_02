@@ -122,7 +122,7 @@ gem 'whenever', '0.9.4', :require => false
 
 # SEO
 gem 'sitemap_generator'
-gem 'meta-tags'
+gem 'meta-tags', "2.13.0"
 gem 'google-analytics-turbolinks'
 
 # バックグラウンド

@@ -109,15 +109,16 @@
   - @pmachines.each do |m|
     .row
       / .media-left.hidden-sm.hidden-xs
-      .text-center.col-md-2.col-sm-3.col-xs-4.machine-image
-        = link_to "/#{@detail_link}/#{m.id}" do
-          - if m.machinelife_images.present?
-            = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.machinelife_images.first}", alt: "#{m.name} #{m.maker} #{m.model}"
-          / - elsif m.image.present?
-          /   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
-          - else
-            = image_tag "/images/nopicture.gif"
-      .col-md-10.col-sm-6.col-xs-8 style="position:relative;"
+      .text-center.media-left.hidden-sm.hidden-xs
+        .machine-image
+          = link_to "/#{@detail_link}/#{m.id}" do
+            - if m.machinelife_images.present?
+              = lazy_image_tag "https://s3-ap-northeast-1.amazonaws.com/machinelife/machine/public/media/machine/#{m.machinelife_images.first}", alt: "#{m.name} #{m.maker} #{m.model}"
+            / - elsif m.image.present?
+            /   = lazy_image_tag m.images.first.img.thumb('240x180').url, alt: "#{m.name} #{m.maker} #{m.model}"
+            - else
+              = image_tag "/images/nopicture.gif"
+      .media-body style="position:relative;"
         h4.media-heading.machine-link = link_to "#{m.name} #{m.maker} #{m.model}", "/#{@detail_link}/#{m.id}", data: { id: m.id }
         p.machine-spec.hidden-xs.hidden-sm = m.spec
 

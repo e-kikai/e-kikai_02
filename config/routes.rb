@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # devise_for :company_users
 
-  constraints  subdomain: "www" do
+  # constraints  subdomain: "www" do
+  constraints lambda { |request| request.subdomain == "www" || request.subdomain == "" } do
+
     # 管理者画面(同期) rails_adminより優先
     # get "admin/crawl/:target", to: "admin#crawl", as: "admin_crawl"
     #

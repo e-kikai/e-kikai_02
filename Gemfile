@@ -161,5 +161,6 @@ gem 'jb'
 gem 'font-awesome-sass'
 gem 'sassc', "2.2.1"
 
-gem 'nokogiri', '~> 1.11.0.rc1'
+# gem 'nokogiri', '~> 1.11.0.rc1'
 # gem 'nokogiri'
+gem 'nokogiri', "1.10.9"

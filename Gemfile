@@ -164,7 +164,7 @@ gem 'sassc', "2.2.1"
 
 # gem 'nokogiri', '~> 1.11.0.rc1'
 # gem 'nokogiri'
-gem 'nokogiri', "1.10.9"
+gem 'nokogiri', "1.13.5"
 
 # gem 'bigdecimal', '1.3.5'
 # gem 'json', '2.3.1'
